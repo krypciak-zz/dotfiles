@@ -1,0 +1,32 @@
+zsh/history
+X11/Xauthority
+
+# FreeTube
+FreeTube/blob_storage
+FreeTube/Cache
+FreeTube/Code Cache
+FreeTube/Cookies
+FreeTube/Cookies-journal
+FreeTube/Crash Reports
+FreeTube/Crashpad
+FreeTube/dashFiles
+FreeTube/databases
+FreeTube/Dictionaries
+FreeTube/GPUCache
+FreeTube/Network Persistent State
+FreeTube/QuotaManager
+FreeTube/QuotaManager-journal
+FreeTube/Session Storage
+FreeTube/shared_proto_db
+FreeTube/storyboards
+FreeTube/TransportSecurity
+FreeTube/VideoDecodeStats
+
+# no personal information
+FreeTube/history.db
+FreeTube/Local Storage
+FreeTube/playlists.db
+FreeTube/Preferences
+FreeTube/profiles.db
+
+
