@@ -21,6 +21,12 @@ FreeTube/shared_proto_db
 FreeTube/storyboards
 FreeTube/TransportSecurity
 FreeTube/VideoDecodeStats
+FreeTube/.org.chromium.Chromium.DaGrFd
+FreeTube/SingletonCookie
+FreeTube/SingletonLock
+FreeTube/SingletonSocket
+
+
 
 # no personal information
 FreeTube/history.db
