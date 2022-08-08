@@ -5,14 +5,15 @@
 
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-CONFIG_DIRS=(  "awesome"
+CONFIG_DIRS=( 
+	"awesome"
 	"nvim"
 	"zsh"
 	"alacritty"
 	"qt5ct"
 	"strawberry"
 	"ttyper"
-	"FreeTube"
+	"FreeTube/settings.db"
 	"X11"
 	"chromium/Default/Extensions"
 	"chromium/Default/Extension State"
@@ -21,11 +22,14 @@ CONFIG_DIRS=(  "awesome"
 	"gtk-4.0"
 )
 
+mkdir -p /home/$USER1/.config/chromium/Default
+mkdir -p /home/$USER1/.config/FreeTube
+
 for dir in "${CONFIG_DIRS[@]}"; do
 	FROM="$DOTFILES_DIR/dotfiles/$dir"
 	DEST="/home/$USER1/.config/$dir"
 	ln -sfT "$FROM" "$DEST"
-	chown $USER1:$USER1 "$DEST"
+	chown -R $USER1:$USER1 "$DEST"
 done
 
 

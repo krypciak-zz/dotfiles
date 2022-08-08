@@ -1,37 +1,5 @@
 dotfiles/zsh/history
 dotfiles/X11/Xauthority
 dotfiles/private
-
-
-# FreeTube
-dotfiles/FreeTube/blob_storage
-dotfiles/FreeTube/Cache
-dotfiles/FreeTube/Code Cache
-dotfiles/FreeTube/Cookies
-dotfiles/FreeTube/Cookies-journal
-dotfiles/FreeTube/Crash Reports
-dotfiles/FreeTube/Crashpad
-dotfiles/FreeTube/dashFiles
-dotfiles/FreeTube/databases
-dotfiles/FreeTube/Dictionaries
-dotfiles/FreeTube/GPUCache
-dotfiles/FreeTube/Network Persistent State
-dotfiles/FreeTube/QuotaManager
-dotfiles/FreeTube/QuotaManager-journal
-dotfiles/FreeTube/Session Storage
-dotfiles/FreeTube/shared_proto_db
-dotfiles/FreeTube/storyboards
-dotfiles/FreeTube/TransportSecurity
-dotfiles/FreeTube/VideoDecodeStats
-dotfiles/FreeTube/.org.chromium.Chromium.DaGrFd
-dotfiles/FreeTube/SingletonCookie
-dotfiles/FreeTube/SingletonLock
-dotfiles/FreeTube/SingletonSocket
-
-# no personal information
-dotfiles/FreeTube/history.db
-dotfiles/FreeTube/Local Storage
-dotfiles/FreeTube/playlists.db
-dotfiles/FreeTube/Preferences
-dotfiles/FreeTube/profiles.db
+dotfiles/private.old
 

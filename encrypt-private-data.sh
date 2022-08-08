@@ -12,7 +12,9 @@ find $GNUPG_DIR -type d -exec chmod 700 {} \; # Set 700 for directories
 PRIV_DIR=$DOTFILES_DIR/dotfiles/private
 ENCRYPTED_ARCHIVE=$DOTFILES_DIR/dotfiles/private.tar.gz.gpg
 
-tar -cz $PRIV_DIR | gpg --symmetric --output $ENCRYPTED_ARCHIVE
+tar --exclude=\
+{} \
+-cz $PRIV_DIR | gpg --symmetric --output $ENCRYPTED_ARCHIVE
 sha512sum $ENCRYPTED_ARCHIVE > ${ENCRYPTED_ARCHIVE}.sha512
 
 
