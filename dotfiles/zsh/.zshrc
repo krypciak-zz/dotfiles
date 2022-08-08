@@ -8,7 +8,8 @@
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="agnoster"
 
-DEFAULT_USER=krypek
+export USER1=krypek
+DEFAULT_USER=$USER1
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -98,7 +99,6 @@ zstyle ':omz:update' frequency 7
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 #xdg-ninja
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -164,7 +164,7 @@ source $ZSH/oh-my-zsh.sh
 export HISTFILE="$XDG_CONFIG_HOME/zsh/history"
 
 
-export PATH="/home/$USER/.local/bin:$PATH"
+export PATH="/home/$USER1/.local/bin:$PATH"
 
 export EDITOR='nvim'
 
@@ -191,4 +191,6 @@ function c {
 }
 
 eval $(thefuck --alias)
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 

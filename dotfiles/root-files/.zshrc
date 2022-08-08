@@ -8,7 +8,8 @@
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="agnoster"
 
-DEFAULT_USER=root
+export USER1=root
+DEFAULT_USER=$USER1
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -188,3 +189,4 @@ function c {
 
 eval $(thefuck --alias)
 
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
