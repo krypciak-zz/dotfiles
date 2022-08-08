@@ -29,7 +29,6 @@ echo "hostname=\'$HOSTNAME\'" >> /etc/conf.d/hostname
 cp $CONFIGF_DIR/hosts /etc/hosts
 chown root:root /etc/hosts
 
-
 # Install base
 sh $INSTALL_DIR/install-base.sh
 
@@ -59,6 +58,17 @@ sh $INSTALL_DIR/install-packages.sh
 # Install gpu drivers
 sh $INSTALL_DIR/install-gpudrivers.sh
 
+# Install oh-my-zsh for both users
+wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O /tmp/ohmyzsh.sh
+chown $USER1:$USER1 /tmp/ohmyzsh.sh
+# root
+mkdir -p /root/.local/share/
+git clone https://github.com/ohmyzsh/ohmyzsh.git /root/.local/share/oh-my-zsh
+
+# user
+mkdir -p /home/$USER1/.local/share/
+cp -r /root/.local/share/oh-my-zsh /home/$USER1/.local/share/
+chown -R $USER1:$USER1 /home/$USER1/.local/share/oh-my-zsh
 
 # Add user groups
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
@@ -81,13 +91,17 @@ sed -i "s/USER/${USER1}/g" /etc/libvirt/qemu.conf
 chown root:root /etc/libvirt/qemu.conf
 
 # Autologin
-cp $fig-files/agetty-autologin* /etc/init.d/
+cp $CONFIGF_DIR/agetty-autologin* /etc/init.d/
 sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin*
 #sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin.tty1
 chown root:root /etc/init.d/agetty-autologin*
 
 rc-update del agetty.tty1 default
 rc-update add agetty-autologin.tty1 default
+
+mkdir -p /etc/zsh
+cp $CONFIGF_DIR/zprofile /etc/zsh/
+chown root:root /etc/zsh/zprofile
 
 # Copy doas.conf config
 cp $CONFIGF_DIR/doas.conf /etc/doas.conf
