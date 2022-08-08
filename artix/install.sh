@@ -35,7 +35,7 @@ cp $CONFIGF_DIR/pacman.conf /etc/pacman.conf
 chown root:root /etc/pacman.conf
 cp -r $CONFIGF_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
-pacman-key --populate archlinux
+#pacman-key --populate archlinux
 
 # Install base
 sh $INSTALL_DIR/install-base.sh
@@ -93,7 +93,7 @@ usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
 rc-update add NetworkManager default
 rc-update add device-mapper boot
 rc-update add lvm boot
-rc-update add dmcrypt boot
+rc-update add dmcrypt sordboot
 rc-update add dbus default
 rc-update add elogind boot
 
