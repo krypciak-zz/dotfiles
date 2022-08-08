@@ -5,7 +5,7 @@
 
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-CONFIG_DIRS=( 
+SYMLINKS_DIRS=( 
 	"awesome"
 	"nvim"
 	"zsh"
@@ -13,7 +13,6 @@ CONFIG_DIRS=(
 	"qt5ct"
 	"strawberry"
 	"ttyper"
-	"FreeTube/settings.db"
 	"X11"
 	"chromium/Default/Extensions"
 	"chromium/Default/Extension State"
@@ -23,15 +22,23 @@ CONFIG_DIRS=(
 	"Notepadqq/Notepadqq.ini"
 )
 
+HARDLINKS_DIRS=(
+	"FreeTube/settings.db"
+)
+
 mkdir -p /home/$USER1/.config/chromium/Default
 mkdir -p /home/$USER1/.config/FreeTube
 
-for dir in "${CONFIG_DIRS[@]}"; do
+for dir in "${SYMLINKS_DIRS[@]}"; do
 	FROM="$DOTFILES_DIR/dotfiles/$dir"
 	DEST="/home/$USER1/.config/$dir"
 	ln -sfT "$FROM" "$DEST"
 	chown -R $USER1:$USER1 "$DEST"
 done
 
-
-
+for dir in "${HARDLINKS_DIRS[@]}"; do
+	FROM="$DOTFILES_DIR/dotfiles/$dir"
+	DEST="/home/$USER1/.config/$dir"
+	ln -fT "$FROM" "$DEST"
+	chown -R $USER1:$USER1 "$DEST"
+done
