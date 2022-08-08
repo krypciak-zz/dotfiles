@@ -29,6 +29,10 @@ echo "hostname=\'$HOSTNAME\'" >> /etc/conf.d/hostname
 cp $CONFIGF_DIR/hosts /etc/hosts
 chown root:root /etc/hosts
 
+# Copy pacman configuration
+cp $CONFIGF_DIR/pacman.conf /etc/pacman.conf
+chown root:root /etc/pacman.conf
+
 # Install base
 sh $INSTALL_DIR/install-base.sh
 
@@ -45,6 +49,9 @@ sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 
 # Install paru
 if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
+
+export CARGO_HOME="/home/$USER1/.local/share/cargo"
+chown -R krypek:krypek /home/$USER1/.local/share/cargo
 
 git clone https://aur.archlinux.org/paru.git /tmp/paru
 chown -R $USER1:$USER1 /tmp/paru
