@@ -32,6 +32,9 @@ chown root:root /etc/hosts
 # Copy pacman configuration
 cp $CONFIGF_DIR/pacman.conf /etc/pacman.conf
 chown root:root /etc/pacman.conf
+cp -r $CONFIGF_DIR/pacman.d /etc/
+chown -R root:root /etc/pacman.d
+
 
 # Install base
 sh $INSTALL_DIR/install-base.sh
@@ -116,7 +119,7 @@ cp $CONFIGF_DIR/zprofile /etc/zsh/
 chown root:root /etc/zsh/zprofile
 
 # Install dotfiles
-doas -u $USER1 sh $DOTFILES_DIR/install-dotfiles.sh
+sh $DOTFILES_DIR/install-dotfiles.sh
 sh $DOTFILES_DIR/install-dotfiles-root.sh
 
 # Copy doas.conf config
