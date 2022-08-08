@@ -47,17 +47,17 @@ chown -R $USER1:$USER1 $DOTFILES_DIR
 
 # Create temporary doas.conf
 echo "permit nopass root" > /etc/doas.conf
-echo "permit nopass :wheel" >> /etc/doas.conf
+echo "permit nopass $USER1" >> /etc/doas.conf
 
 sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 
 # Install paru
 if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
 
-mkdir -p $USER_HOME/.cargo
-chown -R $USER1:$USER1 $USER_HOME/.cargo
+#mkdir -p $USER_HOME/.cargo
+#chown -R $USER1:$USER1 $USER_HOME/.cargo
 
-git clone https://aur.archlinux.org/paru.git /tmp/paru
+git clone https://aur.archlinux.org/packages/paru-bin /tmp/paru
 chown -R $USER1:$USER1 /tmp/paru
 chmod +wrx /tmp/paru
 cd /tmp/paru
