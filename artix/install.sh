@@ -44,6 +44,8 @@ echo "permit nopass :wheel" >> /etc/doas.conf
 sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 
 # Install paru
+if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
+
 git clone https://aur.archlinux.org/paru.git /tmp/paru
 chown -R $USER1:$USER1 /tmp/paru
 chmod +wrx /tmp/paru
@@ -61,14 +63,15 @@ sh $INSTALL_DIR/install-packages.sh
 sh $INSTALL_DIR/install-gpudrivers.sh
 
 # Install oh-my-zsh for both users
-wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O /tmp/ohmyzsh.sh
-chown $USER1:$USER1 /tmp/ohmyzsh.sh
 # root
 mkdir -p /root/.local/share/
+if [ -d /root/.local/share/oh-my-zsh ]; then rm -rf /root/.local/share/oh-my-zsh; fi
 git clone https://github.com/ohmyzsh/ohmyzsh.git /root/.local/share/oh-my-zsh
 
 # user
 mkdir -p /home/$USER1/.local/share/
+if [ -d /home/$USER1/.local/share/oh-my-zsh ]; then rm -rf /home/$USER1/.local/share/oh-my-zsh; fi
+
 cp -r /root/.local/share/oh-my-zsh /home/$USER1/.local/share/
 chown -R $USER1:$USER1 /home/$USER1/.local/share/oh-my-zsh
 
