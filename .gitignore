@@ -1,39 +1,37 @@
 dotfiles/zsh/history
-X11/Xauthority
+dotfiles/X11/Xauthority
+dotfiles/private
 
 
 # FreeTube
-FreeTube/blob_storage
-FreeTube/Cache
-FreeTube/Code Cache
-FreeTube/Cookies
-FreeTube/Cookies-journal
-FreeTube/Crash Reports
-FreeTube/Crashpad
-FreeTube/dashFiles
-FreeTube/databases
-FreeTube/Dictionaries
-FreeTube/GPUCache
-FreeTube/Network Persistent State
-FreeTube/QuotaManager
-FreeTube/QuotaManager-journal
-FreeTube/Session Storage
-FreeTube/shared_proto_db
-FreeTube/storyboards
-FreeTube/TransportSecurity
-FreeTube/VideoDecodeStats
-FreeTube/.org.chromium.Chromium.DaGrFd
-FreeTube/SingletonCookie
-FreeTube/SingletonLock
-FreeTube/SingletonSocket
-
-
+dotfiles/FreeTube/blob_storage
+dotfiles/FreeTube/Cache
+dotfiles/FreeTube/Code Cache
+dotfiles/FreeTube/Cookies
+dotfiles/FreeTube/Cookies-journal
+dotfiles/FreeTube/Crash Reports
+dotfiles/FreeTube/Crashpad
+dotfiles/FreeTube/dashFiles
+dotfiles/FreeTube/databases
+dotfiles/FreeTube/Dictionaries
+dotfiles/FreeTube/GPUCache
+dotfiles/FreeTube/Network Persistent State
+dotfiles/FreeTube/QuotaManager
+dotfiles/FreeTube/QuotaManager-journal
+dotfiles/FreeTube/Session Storage
+dotfiles/FreeTube/shared_proto_db
+dotfiles/FreeTube/storyboards
+dotfiles/FreeTube/TransportSecurity
+dotfiles/FreeTube/VideoDecodeStats
+dotfiles/FreeTube/.org.chromium.Chromium.DaGrFd
+dotfiles/FreeTube/SingletonCookie
+dotfiles/FreeTube/SingletonLock
+dotfiles/FreeTube/SingletonSocket
 
 # no personal information
-FreeTube/history.db
-FreeTube/Local Storage
-FreeTube/playlists.db
-FreeTube/Preferences
-FreeTube/profiles.db
-
+dotfiles/FreeTube/history.db
+dotfiles/FreeTube/Local Storage
+dotfiles/FreeTube/playlists.db
+dotfiles/FreeTube/Preferences
+dotfiles/FreeTube/profiles.db
 
