@@ -1,5 +1,6 @@
 dotfiles/zsh/history
 dotfiles/X11/Xauthority
+
 dotfiles/private
 dotfiles/private.old
 
