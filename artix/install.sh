@@ -7,7 +7,8 @@ export HOSTNAME="krypekartix"
 export LANG="en_US.UTF-8"
 export SHELL="/bin/zsh"
 
-export DOTFILES_DIR="/home/$USER1/.config/dotfiles"
+export USER_HOME="/home/$USER1"
+export DOTFILES_DIR="$USER_HOME/.config/dotfiles"
 export INSTALL_DIR="$DOTFILES_DIR/artix"
 export CONFIGF_DIR="$DOTFILES_DIR/config-files"
 
@@ -41,22 +42,20 @@ sh $INSTALL_DIR/install-base.sh
 
 # Add user
 useradd -m -s $SHELL $USER1
-
+chown $USER1:$USER1 $USER_HOME/
 chown -R $USER1:$USER1 $DOTFILES_DIR
 
 # Create temporary doas.conf
 echo "permit nopass root" > /etc/doas.conf
-echo "permit nopass setenv { CARGO_HOME } :wheel" >> /etc/doas.conf
+echo "permit nopass :wheel" >> /etc/doas.conf
 
 sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 
 # Install paru
 if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
 
-
-export CARGO_HOME="/home/$USER1/.local/share/cargo"
-mkdir -p $CARGO_HOME
-chown -R $USER1:$USER1 $CARGO_HOME
+mkdir -p $USER_HOME/.cargo
+chown -R $USER1:$USER1 $USER_HOME/.cargo
 
 git clone https://aur.archlinux.org/paru.git /tmp/paru
 chown -R $USER1:$USER1 /tmp/paru
@@ -81,11 +80,11 @@ if [ -d /root/.local/share/oh-my-zsh ]; then rm -rf /root/.local/share/oh-my-zsh
 git clone https://github.com/ohmyzsh/ohmyzsh.git /root/.local/share/oh-my-zsh
 
 # user
-mkdir -p /home/$USER1/.local/share/
-if [ -d /home/$USER1/.local/share/oh-my-zsh ]; then rm -rf /home/$USER1/.local/share/oh-my-zsh; fi
+mkdir -p $USER_HOME/.local/share/
+if [ -d $USER_HOME/.local/share/oh-my-zsh ]; then rm -rf $USER_HOME/.local/share/oh-my-zsh; fi
 
-cp -r /root/.local/share/oh-my-zsh /home/$USER1/.local/share/
-chown -R $USER1:$USER1 /home/$USER1/.local/share/oh-my-zsh
+cp -r /root/.local/share/oh-my-zsh $USER_HOME/.local/share/
+chown -R $USER1:$USER1 $USER_HOME/.local/share/oh-my-zsh
 
 # Add user groups
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
@@ -129,6 +128,9 @@ cp $CONFIGF_DIR/doas.conf /etc/doas.conf
 chown root:root /etc/doas.conf
 chmod -rw /etc/doas.conf
 
+# Cleanup
+rm -rf $USER_HOME/.cargo
+
 
 # Set passwords for user
 echo "Password for $USER1:"
@@ -139,7 +141,7 @@ do
    n=$((n+1)) 
    sleep 15
 done
-chown -R $USER1:$USER1 /home/$USER1
+chown -R $USER1:$USER1 $USER_HOME
 
 # Set password for root
 echo "Password for root:"
