@@ -75,3 +75,7 @@ chown root:root /etc/init.d/agetty-autologin*
 rc-update del agetty.tty1 default
 rc-update add agetty-autologin.tty1 default
 
+
+cp $DOTFILES_DIR/config-files/doas.conf /etc/doas.conf
+chown root:root /etc/doas.conf
+
