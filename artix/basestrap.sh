@@ -1,1 +1,2 @@
-basestrap /mnt/artix base openrc elogind-openrc linux-firmware linux-zen neovim networkmanager-openrc archlinux-keyring autoconf automake binutils bison fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed doas texinfo which
+basestrap /mnt/artix base openrc elogind-openrc linux-firmware linux-zen 
+
