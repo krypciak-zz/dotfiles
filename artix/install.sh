@@ -35,7 +35,7 @@ cp $CONFIGF_DIR/pacman.conf /etc/pacman.conf
 chown root:root /etc/pacman.conf
 cp -r $CONFIGF_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
-
+pacman-key --populate archlinux
 
 # Install base
 sh $INSTALL_DIR/install-base.sh
@@ -68,10 +68,10 @@ sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
 # Install packages
-sh $INSTALL_DIR/install-packages.sh
+doas -u $USER1 sh $INSTALL_DIR/install-packages.sh
 
 # Install gpu drivers
-sh $INSTALL_DIR/install-gpudrivers.sh
+doas -u $USER1 sh $INSTALL_DIR/install-gpudrivers.sh
 
 # Install oh-my-zsh for both users
 # root
@@ -153,5 +153,4 @@ do
    sleep 15
 done
 
-echo You may reboot now
-
+echo configre grub now
