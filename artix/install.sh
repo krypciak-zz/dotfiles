@@ -47,7 +47,7 @@ sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 git clone https://aur.archlinux.org/paru.git /tmp/paru
 chown -R $USER1:$USER1 /tmp/paru
 chmod +wrx /tmp/paru
-cd /tmp/yay
+cd /tmp/paru
 doas -u $USER1 makepkg -si
 
 # Set paru auth method to doas
