@@ -57,7 +57,7 @@ if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
 #mkdir -p $USER_HOME/.cargo
 #chown -R $USER1:$USER1 $USER_HOME/.cargo
 
-git clone https://aur.archlinux.org/packages/paru-bin /tmp/paru
+git clone https://aur.archlinux.org/paru-bin.git /tmp/paru
 chown -R $USER1:$USER1 /tmp/paru
 chmod +wrx /tmp/paru
 cd /tmp/paru
