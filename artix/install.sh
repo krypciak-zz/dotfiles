@@ -46,15 +46,17 @@ chown -R $USER1:$USER1 $DOTFILES_DIR
 
 # Create temporary doas.conf
 echo "permit nopass root" > /etc/doas.conf
-echo "permit nopass :wheel" >> /etc/doas.conf
+echo "permit nopass setenv { CARGO_HOME } :wheel" >> /etc/doas.conf
 
 sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 
 # Install paru
 if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
 
+
 export CARGO_HOME="/home/$USER1/.local/share/cargo"
-chown -R krypek:krypek /home/$USER1/.local/share/cargo
+mkdir -p $CARGO_HOME
+chown -R $USER1:$USER1 $CARGO_HOME
 
 git clone https://aur.archlinux.org/paru.git /tmp/paru
 chown -R $USER1:$USER1 /tmp/paru
