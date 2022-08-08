@@ -148,6 +148,13 @@ awful.rules.rules = {
     end,
     properties = {tag = "mail", maximized=false}},
 
-
+    -- Dialect
+    { rule_any = { class = { "dialect" } },
+    callback = function(client)
+	    local tag = get_tag(all_tags["dialect"])
+	    client:move_to_tag(tag)
+	    tag:view_only()
+    end,
+    properties = {tag = "dialect", maximized=false}},
 }
 

@@ -5,3 +5,5 @@ dotfiles/private
 dotfiles/private.old
 
 *.log
+dotfiles/chromium/Default/Extension State/LOG
+dotfiles/chromium/Default/Extension State/LOG.old
