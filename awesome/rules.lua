@@ -129,5 +129,25 @@ awful.rules.rules = {
 	    tag:view_only()
     end,
     properties = {tag = "chromium", maximized=false}},
+    
+    -- Icecat
+    { rule_any = { class = { "icecat" } },
+    callback = function(client)
+	    local tag = get_tag(all_tags["icecat"])
+	    client:move_to_tag(tag)
+	    tag:view_only()
+    end,
+    properties = {tag = "icecat", maximized=false}},
+
+    -- Tutanota
+    { rule_any = { class = { "tutanota-desktop" } },
+    callback = function(client)
+	    local tag = get_tag(all_tags["mail"])
+	    client:move_to_tag(tag)
+	    tag:view_only()
+    end,
+    properties = {tag = "mail", maximized=false}},
+
+
 }
 
