@@ -93,7 +93,7 @@ usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
 rc-update add NetworkManager default
 rc-update add device-mapper boot
 rc-update add lvm boot
-rc-update add dmcrypt sordboot
+rc-update add dmcrypt boot
 rc-update add dbus default
 rc-update add elogind boot
 

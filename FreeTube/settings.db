@@ -19,3 +19,4 @@
 {"_id":"playNextVideo","value":false}
 {"_id":"useProxy","value":false}
 {"_id":"useSponsorBlock","value":true}
+{"_id":"bounds","value":{"x":12,"y":30,"width":1896,"height":1038,"maximized":false}}
