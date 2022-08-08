@@ -17,6 +17,6 @@ dirs=(  "awesome"
 )
 
 for dir in ${dirs[@]}; do
-	ln -i -s $DOTFILES_DIR/$dir /home/$USER1/.config/
+	ln -isf $DOTFILES_DIR/$dir /home/$USER1/.config/
 	chown $USER1:$USER1 /home/$USER1/.config/$dir
 done
