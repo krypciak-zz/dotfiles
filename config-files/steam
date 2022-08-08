@@ -1,3 +1,0 @@
-#!/bin/sh
-export HOME=~/.local/share/Steam/fakehome
-exec /usr/lib/steam/steam "$@"
