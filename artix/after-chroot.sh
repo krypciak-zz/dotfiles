@@ -1,15 +1,5 @@
 #!/bin/sh
 
-export USER1="krypek"
-export REGION="Europe"
-export CITY="Warsaw"
-export HOSTNAME="krypekartix"
-export LANG="en_US.UTF-8"
-
-export USER_HOME="/home/$USER1"
-export DOTFILES_DIR="$USER_HOME/.config/dotfiles"
-export INSTALL_DIR="$DOTFILES_DIR/artix"
-export CONFIGF_DIR="$DOTFILES_DIR/config-files"
 
 # Time
 ln -sf /usr/share/zoneinfo/$REGION/$CITY /etc/localtime
@@ -153,5 +143,7 @@ do
 done
 
 chsh -s /bin/zsh root
+mkdir -p /root/.config/zsh
+
 
 echo configre grub now
