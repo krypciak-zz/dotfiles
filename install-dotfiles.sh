@@ -1,11 +1,9 @@
 #~/bin/sh
 
-HOMEDIR="/home/krypek"
-CONFIGDIR="${HOMEDIR}/.config"
+#HOMEDIR="/home/krypek"
+#CONFIGDIR="${HOMEDIR}/.config"
 
-THISDIR="${CONFIGDIR}/dotfiles"
-
-echo installing
+#THISDIR="${CONFIGDIR}/dotfiles"
 
 dirs=(  "awesome"
 	"nvim"
@@ -19,5 +17,5 @@ dirs=(  "awesome"
 )
 
 for dir in ${dirs[@]}; do
-	ln -i -s $THISDIR/$dir $CONFIGDIR/
+	ln -i -s $DOTFILES_DIR/$dir /home/$USER1/.config/
 done

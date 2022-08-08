@@ -1,10 +1,7 @@
 #!/bin/sh
-ROOTDIR="/root"
-THISDIR="/home/krypek/.config/dotfiles"
+cp $DOTFILES_DIR/root-files/.zshrc /root/.zshrc
+chown root:root /root/.zshrc
 
-cp root-files/.zshrc $ROOTDIR/.zshrc
-chown root:root $ROOTDIR/.zshrc
-
-mkdir -p $ROOTDIR/.config/nvim
-cp -r root-files/nvim $ROOTDIR/.config/
-chown -R root:root $ROOTDIR/.config/nvim
+mkdir -p /root/.config/nvim
+cp -r $DOTFILES_DIR/root-files/nvim /root/.config/
+chown -R root:root /root/.config/nvim

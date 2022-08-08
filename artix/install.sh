@@ -35,6 +35,8 @@ sh $INSTALL_DIR/install-base.sh
 # Add user
 useradd -m -s $SHELL $USER1
 
+chown -R $USER1:$USER1 $DOTFILES_DIR
+
 # Create temporary doas.conf
 echo "permit nopass root" > /etc/doas.conf
 echo "permit nopass :wheel" >> /etc/doas.conf
@@ -103,10 +105,15 @@ mkdir -p /etc/zsh
 cp $CONFIGF_DIR/zprofile /etc/zsh/
 chown root:root /etc/zsh/zprofile
 
+# Install dotfiles
+doas -u $USER1 sh $DOTFILES_DIR/install-dotfiles.sh
+sh $DOTFILES_DIR/install-dotfiles-root.sh
+
 # Copy doas.conf config
 cp $CONFIGF_DIR/doas.conf /etc/doas.conf
 chown root:root /etc/doas.conf
 chmod -rw /etc/doas.conf
+
 
 # Set passwords for user
 echo "Password for $USER1:"
