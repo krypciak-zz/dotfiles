@@ -21,4 +21,3 @@ dirs=(  "awesome"
 for dir in ${dirs[@]}; do
 	ln -i -s $THISDIR/$dir $CONFIGDIR/
 done
-
