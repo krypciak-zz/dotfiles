@@ -61,7 +61,7 @@ git clone https://aur.archlinux.org/paru-bin.git /tmp/paru
 chown -R $USER1:$USER1 /tmp/paru
 chmod +wrx /tmp/paru
 cd /tmp/paru
-doas -u $USER1 makepkg -si
+doas -u $USER1 makepkg -si --noconfirm --needed
 
 # Set paru auth method to doas
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
