@@ -27,6 +27,9 @@ awful.spawn("kmix")
 
 awful.spawn(music_player)
 
+os.execute("redshift -x")
+os.execute("killall redshift")
+os.execute("redshift -x")
 os.execute("killall redshift")
 awful.spawn("redshift")
 
