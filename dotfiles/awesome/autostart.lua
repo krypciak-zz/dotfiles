@@ -17,7 +17,7 @@ xmodmap("keycode 66 = Super_R Super_R Super_R Super_R")
 xmodmap("add mod3 = Super_R")
 
 -- Hide the mouse after 3 seconds of inactivity
-awful.spawn("unclutter --timeout 3 --jitter 5 --ignore-scrolling --start-hidden")
+awful.spawn("unclutter --timeout 3 --jitter 20 --ignore-scrolling --start-hidden")
 
 -- Clipbooard manager
 awful.spawn("copyq")
