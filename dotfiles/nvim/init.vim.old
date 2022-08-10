@@ -26,7 +26,7 @@ nnoremap <C-d> :Files<CR>
 
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
-nmap T :CargoRun
+nmap T :CargoRun<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => pazams opinionated- ‘d is for delete’ & ‘ leader-d is for cut’ (shared clipboard register mode)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

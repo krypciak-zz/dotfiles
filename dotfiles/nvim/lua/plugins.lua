@@ -23,4 +23,8 @@ return require('packer')
   use 'junegunn/fzf.vim'
 
   use 'ervandew/supertab'
-  end)
+
+  use 'udalov/kotlin-vim'
+  use 'mikelue/vim-maven-plugin'
+
+end)
