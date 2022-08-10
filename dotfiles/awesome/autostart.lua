@@ -27,9 +27,10 @@ awful.spawn("kmix")
 
 awful.spawn(music_player)
 
-os.execute("redshift -x")
-os.execute("killall redshift")
-os.execute("redshift -x")
-os.execute("killall redshift")
-awful.spawn("redshift")
+
+-- Start redshift if not running
+local redshift_running = os.capture("pgrep redshift")
+if redshift_running == "" then
+	awful.spawn("redshift")
+end
 
