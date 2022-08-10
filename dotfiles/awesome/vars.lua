@@ -13,6 +13,8 @@ ctrlkey	     = "Control"
 shiftkey     = "Shift"
 capskey      = "Mod3"
 
+wallpaper    = "autumn.png"
+
 default_layout_index = 2
 
 awful.layout.layouts = {
