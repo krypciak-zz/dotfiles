@@ -136,9 +136,6 @@ export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
 # ~/.ohmyzsh
 export ZSH="$XDG_DATA_HOME/oh-my-zsh"
 
-#??
-# ~/.java
-export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
 
 # ~/.python_history
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"

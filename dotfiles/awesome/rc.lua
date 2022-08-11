@@ -6,7 +6,7 @@ pcall(require, "luarocks.loader")
 
 gears         = require("gears")
 awful         = require("awful")
-                      require("awful.autofocus")
+                require("awful.autofocus")
 wibox         = require("wibox")
 beautiful     = require("beautiful")
 naughty       = require("naughty")

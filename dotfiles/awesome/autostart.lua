@@ -1,6 +1,3 @@
--- Set screeb brightness
-set_screens_brightness(default_screen_brightness)
-
 -- Set the keyboard layout to pl
 os.execute("setxkbmap pl")
  
@@ -17,6 +14,7 @@ xmodmap("keycode 66 = Super_R Super_R Super_R Super_R")
 xmodmap("add mod3 = Super_R")
 
 -- Hide the mouse after 3 seconds of inactivity
+os.execute("killall unclutter")
 awful.spawn("unclutter --timeout 3 --jitter 20 --ignore-scrolling --start-hidden")
 
 -- Clipbooard manager
@@ -32,5 +30,6 @@ awful.spawn(music_player)
 local redshift_running = os.capture("pgrep redshift")
 if redshift_running == "" then
 	awful.spawn("redshift")
-end
+else
 
+end
