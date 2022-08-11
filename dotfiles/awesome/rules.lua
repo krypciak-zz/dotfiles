@@ -16,6 +16,12 @@ awful.rules.rules = {
             size_hints_honor = false
         }
     }, 
+    -- Always on top
+    {
+	rule_any = { class = { "leagueclientux.exe" } },
+	properties = { ontop = true} 
+    },
+
     -- Maximized clients
     {
         rule_any = {name = {"Minecraft*"}},
@@ -126,7 +132,7 @@ awful.rules.rules = {
     callback = function(client)
 	    local tag = get_tag(all_tags["chromium"])
 	    client:move_to_tag(tag)
-	    tag:view_only()
+	    --tag:view_only()
     end,
     properties = {tag = "chromium", maximized=false}},
     
@@ -135,25 +141,21 @@ awful.rules.rules = {
     callback = function(client)
 	    local tag = get_tag(all_tags["icecat"])
 	    client:move_to_tag(tag)
-	    tag:view_only()
+	    --tag:view_only()
     end,
     properties = {tag = "icecat", maximized=false}},
 
     -- Tutanota
     { rule_any = { class = { "tutanota-desktop" } },
     callback = function(client)
-	    local tag = get_tag(all_tags["mail"])
-	    client:move_to_tag(tag)
-	    tag:view_only()
+	    client:move_to_tag(get_tag(all_tags["mail"]))
     end,
     properties = {tag = "mail", maximized=false}},
 
     -- Dialect
     { rule_any = { class = { "dialect" } },
     callback = function(client)
-	    local tag = get_tag(all_tags["dialect"])
-	    client:move_to_tag(tag)
-	    tag:view_only()
+	    client:move_to_tag(get_tag(all_tags["dialect"]))
     end,
     properties = {tag = "dialect", maximized=false}},
 }
