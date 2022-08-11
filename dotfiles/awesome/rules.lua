@@ -32,7 +32,7 @@ awful.rules.rules = {
         rule_any = {
             class = {"league of legends.exe"},
         },
-        properties = {fullscreen = true}
+        properties = { fullscreen = true}
     }, 
     -- Floating clients
     {
@@ -83,7 +83,6 @@ awful.rules.rules = {
 
         properties = {tag = "lol"}
     },
-    { rule_any = { class = { "leagueclientux.exe" } }, properties = { minimalized = false } },
 
     -- Minecraft
     {rule_any = {name = {"Minecraft*"}, class = {"MultiMC"}}, 
