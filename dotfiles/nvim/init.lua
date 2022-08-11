@@ -50,6 +50,20 @@ map('n', 'T', '', {
 		end
 	end
 })
+-- Build keybinding
+map('n', 'B', '', { 
+	noremap = true,
+	callback = function()
+		local filetype = vim.o.filetype
+		if(filetype == "rust") then
+			vim.cmd(":CargoBuild")
+		elseif(filetype == "kotlin") then
+		
+		else 
+			print('Unsupported filetype: '..filetype)
+		end
+	end
+})
 
 -- Tab completion
 vim.g.SuperTabDefaultCompletionType = "<c-n>"
