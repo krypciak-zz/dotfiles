@@ -1,5 +1,4 @@
-return require('packer')
-.startup(function()
+require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   use {
@@ -15,7 +14,7 @@ return require('packer')
   use 'rubixninja314/vim-mcfunction'
 
   use 'rust-lang/rust.vim'
-  use 'timonv/vim-cargo'
+  use 'krypciak/cargo.vim'
   use 'vim-syntastic/syntastic'
 
   use 'euclidianAce/BetterLua.vim'
@@ -25,6 +24,12 @@ return require('packer')
   use 'ervandew/supertab'
 
   use 'udalov/kotlin-vim'
-  use 'mikelue/vim-maven-plugin'
 
 end)
+
+
+require('nvim-tree').setup{}
+cmd('highlight NvimTreeFolderIcon guibg=blue')
+
+
+
