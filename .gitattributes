@@ -2,3 +2,4 @@
 * text=auto
 dotfiles/chromium/ linguist-vendored
 
+dotfiles/chromium/Default/Extensions/* linguist-vendored
