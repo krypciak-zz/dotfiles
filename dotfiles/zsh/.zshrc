@@ -177,8 +177,7 @@ alias vim='nvim'
 
 alias sl='lsd'
 
-alias rm='rmtrash'
-alias rmm='/bin/rm'
+alias rmm='rmtrash'
 
 source /etc/profile.d/autojump.sh
 
