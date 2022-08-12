@@ -4,6 +4,7 @@ dotfiles/chromium/** linguist-vendored
 dotfiles/awesome/lain/** linguist-vendored
 *.9 linguist-vendored
 *.10177 linguist-vendored
-dotfiles/gtk-*/** linguist-vendored
+dotfiles/gtk-3.0/** linguist-vendored
+dotfiles/gtk-4.0/** linguist-vendored
 
 
