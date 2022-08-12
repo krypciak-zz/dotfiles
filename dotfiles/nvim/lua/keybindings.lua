@@ -37,5 +37,14 @@ map('v', '<leader>d', '"+d', { noremap = true })
 map('i', 'jk', '<esc>', { noremap = true})
 map('i', '<esc>', '<nop>', { noremap = true })
 
+local foldcolumn = 0;
+cmd(':set foldcolumn=' .. foldcolumn)
+map('n', '<leader>f', '', { noremap = true, callback = function() 
+        foldcolumn = foldcolumn + 1
+        if foldcolumn > 4 then foldcolumn = 0 end
+        cmd(':set foldcolumn='..foldcolumn)
+    end,})
 
-require("keybindings/rust")
+
+--if vim.o.filetype == "rust" then 
+require("lang/rust") 
