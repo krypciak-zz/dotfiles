@@ -1,5 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-dotfiles/chromium/ linguist-vendored
+dotfiles/chromium/** linguist-vendored
 
-dotfiles/chromium/Default/Extensions/* linguist-vendored
