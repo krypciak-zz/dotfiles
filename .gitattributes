@@ -2,4 +2,8 @@
 * text=auto
 dotfiles/chromium/** linguist-vendored
 dotfiles/awesome/lain/** linguist-vendored
+*.9 linguist-vendored
+*.10177 linguist-vendored
+
+
 
