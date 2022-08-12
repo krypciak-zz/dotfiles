@@ -21,6 +21,7 @@ SYMLINKS_DIRS=(
 	"gtk-4.0"
 	"Notepadqq/Notepadqq.ini"
 	"redshift"
+    "copyq"
 )
 
 HARDLINKS_DIRS=(
