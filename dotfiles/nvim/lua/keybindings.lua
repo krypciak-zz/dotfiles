@@ -12,12 +12,12 @@ map('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true })
 map('n', '<C-d>', ':Files<CR>', { noremap = true })
 
 -- Run/Compile keybinding
-map('n', 'T', '', { noremap = true, 
+map('n', '<leader>t', '', { noremap = true, 
    callback = function() print('Unsupported filetype: '..vim.o.filetype) end })
 
 
 -- Build keybinding
-map('n', 'B', '', { noremap = true, 
+map('n', '<leader>b', '', { noremap = true, 
    callback = function() print('Unsupported filetype: '..vim.o.filetype) end })
 
 

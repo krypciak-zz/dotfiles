@@ -14,7 +14,8 @@ cmd [[
     command! CargoNew call cargo#new(<q-args>)
 ]]
 
-map('n', 'T', '', { noremap = true, callback = function()
+map('n', '<leader>t', '', { noremap = true, callback = function()
+    cmd(":w")
     -- Get the first non-blank line
     local first_line = vim.fn.getline(1)
     local args = ''
@@ -23,9 +24,14 @@ map('n', 'T', '', { noremap = true, callback = function()
     end
     local bul = 'call cargo#cmd(\'run -- ' .. args .. '\')'
     print(bul)
-    vim.cmd(bul)
+    cmd(bul)
+    cmd("normal! G")
 end})
 
-rust_cmd(':nnoremap <buffer> B :CargoBuild<esc>')
+map('n', '<leader>b', '', { noremap = true, callback = function()
+    cmd(':w')
+    cmd(':CargoBuild')
+    cmd("normal! G")
+end})
 
-rust_cmd(':inoremap <buffer> tes testtest')
+rust_cmd(':inoremap <buffer> pri println!(')
