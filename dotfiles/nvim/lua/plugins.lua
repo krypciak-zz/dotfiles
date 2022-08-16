@@ -14,12 +14,17 @@ require('packer').startup(function()
   use 'rubixninja314/vim-mcfunction'
 
   use 'rust-lang/rust.vim'
-  use 'krypciak/cargo.vim'
   use 'vim-syntastic/syntastic'
 
   use 'euclidianAce/BetterLua.vim'
-
-  use 'junegunn/fzf.vim'
+    
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    requires = { 'nvim-lua/plenary.nvim' }
+  }
+  use 'nvim-telescope/telescope-fzf-native.nvim'
+  use 'nvim-lua/plenary.nvim'
+  use 'nvim-treesitter/nvim-treesitter'
 
   use 'ervandew/supertab'
 

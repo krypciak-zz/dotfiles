@@ -8,8 +8,6 @@ end
 
 -- NvimTree keybindings
 map('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true })
--- fzf.vim keybindings
-map('n', '<C-d>', ':Files<CR>', { noremap = true })
 
 -- Run/Compile keybinding
 map('n', '<leader>t', '', { noremap = true, 
@@ -34,17 +32,26 @@ map('n', '<leader>D', '"+D', { noremap = true })
 map('v', '<leader>d', '"+d', { noremap = true })
 
 -- Set jk to <esc>
+map('', 'jk', '<esc>', { noremap = true})
 map('i', 'jk', '<esc>', { noremap = true})
+map('', '<esc>', '<nop>', { noremap = true })
 map('i', '<esc>', '<nop>', { noremap = true })
 
 local foldcolumn = 0;
 cmd(':set foldcolumn=' .. foldcolumn)
-map('n', '<leader>f', '', { noremap = true, callback = function() 
+map('n', '<leader>n', '', { noremap = true, callback = function() 
         foldcolumn = foldcolumn + 1
         if foldcolumn > 4 then foldcolumn = 0 end
         cmd(':set foldcolumn='..foldcolumn)
     end,})
 
+
+
+map('n', '<leader>ff', '<cmd>Telescope find_files<cr>');
+--'nnoremap <leader>ff <cmd>Telescope find_files<cr>'
+--nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+--nnoremap <leader>fb <cmd>Telescope buffers<cr>
+--nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 --if vim.o.filetype == "rust" then 
 require("lang/rust") 
