@@ -11,8 +11,9 @@ find $GNUPG_DIR -type d -exec chmod 700 {} \; # Set 700 for directories
 PRIV_DIR=$DOTFILES_DIR/dotfiles/private
 ENCRYPTED_ARCHIVE=$DOTFILES_DIR/dotfiles/private.tar.gz.gpg
 
+cd $DOTFILES_DIR/dotfiles/
 # Check archive
-sha512sum --check $ENCRYPTED_ARCHIVE
+sha512sum --check $ENCRYPTED_ARCHIVE.sha512
 if [[ $? == 1 ]]; then
 	echo Encrypted archive is corrupted!
 	echo $ENCRYPTED_ARCHIVE
@@ -20,14 +21,14 @@ if [[ $? == 1 ]]; then
 fi
 
 # Backup $PRIV_DIR if it exists
-if [ -f $PRIV_DIR ]; then
-	if [ -f $PRIV_DIR.old ]; then
+if [ -d $PRIV_DIR ]; then
+	if [ -d $PRIV_DIR.old ]; then
 		rm -rf $PRIV_DIR.old
 	fi
 	mv $PRIV_DIR $PRIV_DIR.old
 fi
 # Decrypt
-gpg --decrypt $ENCRYPTED_ARCHIVE --output /tmp/private.tar.gz
-tar -xf /tmp/private.tar.gz --directory=$PRIV_DIR
+gpg --output /tmp/private.tar.gz --decrypt $ENCRYPTED_ARCHIVE 
+tar -xf /tmp/private.tar.gz 
 rm -f /tmp/private.tar.gz
-
+sh $PRIV_DIR/install.sh

@@ -9,10 +9,16 @@ find $GNUPG_DIR -type f -exec chmod 600 {} \; # Set 600 for files
 find $GNUPG_DIR -type d -exec chmod 700 {} \; # Set 700 for directories
 
 
-PRIV_DIR=$DOTFILES_DIR/dotfiles/private
-ENCRYPTED_ARCHIVE=$DOTFILES_DIR/dotfiles/private.tar.gz.gpg
+ENCRYPTED_ARCHIVE_NAME=private.tar.gz.gpg
+ENCRYPTED_ARCHIVE=$DOTFILES_DIR/dotfiles/$ENCRYPTED_ARCHIVE_NAME
 
-tar -cz $PRIV_DIR | gpg --symmetric --output $ENCRYPTED_ARCHIVE
-sha512sum $ENCRYPTED_ARCHIVE > ${ENCRYPTED_ARCHIVE}.sha512
+if [ -f $DOTFILES_DIR/dotfiles/private/sync.sh ]; then
+    sh $DOTFILES_DIR/dotfiles/private/sync.sh
+fi
+
+cd $DOTFILES_DIR/dotfiles
+tar -cz private | gpg --symmetric --output $ENCRYPTED_ARCHIVE
+rm -r $ENCRYPTED_ARCHIVE.sha512
+sha512sum private.tar.gz.gpg > $ENCRYPTED_ARCHIVE.sha512
 
 
