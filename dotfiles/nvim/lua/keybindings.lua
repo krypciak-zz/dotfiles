@@ -32,8 +32,8 @@ map('n', '<leader>D', '"+D', { noremap = true })
 map('v', '<leader>d', '"+d', { noremap = true })
 
 -- Set jk to <esc>
-map('', 'jk', '<esc>', { noremap = true})
-map('i', 'jk', '<esc>', { noremap = true})
+map('', ';;', '<esc>', { noremap = true})
+map('i', ';l', '<esc>', { noremap = true})
 map('', '<esc>', '<nop>', { noremap = true })
 map('i', '<esc>', '<nop>', { noremap = true })
 
