@@ -1,6 +1,6 @@
 #~/bin/sh
 
-#HOMEDIR="/home/krypek"
+HOMEDIR="/home/$USER1/home"
 #CONFIGDIR="${HOMEDIR}/.config"
 
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -27,6 +27,17 @@ SYMLINKS_DIRS=(
 HARDLINKS_DIRS=(
 	"FreeTube/settings.db"
 )
+
+
+ln -sf $HOMEDIR/.config /home/$USER1/
+ln -sf $HOMEDIR/.local /home/$USER1/
+ln -sf $HOMEDIR/Documents /home/$USER1/
+ln -sf $HOMEDIR/Downloads /home/$USER1/
+ln -sf $HOMEDIR/Pictures /home/$USER1/
+ln -sf $HOMEDIR/Videos /home/$USER1/
+ln -sf $HOMEDIR/Programming /home/$USER1/
+ln -sf $HOMEDIR/VM /home/$USER1/
+ln -sf $HOMEDIR/Games /home/$USER1/
 
 mkdir -p /home/$USER1/.config/chromium/Default
 mkdir -p /home/$USER1/.config/FreeTube
