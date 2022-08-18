@@ -52,8 +52,6 @@ require("vars")
 -- Init theme
 beautiful.init(themefile)
 
--- Signals
-require("signals")
 
 -- Key bindings
 require("keybindings")
@@ -64,8 +62,12 @@ local tags = require("tags")
 -- Activate the keys
 root.keys(globalkeys)
 
+-- Signals
+require("signals")
+
 -- Rules
 require("rules")
 
 -- Autostart
 require("autostart")
+

@@ -5,6 +5,8 @@ local tag_order = {}
 local tag_order_counter = 1
 function add_tag(properties)
     properties.c_index = tag_order_counter
+    tag_order_counter = tag_order_counter + 1
+
     local name = properties.name
     all_tags[name] = properties
 
@@ -63,6 +65,8 @@ function get_tag(root_tag, action)
         awful.tag.add(root_tag.name, root_tag)
         tag = awful.tag.find_by_name(screen, root_tag.name)
         assert(tag ~= nil)
+        -- Sort tags when tag list changes; function is at tags.lua
+        sort_tags()
     end
     
     -- If/ redirect if set
@@ -74,6 +78,8 @@ function get_tag(root_tag, action)
         if tag == nil then
             awful.tag.add(redirect, all_tags[redirect])
             tag = awful.tag.find_by_name(screen, redirect)
+            -- Sort tags when tag list changes; function is at tags.lua
+            sort_tags()
         end
         assert(tag ~= nil)
     end
@@ -95,10 +101,11 @@ local function delete_unused_tags()
     end
 end
 
-local function sort_tags()
+function sort_tags()
     for s in screen do
         for _, t in ipairs(s.tags) do
-            t.index = all_tags[t.name].index
+            t.index = all_tags[t.name].c_index
+            --noti(tostring(t.name), tostring(all_tags[t.name].c_index))
         end
     end
 end
@@ -106,9 +113,9 @@ end
 local function get_view_tag_key(mod_keys, key, root_tag, desc)
     return awful.key(mod_keys, key, function()
 	    delete_unused_tags()
-        sort_tags()
         local tag = get_tag(root_tag, true)
         tag:view_only()
+        sort_tags()
     end, {description = desc, group = "tag"})
 end
 

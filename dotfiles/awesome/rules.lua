@@ -131,7 +131,7 @@ awful.rules.rules = {
     callback = function(client)
 	    local tag = get_tag(all_tags["chromium"])
 	    client:move_to_tag(tag)
-	    --tag:view_only()
+        sort_tags()
     end,
     properties = {tag = "chromium", maximized=false}},
     
@@ -140,7 +140,7 @@ awful.rules.rules = {
     callback = function(client)
 	    local tag = get_tag(all_tags["icecat"])
 	    client:move_to_tag(tag)
-	    --tag:view_only()
+        sort_tags()
     end,
     properties = {tag = "icecat", maximized=false}},
 
