@@ -16,8 +16,9 @@ require('packer').startup(function()
   use 'rust-lang/rust.vim'
   use 'vim-syntastic/syntastic'
 
+  use 'tjdevries/nlua.nvim'
   use 'euclidianAce/BetterLua.vim'
-    
+
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
     requires = { 'nvim-lua/plenary.nvim' }
@@ -28,8 +29,7 @@ require('packer').startup(function()
 
   use 'ervandew/supertab'
 
-  use 'udalov/kotlin-vim'
-
+    
 end)
 
 
