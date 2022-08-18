@@ -32,7 +32,7 @@ local mail_icon = iconsdir .. "tutanota.png"
 local run_discordwebapp = "sh -c 'XAPP_FORCE_GTKWINDOW_ICON=webapp-manager firefox --class WebApp-discord7290 --profile /home/krypek/.local/share/ice/firefox/discord7290 --no-remote https://discord.com/channels/@me'"
 
 local dc_classes = { "discord", "WebApp-discord7290" }
-local dc_grep = { "Discord", "@/usr/bin/firefox --class WebApp-discord7290" }
+local dc_grep = { "Discord", "@/usr/lib/firefox/firefox --class WebApp-discord7290" }
 add_tag({
     name = "discord",
     layout = default_layout,
