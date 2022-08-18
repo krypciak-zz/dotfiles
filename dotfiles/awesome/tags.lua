@@ -92,6 +92,11 @@ local function delete_unused_tags()
     end
 end
 
+local function sort_tags()
+
+
+end
+
 local function get_view_tag_key(mod_keys, key, root_tag, desc)
     return awful.key(mod_keys, key, function()
 	delete_unused_tags()

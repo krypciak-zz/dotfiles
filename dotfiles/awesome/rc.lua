@@ -44,23 +44,7 @@ do
 end
 
 
----
--- Function to retrieve console output
--- 
-function os.capture(cmd)
-    local handle = assert(io.popen(cmd, "r"))
-    local output = assert(handle:read("*a"))
-    handle:close()
-    return output
-end
-
-
-function noti(title, text) 
-    	naughty.notify {
-        		preset = naughty.config.presets.low,
-        		title = title,
-       			text = text}
-end
+require("functions")
 
 -- vars
 require("vars")
