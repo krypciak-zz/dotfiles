@@ -2,9 +2,12 @@ all_tags = {}
 
 local tag_order = {}
 
+local tag_order_counter = 1
 function add_tag(properties)
+    properties.c_index = tag_order_counter
     local name = properties.name
     all_tags[name] = properties
+
     table.insert(tag_order, name)
 end
 
@@ -93,13 +96,17 @@ local function delete_unused_tags()
 end
 
 local function sort_tags()
-
-
+    for s in screen do
+        for _, t in ipairs(s.tags) do
+            t.index = all_tags[t.name].index
+        end
+    end
 end
 
 local function get_view_tag_key(mod_keys, key, root_tag, desc)
     return awful.key(mod_keys, key, function()
-	delete_unused_tags()
+	    delete_unused_tags()
+        sort_tags()
         local tag = get_tag(root_tag, true)
         tag:view_only()
     end, {description = desc, group = "tag"})

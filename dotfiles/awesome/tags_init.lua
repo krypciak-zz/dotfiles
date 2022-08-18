@@ -29,6 +29,23 @@ local lutris_icon = iconsdir .. "lutris.png"
 local btd6_icon = iconsdir .. "btd6.png"
 local mail_icon = iconsdir .. "tutanota.png"
 
+add_tag({
+    name = "music",
+    layout = default_layout,
+    volatile = true, 
+
+    icon = music_icon,
+    icon_only = true,
+
+    c_key = "n",
+    c_defactivated = false,
+    c_apps = { class = { music_player } },
+    c_switchaction = function(tag)
+        -- music_player is in vars.lua
+        awful.spawn(music_player, {tag = "music"})
+    end
+})
+
 local run_discordwebapp = "sh -c 'XAPP_FORCE_GTKWINDOW_ICON=webapp-manager firefox --class WebApp-discord7290 --profile /home/krypek/.local/share/ice/firefox/discord7290 --no-remote https://discord.com/channels/@me'"
 
 local dc_classes = { "discord", "WebApp-discord7290" }
@@ -62,60 +79,6 @@ add_tag({
     c_redirect = "discord"
 })
 
-local lol_classes = { 	
-	"leagueclient.exe",   "league of legends.exe", 
-        "leagueclientux.exe", "riotclientux.exe"}
-add_tag({
-    name = "lol",
-    layout = awful.layout.suit.floating,
-    volatile = true,
-
-    icon = lol_icon,
-    icon_only = true,
-
-    -- Custom variables
-    c_key = "v",
-    c_defactivated = false,
-    c_apps = { class = lol_classes },
-    c_switchaction = function(tag)
-        run_if_not_running_pgrep({"Riot", "League"}, function() awful.spawn("env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/1", { tag = tag.name }) end)
-    end
-})
-
-local mc_classes = { "multimc", "MultiMC", "Minecraft*" }
-add_tag({
-    name = "mc",
-    layout = default_layout,
-    volatile = true,
-
-    icon = mc_icon,
-    icon_only = true,
-
-    c_key = "c",
-    c_defactivated = false,
-    c_apps = { class = mc_classes },
-    c_switchaction = function(tag)
-	    run_if_not_running_clients({{"multimc", { tag = tag.name }}}, get_all_clients(), mc_classes, {})
-    end 
-})
-
-add_tag({
-    name = "music",
-    layout = default_layout,
-    volatile = true, 
-
-    icon = music_icon,
-    icon_only = true,
-
-    c_key = "n",
-    c_defactivated = false,
-    c_apps = { class = { music_player } },
-    c_switchaction = function(tag)
-        -- music_player is in vars.lua
-        awful.spawn(music_player, {tag = "music"})
-    end
-})
-
 add_tag({
     name = "icecat",
     layout = default_layout,
@@ -147,6 +110,40 @@ add_tag({
         run_if_not_running_pgrep({ "chromium" }, function() awful.spawn("chromium --new-window", { tag = tag.name }) end)
     end
 })
+
+add_tag({
+    name = "mail",
+    layout = default_layout,
+    volatile = true, 
+
+    icon = mail_icon,
+    icon_only = true,
+
+    c_key = "z",
+    c_defactivated = false,
+    c_apps = { name = {"tutanota-desktop"}},
+    c_switchaction = function(tag)
+	run_if_not_running_pgrep({ "tutanota-desktop" }, function() awful.spawn("tutanota-desktop", { tag = tag.name }) end)
+	 
+    end
+})
+
+add_tag({
+    name = "dialect",
+    layout = default_layout,
+    volatile = true, 
+
+    icon = dialect_icon,
+    icon_only = true,
+
+    c_key = "t",
+    c_defactivated = false,
+    c_apps = { class = { "dialect" }},
+    c_switchaction = function(tag)
+	    run_if_not_running_pgrep({ "dialect" }, function() awful.spawn("dialect", { tag = tag.name }) end) 
+    end
+})
+
 local media_classes = { "FreeTube", "LBRY" }
 local media_grep = { "@/usr/lib/electron16/electron --enable-crashpad /usr/lib/freetube/app.asar", "lbry"}
 add_tag({
@@ -164,6 +161,7 @@ add_tag({
         run_if_not_running_pgrep(media_grep, function() awful.spawn("freetube", { tag = tag.name }) end)
     end
 })
+
 -- Redirect to media tag
 add_tag({
     name = "lbry",
@@ -175,20 +173,40 @@ add_tag({
     end,
     c_redirect = "media"
 })
-
+local mc_classes = { "multimc", "MultiMC", "Minecraft*" }
 add_tag({
-    name = "dialect",
+    name = "mc",
     layout = default_layout,
-    volatile = true, 
+    volatile = true,
 
-    icon = dialect_icon,
+    icon = mc_icon,
     icon_only = true,
 
-    c_key = "t",
+    c_key = "c",
     c_defactivated = false,
-    c_apps = { class = { "dialect" }},
+    c_apps = { class = mc_classes },
     c_switchaction = function(tag)
-	    run_if_not_running_pgrep({ "dialect" }, function() awful.spawn("dialect", { tag = tag.name }) end) 
+	    run_if_not_running_clients({{"multimc", { tag = tag.name }}}, get_all_clients(), mc_classes, {})
+    end 
+})
+
+local lol_classes = { 	
+	"leagueclient.exe",   "league of legends.exe", 
+        "leagueclientux.exe", "riotclientux.exe"}
+add_tag({
+    name = "lol",
+    layout = awful.layout.suit.floating,
+    volatile = true,
+
+    icon = lol_icon,
+    icon_only = true,
+
+    -- Custom variables
+    c_key = "v",
+    c_defactivated = false,
+    c_apps = { class = lol_classes },
+    c_switchaction = function(tag)
+        run_if_not_running_pgrep({"Riot", "League"}, function() awful.spawn("env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/1", { tag = tag.name }) end)
     end
 })
 
@@ -225,19 +243,3 @@ add_tag({
     end
 })
 
-add_tag({
-    name = "mail",
-    layout = default_layout,
-    volatile = true, 
-
-    icon = mail_icon,
-    icon_only = true,
-
-    c_key = "z",
-    c_defactivated = false,
-    c_apps = { name = {"tutanota-desktop"}},
-    c_switchaction = function(tag)
-	run_if_not_running_pgrep({ "tutanota-desktop" }, function() awful.spawn("tutanota-desktop", { tag = tag.name }) end)
-	 
-    end
-})
