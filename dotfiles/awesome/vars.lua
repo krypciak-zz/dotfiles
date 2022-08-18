@@ -38,8 +38,6 @@ no_border_when_1client = true
 
 default_useless_gap = 6
 
-default_screen_brightness = 1
-screen_brightness_inc = 0.05
-screens = {"DisplayPort-0"}
+--screens = {"DisplayPort-0"}
 
 awful.util.terminal = terminal
