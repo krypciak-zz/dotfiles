@@ -24,7 +24,7 @@ o.wrap = false
 o.tabstop = 4
 o.shiftwidth = 4
 o.expandtab = true
-o.foldmethod = 'syntax'
+o.foldmethod = 'indent'
 
 cmd [[
 
