@@ -45,6 +45,7 @@ map('n', '<leader>n', '', { noremap = true, callback = function()
         cmd(':set foldcolumn='..foldcolumn)
     end,})
 
+map('n', '<leader>w', ':set wrap!<cr>', { noremap = true })
 
 
 map('n', '<leader>ff', '<cmd>Telescope find_files<cr>');
