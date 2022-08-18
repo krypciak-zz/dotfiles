@@ -37,3 +37,4 @@
 {"_id":"sponsorBlockOutro","value":{"color":"Orange","skip":"autoSkip"}}
 {"_id":"sponsorBlockInteraction","value":{"color":"Green","skip":"autoSkip"}}
 {"_id":"bounds","value":{"x":12,"y":30,"width":1896,"height":1038,"maximized":false}}
+{"_id":"bounds","value":{"x":449,"y":439,"width":1461,"height":631,"maximized":false}}
