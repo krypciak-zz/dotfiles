@@ -39,6 +39,7 @@ ln -sf $HOMEDIR/Programming /home/$USER1/
 ln -sf $HOMEDIR/VM /home/$USER1/
 ln -sf $HOMEDIR/Games /home/$USER1/
 ln -sf $HOMEDIR/Temp /home/$USER1/
+ln -sf $HOMEDIR/Music /home/$USER1/
 
 mkdir -p /home/$USER1/.config/chromium/Default
 mkdir -p /home/$USER1/.config/FreeTube
