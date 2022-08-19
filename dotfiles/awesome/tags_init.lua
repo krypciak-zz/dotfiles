@@ -39,11 +39,12 @@ add_tag({
 
     c_key = "n",
     c_defactivated = false,
-    c_apps = { class = { music_player } },
+    c_apps = { class = { music_player, "kmix" }},
     c_switchaction = function(tag)
         -- music_player is in vars.lua
         awful.spawn(music_player, {tag = "music"})
-    end
+    end,
+    c_autogenrules = true,
 })
 
 local run_discordwebapp = "sh -c 'XAPP_FORCE_GTKWINDOW_ICON=webapp-manager firefox --class WebApp-discord7290 --profile /home/krypek/.local/share/ice/firefox/discord7290 --no-remote https://discord.com/channels/@me'"
@@ -64,7 +65,9 @@ add_tag({
     c_apps = { class = dc_classes }, 
     c_switchaction = function(tag)
         run_if_not_running_pgrep(dc_grep, function() awful.spawn(run_discordwebapp, { tag = tag.name }) end )
-    end
+    end,
+    c_killme = { class = { "discord", "WebApp-discord7290" } },
+    c_autogenrules = true,
 })
 -- This isn't acially a diffrent workspace than discord
 add_tag({
@@ -92,7 +95,8 @@ add_tag({
     c_apps = { class = { "icecat", "Navigator" } },
     c_switchaction = function(tag)
         run_if_not_running_pgrep({ "icecat" }, function() awful.spawn("icecat", { tag = tag.name }) end)
-    end
+    end,
+    c_autogenrules = true,
 })
 
 add_tag({
@@ -108,7 +112,8 @@ add_tag({
     c_apps = { class = { "chromium", "Chromium" }},
     c_switchaction = function(tag)
         run_if_not_running_pgrep({ "chromium" }, function() awful.spawn("chromium --new-window", { tag = tag.name }) end)
-    end
+    end,
+    c_autogenrules = true,
 })
 
 add_tag({
@@ -121,11 +126,11 @@ add_tag({
 
     c_key = "z",
     c_defactivated = false,
-    c_apps = { name = {"tutanota-desktop"}},
+    c_apps = { class = { "tutanota-desktop", "tutanota-desktop" }},
     c_switchaction = function(tag)
-	run_if_not_running_pgrep({ "tutanota-desktop" }, function() awful.spawn("tutanota-desktop", { tag = tag.name }) end)
-	 
-    end
+	    run_if_not_running_pgrep({ "tutanota-desktop" }, function() awful.spawn("tutanota-desktop", { tag = tag.name }) end)
+    end,
+    c_autogenrules = true,
 })
 
 add_tag({
@@ -141,7 +146,8 @@ add_tag({
     c_apps = { class = { "dialect" }},
     c_switchaction = function(tag)
 	    run_if_not_running_pgrep({ "dialect" }, function() awful.spawn("dialect", { tag = tag.name }) end) 
-    end
+    end,
+    c_autogenrules = true,
 })
 
 local media_classes = { "FreeTube", "LBRY" }
@@ -159,7 +165,8 @@ add_tag({
     c_apps = { class = media_classes },
     c_switchaction = function(tag)
         run_if_not_running_pgrep(media_grep, function() awful.spawn("freetube", { tag = tag.name }) end)
-    end
+    end,
+    c_autogenrules = true,
 })
 
 -- Redirect to media tag
@@ -187,7 +194,8 @@ add_tag({
     c_apps = { class = mc_classes },
     c_switchaction = function(tag)
 	    run_if_not_running_clients({{"multimc", { tag = tag.name }}}, get_all_clients(), mc_classes, {})
-    end 
+    end,
+    c_autogenrules = true,
 })
 
 local lol_classes = { 	
@@ -207,7 +215,8 @@ add_tag({
     c_apps = { class = lol_classes },
     c_switchaction = function(tag)
         run_if_not_running_pgrep({"Riot", "League"}, function() awful.spawn("env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/1", { tag = tag.name }) end)
-    end
+    end,
+    c_autogenrules = true,
 })
 
 add_tag({
@@ -220,6 +229,8 @@ add_tag({
     c_key = "g",
     c_defactivated = false,
     c_apps = { class = { "Steam", "lutris", "Lutris" }},
+    c_autogenrules = true,
+
     --[[c_switchaction = function(tag)
 	run_if_not_running_clients({{"env LUTRIS_SKIP_INIT=1 lutris",
 	  { tag = tag.name }}}, get_all_clients(), tag.c_apps["class"], {})
@@ -240,6 +251,7 @@ add_tag({
     c_switchaction = function(tag)
 	run_if_not_running_clients({{"env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/2",
 	  { tag = tag.name }}}, get_all_clients(), tag.c_apps["class"], {})
-    end
+    end,
+    c_autogenrules = true,
 })
 

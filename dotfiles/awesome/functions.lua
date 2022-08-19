@@ -10,7 +10,9 @@ function noti(title, text)
     	naughty.notify {
         		preset = naughty.config.presets.low,
         		title = title,
-       			text = text}
+       			text = text,
+                timeout = 0,
+            }
 end
 
 function split_by_line_ending(str)
@@ -56,4 +58,34 @@ function run_if_not_running_pgrep(name, func)
     if running == 0 then
         func()
     end
+end
+
+
+function serialize_table(val, name, skipnewlines, depth)
+    skipnewlines = skipnewlines or false
+    depth = depth or 0
+
+    local tmp = string.rep(" ", depth)
+
+    if name then tmp = tmp .. name .. " = " end
+
+    if type(val) == "table" then
+        tmp = tmp .. "{" .. (not skipnewlines and "\n" or "")
+
+        for k, v in pairs(val) do
+            tmp =  tmp .. serialize_table(v, k, skipnewlines, depth + 1) .. "," .. (not skipnewlines and "\n" or "")
+        end
+
+        tmp = tmp .. string.rep(" ", depth) .. "}"
+    elseif type(val) == "number" then
+        tmp = tmp .. tostring(val)
+    elseif type(val) == "string" then
+        tmp = tmp .. string.format("%q", val)
+    elseif type(val) == "boolean" then
+        tmp = tmp .. (val and "true" or "false")
+    else
+        tmp = tmp .. "\"[inserializeable datatype:" .. type(val) .. "]\""
+    end
+
+    return tmp
 end
