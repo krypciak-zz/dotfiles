@@ -103,9 +103,13 @@ end
 
 function sort_tags()
     for s in screen do
-        for _, t in ipairs(s.tags) do
-            t.index = all_tags[t.name].c_index
-            --noti(tostring(t.name), tostring(all_tags[t.name].c_index))
+        local index = 1
+        for i, name in ipairs(tag_order) do
+            local tag = all_tags[name]
+            if tag then
+                tag.index = index
+                index = index + 1
+            end
         end
     end
 end
