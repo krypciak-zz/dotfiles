@@ -33,3 +33,9 @@ if redshift_running == "" then
 else
 
 end
+
+
+-- Launch after_init.lua after waiting a bit
+awful.spawn.easy_async_with_shell("sleep 0.1", 
+    function(_,_,_,_) require("after_init") end
+)

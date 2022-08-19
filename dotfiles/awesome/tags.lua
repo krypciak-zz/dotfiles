@@ -176,5 +176,4 @@ function sort_clients()
         end
     end
 end
--- View tag 1 at startup
-awful.screen.focused().tags[1]:view_only()
+
