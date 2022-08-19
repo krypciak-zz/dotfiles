@@ -153,8 +153,8 @@ for _, name in ipairs(tag_order) do
 	get_viewtoggle_tag_key({altkey, ctrlkey}, key, tag, "toggle tag " .. tag.name),
 	get_moveclient_key({altkey, shiftkey}, key, tag, 
 		"move focused client to tag " .. tag.name),
-        get_toggleclient_key({altkey, ctrlkey, shiftkey}, key, tag,
-        	"toggle focused client on tag " .. tag.name))
+    get_toggleclient_key({altkey, ctrlkey, shiftkey}, key, tag,
+        "toggle focused client on tag " .. tag.name))
 end
 
 function sort_clients()
@@ -174,5 +174,3 @@ function sort_clients()
 end
 -- View tag 1 at startup
 awful.screen.focused().tags[1]:view_only()
-
-return { }
