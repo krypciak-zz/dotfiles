@@ -11,7 +11,7 @@ function noti(title, text)
         		preset = naughty.config.presets.low,
         		title = title,
        			text = text,
-                timeout = 0,
+                --timeout = 0,
             }
 end
 
