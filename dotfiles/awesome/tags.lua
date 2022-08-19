@@ -101,12 +101,20 @@ local function delete_unused_tags()
     end
 end
 
+
 function sort_tags()
     for s in screen do
+        local tags_table = {}
+        for i, tag in ipairs(s.tags) do
+            tags_table[tag.name] = tag
+        end
+
+
         local index = 1
-        for i, name in ipairs(tag_order) do
-            local tag = all_tags[name]
+        for _, name in ipairs(tag_order) do
+            local tag = tags_table[name]
             if tag then
+                --noti(name, tostring(index))
                 tag.index = index
                 index = index + 1
             end
