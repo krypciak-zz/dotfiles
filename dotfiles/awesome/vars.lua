@@ -18,19 +18,19 @@ wallpaper    = "autumn.png"
 default_layout_index = 2
 
 awful.layout.layouts = {
-    		awful.layout.suit.floating,
-    		awful.layout.suit.tile,
-		awful.layout.suit.tile.left,
-    		awful.layout.suit.tile.bottom,
-    		awful.layout.suit.tile.top,
-    		--awful.layout.suit.fair,
-    		--awful.layout.suit.fair.horizontal,
-    		--lain.layout.cascade,
-    		--lain.layout.cascade.tile,
-    		--lain.layout.centerwork,
-    		--lain.layout.centerwork.horizontal,
-    		--lain.layout.termfair,
-    		--lain.layout.termfair.center
+    awful.layout.suit.floating,
+    awful.layout.suit.tile,
+    awful.layout.suit.tile.left,
+    awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.top,
+    --awful.layout.suit.fair,
+    --awful.layout.suit.fair.horizontal,
+    --lain.layout.cascade,
+    --lain.layout.cascade.tile,
+    --lain.layout.centerwork,
+    --lain.layout.centerwork.horizontal,
+    --lain.layout.termfair,
+    --lain.layout.termfair.center
 }
 normal_tag_count = 3
 

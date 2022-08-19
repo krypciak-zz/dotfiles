@@ -109,7 +109,6 @@ function sort_tags()
             tags_table[tag.name] = tag
         end
 
-
         local index = 1
         for _, name in ipairs(tag_order) do
             local tag = tags_table[name]
