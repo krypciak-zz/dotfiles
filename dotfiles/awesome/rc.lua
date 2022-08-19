@@ -57,7 +57,7 @@ beautiful.init(themefile)
 require("keybindings")
 
 -- Setup tags
-local tags = require("tags")
+require("tags")
 
 -- Activate the keys
 root.keys(globalkeys)
