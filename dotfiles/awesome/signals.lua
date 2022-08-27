@@ -120,3 +120,4 @@ clientbuttons = awful.util.table.join(
 client.connect_signal("property::minimized", function(c)
     c.minimized = false
 end)
+
