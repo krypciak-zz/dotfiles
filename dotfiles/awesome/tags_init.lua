@@ -220,7 +220,7 @@ add_tag({
 })
 
 add_tag({
-    name = "lutris",
+    name = "games",
     layout = awful.layout.suit.floating,
 
     icon = lutris_icon,
@@ -228,7 +228,7 @@ add_tag({
 
     c_key = "g",
     c_defactivated = false,
-    c_apps = { class = { "Steam", "lutris", "Lutris" }},
+    c_apps = { class = { "Steam", "lutris", "Lutris" }, name = { "Steam" }},
     c_autogenrules = true,
 
     --[[c_switchaction = function(tag)
@@ -247,7 +247,7 @@ add_tag({
 
     c_key = "j",
     c_defactivated = false,
-    c_apps = { class    = { "steam_app_960090" }, name = {"BloonsTD6"}},
+    c_apps = { class = { "steam_app_960090" }, name = {"BloonsTD6"}},
     c_switchaction = function(tag)
 	run_if_not_running_clients({{"env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/2",
 	  { tag = tag.name }}}, get_all_clients(), tag.c_apps["class"], {})
