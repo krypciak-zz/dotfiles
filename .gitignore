@@ -5,8 +5,6 @@ dotfiles/private
 dotfiles/private.old
 
 *.log
-dotfiles/chromium/Default/Extension State/LOG
-dotfiles/chromium/Default/Extension State/LOG.old
 dotfiles/copyq/copyq-bak.conf
 dotfiles/copyq/copyq-commands.ini.bak
 dotfiles/copyq/copyq_geometry.ini
@@ -15,7 +13,4 @@ dotfiles/copyq/copyq.lock
 dotfiles/copyq/copyq_tabs.ini
 dotfiles/copyq/copyq_tab*
 dotfiles/copyq/copyq-scripts.ini
-dotfiles/chromium/Default/Extension State/000083.ldb
-dotfiles/chromium/Default/Extension State/MANIFEST-000001
 *.ldb
-dotfiles/chromium/Default/Extension State/MANIFEST-000001
