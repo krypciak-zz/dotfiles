@@ -1,3 +1,20 @@
+-- Spawn music_player in tag music
+awful.spawn("kmix")
+
+awful.spawn(music_player)
+
+-- Start redshift if not running
+local redshift_running = os.capture("pgrep redshift")
+if redshift_running == "" then
+	awful.spawn("redshift")
+else
+
+end
+
+-- Hide the mouse after 3 seconds of inactivity
+os.execute("killall unclutter")
+awful.spawn("unclutter --timeout 2 --jitter 20 --ignore-scrolling --start-hidden")
+
 -- Set the keyboard layout to pl
 os.execute("setxkbmap pl")
  
@@ -13,29 +30,22 @@ xmodmap("clear lock")
 xmodmap("keycode 66 = Super_R Super_R Super_R Super_R")
 xmodmap("add mod3 = Super_R")
 
--- Hide the mouse after 3 seconds of inactivity
-os.execute("killall unclutter")
-awful.spawn("unclutter --timeout 2 --jitter 20 --ignore-scrolling --start-hidden")
 
 -- Clipbooard manager
 awful.spawn("copyq")
 
--- Spawn music_player in tag music
-awful.spawn("kmix")
+-- Bluetooth
+awful.spawn("bluetoothctl connect DC:2C:26:30:B8:9B")
 
-awful.spawn(music_player)
-
-
--- Start redshift if not running
-local redshift_running = os.capture("pgrep redshift")
-if redshift_running == "" then
-	awful.spawn("redshift")
-else
-
-end
-
+-- Shutter (screenshot tool)
+run_if_not_running_pgrep({"shutter"}, function() awful.spawn("shutter --min_at_startup") end)
 
 -- Launch after_init.lua after waiting a bit
 awful.spawn.easy_async_with_shell("sleep 0.1", 
     function(_,_,_,_) require("after_init") end
+)
+
+-- Launch after_5sec.lua after waiting 5 seconds
+awful.spawn.easy_async_with_shell("sleep 5", 
+    function(_,_,_,_) require("after_5sec") end
 )
