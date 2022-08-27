@@ -67,14 +67,14 @@ awful.rules.rules = {
         properties = { is_fixed = true }
     },
     -- Titlebars enabled clients
-    {
+    --[[ {
         rule_any = {
             class = {
-		        "leagueclientux.exe",
 	        },
         },
         properties = { titlebars_enabled = true }
     },
+    --]]
     {
         rule_any = {
             class = {
