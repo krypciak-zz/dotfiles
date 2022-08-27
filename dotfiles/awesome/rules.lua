@@ -70,7 +70,7 @@ awful.rules.rules = {
     {
         rule_any = {
             class = {
-		        "leagueclient.exe", "leagueclientux.exe",
+		        "leagueclientux.exe",
 	        },
         },
         properties = { titlebars_enabled = true }
@@ -82,9 +82,7 @@ awful.rules.rules = {
      		    "riotclientux.exe"
 	        },
         },
-        properties = { 
-            position = awful.placement.centered 
-        }
+        callback = awful.placement.centered,
     },
 }
 
