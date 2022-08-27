@@ -13,17 +13,17 @@ awful.rules.rules = {
             screen = awful.screen.preferred,
             placement = awful.placement.no_overlap +
                 awful.placement.no_offscreen,
-            size_hints_honor = false
+            size_hints_honor = false,
         }
     }, 
     -- Always on top
     {
-	rule_any = {
-        class = {
-            "leagueclientux.exe" 
-        } 
-    },
-	properties = { ontop = true } 
+	    rule_any = {
+            class = {
+		        "leagueclient.exe", "leagueclientux.exe",
+            } 
+        },
+	    properties = { ontop = true } 
     },
     -- Maximized clients
     {
@@ -65,8 +65,16 @@ awful.rules.rules = {
 	        },
         },
         properties = { is_fixed = true }
-    }, 
+    },
     -- Titlebars enabled clients
+    {
+        rule_any = {
+            class = {
+		        "leagueclient.exe", "leagueclientux.exe",
+	        },
+        },
+        properties = { titlebars_enabled = true }
+    },
     {
         rule_any = {
             class = {
@@ -74,7 +82,9 @@ awful.rules.rules = {
      		    "riotclientux.exe"
 	        },
         },
-        properties = { titlebars_enabled = true }
+        properties = { 
+            position = awful.placement.centered 
+        }
     },
 }
 
