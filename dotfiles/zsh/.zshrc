@@ -160,6 +160,7 @@ source $ZSH/oh-my-zsh.sh
 # ~/.zsh_history
 export HISTFILE="$XDG_CONFIG_HOME/zsh/history"
 
+bindkey -v
 
 export PATH="/home/$USER1/.local/bin:$PATH"
 
