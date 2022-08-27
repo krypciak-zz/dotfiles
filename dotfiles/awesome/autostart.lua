@@ -40,6 +40,8 @@ awful.spawn("bluetoothctl connect DC:2C:26:30:B8:9B")
 -- Shutter (screenshot tool)
 run_if_not_running_pgrep({"shutter"}, function() awful.spawn("shutter --min_at_startup") end)
 
+run_if_not_running_pgrep("keepassxc")
+
 -- Launch after_init.lua after waiting a bit
 awful.spawn.easy_async_with_shell("sleep 0.1", 
     function(_,_,_,_) require("after_init") end
