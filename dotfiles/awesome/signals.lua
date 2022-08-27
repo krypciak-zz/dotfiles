@@ -114,3 +114,9 @@ clientbuttons = awful.util.table.join(
         awful.mouse.client.resize(c)
     end)
 )
+
+
+-- Unminimalize minimalized applications
+client.connect_signal("property::minimized", function(c)
+    c.minimized = false
+end)
