@@ -21,6 +21,7 @@ SYMLINKS_DIRS=(
 	"Notepadqq/Notepadqq.ini"
 	"redshift"
     "copyq"
+    "keepassxc"
 )
 
 HARDLINKS_DIRS=(
