@@ -2,9 +2,16 @@ DISK="/dev/vda"
 EFI_PART="${DISK}1"
 # In MB
 EFI_SIZE=40
+
 LVM_PART="${DISK}2"
+CRYPT_NAME='lvmcrypt'
+CRYPT_DIR="/dev/mapper/$CRYPT_NAME"
 LVM_NAME='artixlvm'
-LVM_DIR="/dev/mapper/$LVM_NAME"
+LVM_DIR="/dev/$LVM_NAME"
+LVM_GROUP_NAME='Artix'
+
+SWAP_SIZE='1G'
+ROOT_SIZE='14G'
 
 export INSTALL_DIR="/mnt/artix"
 EFI_DIR=$INSTALL_DIR/efi
@@ -42,7 +49,7 @@ function retry() {
     esac
 }
 
-cryptsetup close $LVM_DIR > /dev/null
+cryptsetup close $CRYPT_DIR > /dev/null
 umount -q $EFI_PART
 umount -q $LVM_PART
 umount -Rq $INSTALL_DIR
@@ -94,14 +101,42 @@ done
 pri "Formatting $EFI_PART as FAT32 $RED(DATA WARNING)$NC"
 mkfs.fat -n EFI -F 32 $EFI_PART
 
-# Mount EFI_PART
-pri "Mounting $EFI_PART to $EFI_DIR $NC"
-mkdir -p $EFI_DIR
-mount $EFI_PART $EFI_DIR
-retry
-
 # Setup LVM
 retry "Setup LVM?"
 pri "Setting up LVM"
 
+pri "Creating LVM group $LVM_GROUP_NAME"
+pvcreate $CRYPT_DIR
+vgcreate $LVM_GROUP_NAME $CRYPT_DIR
+
+pri "Creating volumes"
+pri "Creating SWAP"
+lvcreate -L $SWAP_SIZE $LVM_GROUP_NAME -n swap
+pri "Creating ROOT of size $ROOT_SIZE"
+lvcreate -L $ROOT_SIZE $LVM_GROUP_NAME -n root
+pri "Creating HOME of size 100%FREE"
+lvcreate -l 100%FREE $LVM_GROUP_NAME -n home
+
+pri "Formatting volumes"
+pri "SWAP"
+mkswap $LVM_DIR/swap
+pri "ROOT"
+mkfs.btrfs -L root $LVM_DIR/root
+pri "ROOT"
+mkfs.btrfs -L home $LVM_DIR/home
+
+pri "Mounting volumes"
+pri "Mounting ROOT to $INSTALL_DIR/"
+mount $LVM_DIR/root $INSTALL_DIR/
+
+pri "Mounting HOME to $INSTALL_DIR/home/$USER1/"
+mkdir -p $INSTALL_DIR/home/$USER1
+mount $LVM_DIR/root $INSTALL_DIR/home/$USER1/
+
+pri "Mounting $EFI_PART to $EFI_DIR"
+mkdir -p $EFI_DIR
+mount $EFI_PART $EFI_DIR
+
+
+retry
 
