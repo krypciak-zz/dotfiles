@@ -114,6 +114,8 @@ lvcreate -L $ROOT_SIZE $LVM_GROUP_NAME -n root
 pri "Creating HOME of size 100%FREE"
 lvcreate -l 100%FREE $LVM_GROUP_NAME -n home
 
+retry
+
 pri "Formatting volumes"
 pri "SWAP"
 mkswap $LVM_DIR/swap
@@ -123,6 +125,8 @@ pri "HOME"
 mkfs.btrfs -L home $LVM_DIR/home
 pri "EFI"
 mkfs.fat -n EFI -F 32 $EFI_PART
+
+retry
 
 pri "Mounting volumes"
 pri "Mounting ROOT to $INSTALL_DIR/"
