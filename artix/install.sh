@@ -45,7 +45,7 @@ while true; do
     if [ $? -eq 0 ]; then
         break
     fi
-    confirm "Do you wanna retry?" 
+    confirm "Do you wanna retry?"  "repeat"
 done
         
 
@@ -55,7 +55,7 @@ while true; do
     if [ $? -eq 0 ]; then
         break
     fi
-    confirm "Do you wanna retry?" 
+    confirm "Do you wanna retry?" "repeat"
 done
 
 
