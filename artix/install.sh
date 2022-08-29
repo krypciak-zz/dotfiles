@@ -27,7 +27,7 @@ RED='\033[0;31m'
 NC='\033[0m' 
 
 function confirm() {
-    echo -en "${LBLUE} ||| Continue (y/n)? >>$NC"
+    echo -en "${LBLUE} ||| Continue (y/n)? >> $NC"
     read choice
     case "$choice" in 
     y|Y ) return;;
@@ -35,6 +35,8 @@ function confirm() {
     * ) confirm; return;;
     esac
 }
+
+
 
 echo -e "$LGREEN ||| Start partitioning the disk? $RED(DATA WARNING)$NC"
 confirm
@@ -58,13 +60,30 @@ echo q # and we're done
 confirm
 
 # Create encryptred container on LVM_PART
-echo -e "$LGREEN ||| Setting up luks on $LVM_PART $RED(DATA WARNING)$NC"
-cryptsetup luksFormat --key-size 512 --hash sha512 --iter-time 5000 $LVM_PART
+while true 
+do
+    echo -e "$LGREEN ||| Setting up luks on $LVM_PART $RED(DATA WARNING)$NC"
+    cryptsetup luksFormat --key-size 512 --hash sha512 --iter-time 5000 $LVM_PART
+    if [ $? -eq 0 ]
+    then
+        break
+    fi
+    echo -e "$LGREEN ||| $RED Please retry."
+done
+        
 
-echo -e "$LGREEN ||| Opening $LVM_PART as $LVM_NAME $NC"
-cryptsetup open $LVM_PART $LVM_NAME
+while true 
+do
+    echo -e "$LGREEN ||| Opening $LVM_PART as $LVM_NAME $NC"
+    cryptsetup open $LVM_PART $LVM_NAME
+    if [ $? -eq 0 ]
+    then
+        break
+    fi
+    echo -e "$LGREEN ||| $RED Please retry."
+done
 
-confirm
+
 
 # Format EFI_PART
 echo -e "$LGREEN ||| Formatting $EFI_PART as FAT32 $RED(DATA WARNING)$NC"
