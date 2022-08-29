@@ -28,7 +28,7 @@ RED='\033[0;31m'
 NC='\033[0m' 
 
 function pri() {
-    echo -e "$LGREEN ||| $LGREEN$1$NC"
+    echo -e "$GREEN ||| $LGREEN$1$NC"
 }
 
 
