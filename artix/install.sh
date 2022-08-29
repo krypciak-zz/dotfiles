@@ -42,8 +42,10 @@ confirm
 
 if [ $TYPE_PASSWORD -eq 1 ]; then 
     pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
+    pri "${NC}Automaticly filling password..."
     echo $PASSWORD | cryptsetup luksFormat -q --key-size 512 --hash sha512 --iter-time 5000 $CRYPT_PART
     pri "Opening $CRYPT_PART as $CRYPT_NAME"
+    pri "${NC}Automaticly filling password..."
     echo $PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME
 else
     while true; do
@@ -122,7 +124,7 @@ cp -rf $DOTFILES_DIR/../ $NEW_DOTFILES_DIR/
 
 pri "Chrooting..."
 confirm "bul" "ignore"
-artix-chroot $INSTALL_DIR $USER_HOME/.config/dotfiles/artix/after-chroot.sh
+artix-chroot $INSTALL_DIR 'sh $USER_HOME/.config/dotfiles/artix/after-chroot.sh'
 
 confirm "Reboot?" "ignore"
 unmount
