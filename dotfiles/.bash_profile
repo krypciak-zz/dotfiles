@@ -21,6 +21,8 @@ export PATH="/home/$USER1/.local/bin:$PATH"
 
 export EDITOR='nvim'
 
+export USER1=$USER
+
 if [ $(tty) = "/dev/tty1" ]; then
 	if [ ! $DISPLAY ]; then
 	    exec xinit -- vt1
