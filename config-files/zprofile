@@ -1,5 +1,0 @@
-emulate sh -c 'source /etc/profile'
-
-export ZDOTDIR="$HOME/.config/zsh"
-export XINITRC="$HOME/.config/X11/xinitrc"
-export XAUTHORITY="$HOME/.config/X11/Xauthority"
