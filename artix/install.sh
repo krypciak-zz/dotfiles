@@ -45,7 +45,7 @@ while true; do
     if [ $? -eq 0 ]; then
         break
     fi
-    confirm "Do you wanna retry?"  "repeat"
+    confirm "Do you wanna retry?"  "ignore"
 done
         
 
@@ -55,7 +55,7 @@ while true; do
     if [ $? -eq 0 ]; then
         break
     fi
-    confirm "Do you wanna retry?" "repeat"
+    confirm "Do you wanna retry?" "ignore"
 done
 
 
@@ -116,7 +116,8 @@ cp -rf $DOTFILES_DIR/../ $NEW_DOTFILES_DIR/../
 pri "Chrooting..."
 artix-chroot $INSTALL_DIR $NEW_DOTFILES_DIR/after-chroot.sh
 
-confirm "Reboot?"
-unmount
-reboot
+confirm "Reboot?" "ignore"
+#unmount
+#reboot
+echo reboot
 
