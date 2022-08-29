@@ -2,7 +2,7 @@
 
 ARTIXD_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 DOTFILES_DIR=$ARTIXD_DIR/..
-CONFIGD_FIT=$DOTFILES_DIR/config-files
+CONFIGD_DIR=$DOTFILES_DIR/config-files
 
 source "$ARTIXD_DIR/vars.sh"
 
