@@ -21,6 +21,7 @@ awful.rules.rules = {
 	    rule_any = {
             class = {
 		        "leagueclient.exe", "leagueclientux.exe",
+                "league of legends.exe"
             } 
         },
 	    properties = { ontop = true } 
