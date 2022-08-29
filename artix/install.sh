@@ -110,7 +110,7 @@ fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
 
 NEW_DOTFILES_DIR=${INSTALL_DIR}${USER_HOME}/.config/dotfiles
 pri "Copying the repo to $NEW_DOTFILES_DIR"
-mkdir -p $NEW_DOTFILES_DIR/../
+mkdir -p $NEW_DOTFILES_DIR/
 cp -rf $DOTFILES_DIR $NEW_DOTFILES_DIR/../
 
 pri "Chrooting..."
