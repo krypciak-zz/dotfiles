@@ -40,4 +40,8 @@ default_useless_gap = 6
 
 --screens = {"DisplayPort-0"}
 
+screenshots_folder = os.getenv("HOME") .. '/Pictures/Screenshots/'
+screenshots_date_format = '%x_%X'
+screenshot_editor = 'kolourpaint'
+
 awful.util.terminal = terminal

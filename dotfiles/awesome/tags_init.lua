@@ -128,7 +128,7 @@ add_tag({
     c_defactivated = false,
     c_apps = { class = { "tutanota-desktop", "tutanota-desktop" }},
     c_switchaction = function(tag)
-	    run_if_not_running_pgrep({ "tutanota-desktop" }, function() awful.spawn("tutanota-desktop", { tag = tag.name }) end)
+	    run_if_not_running_pgrep({ "tutanotap" }, function() awful.spawn("tutanota-desktop") end)
     end,
     c_autogenrules = true,
 })
