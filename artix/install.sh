@@ -50,9 +50,9 @@ function retry() {
 }
 
 cryptsetup close $CRYPT_DIR > /dev/null
-umount -q $EFI_PART
-umount -q $CRYPT_DIR
-umount -Rq $INSTALL_DIR
+umount $EFI_PART > /dev/null
+umount $CRYPT_DIR > /dev/null
+umount -R $INSTALL_DIR > /dev/null
 mkdir -p $INSTALL_DIR
 
 retry "Start partitioning the disk? $RED(DATA WARNING)"
