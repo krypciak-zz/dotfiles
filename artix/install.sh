@@ -3,7 +3,7 @@ EFI_PART="${DISK}1"
 # In MB
 EFI_SIZE=40
 
-LVM_PART="${DISK}2"
+CRYPT_PART="${DISK}2"
 CRYPT_NAME='lvmcrypt'
 CRYPT_DIR="/dev/mapper/$CRYPT_NAME"
 LVM_NAME='artixlvm'
@@ -77,8 +77,8 @@ retry
 
 # Create encryptred container on LVM_PART
 while true; do
-    pri "Setting up luks on $LVM_PART $RED(DATA WARNING)$NC"
-    cryptsetup luksFormat --key-size 512 --hash sha512 --iter-time 5000 $LVM_PART
+    pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
+    cryptsetup luksFormat --key-size 512 --hash sha512 --iter-time 5000 $CRYPT_PART
     if [ $? -eq 0 ]; then
         break
     fi
@@ -87,19 +87,14 @@ done
         
 
 while true; do
-    pri "Opening $LVM_PART as $LVM_NAME $NC"
-    cryptsetup open $LVM_PART $LVM_NAME
+    pri "Opening $CRYPT_PART as $CRYPT_NAME"
+    cryptsetup open $CRYPT_PART $CRYPT_NAME 
     if [ $? -eq 0 ]; then
         break
     fi
     retry "Do you wanna retry?" 
 done
 
-
-
-# Format EFI_PART
-pri "Formatting $EFI_PART as FAT32 $RED(DATA WARNING)$NC"
-mkfs.fat -n EFI -F 32 $EFI_PART
 
 # Setup LVM
 retry "Setup LVM?"
@@ -122,8 +117,10 @@ pri "SWAP"
 mkswap $LVM_DIR/swap
 pri "ROOT"
 mkfs.btrfs -L root $LVM_DIR/root
-pri "ROOT"
+pri "HOME"
 mkfs.btrfs -L home $LVM_DIR/home
+pri "EFI"
+mkfs.fat -n EFI -F 32 $EFI_PART
 
 pri "Mounting volumes"
 pri "Mounting ROOT to $INSTALL_DIR/"
