@@ -49,10 +49,10 @@ function retry() {
     esac
 }
 
-cryptsetup close $CRYPT_DIR > /dev/null
-umount $EFI_PART > /dev/null
-umount $CRYPT_DIR > /dev/null
-umount -R $INSTALL_DIR > /dev/null
+cryptsetup close $CRYPT_DIR > /dev/null 2>&1
+umount -q $EFI_PART > /dev/null 2>&1
+umount -q $CRYPT_DIR > /dev/null 2>&1
+umount -Rq $INSTALL_DIR > /dev/null 2>&1
 mkdir -p $INSTALL_DIR
 
 retry "Start partitioning the disk? $RED(DATA WARNING)"
