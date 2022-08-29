@@ -41,6 +41,10 @@ function retry() {
     esac
 }
 
+
+umount $EFI_PART
+umount $LVM_PART
+umount -R $INSTALL_DIR
 mkdir -p $INSTALL_DIR
 
 retry "Start partitioning the disk? $RED(DATA WARNING)"
