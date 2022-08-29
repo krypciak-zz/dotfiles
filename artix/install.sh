@@ -22,11 +22,12 @@ export CONFIGF_DIR="$DOTFILES_DIR/config-files"
 
 LGREEN='\033[1;32m'
 GREEN='\033[0;32m'
+LBLUE='\033[1;34m'
 RED='\033[0;31m'
 NC='\033[0m' 
 
 function confirm() {
-    read -p "Continue (y/n)?" choice
+    read -p "$LGREEN |||$LBLUE Continue (y/n)?$GREEN" choice
     case "$choice" in 
     y|Y ) return;;
     n|N ) exit;;
