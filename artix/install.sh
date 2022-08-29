@@ -4,7 +4,7 @@ EFI_PART="${DISK}1"
 EFI_SIZE=40
 LVM_PART="${DISK}2"
 LVM_NAME='artixlvm'
-LVM_DIR='/dev/mapper/$LVM_NAME'
+LVM_DIR="/dev/mapper/$LVM_NAME"
 
 export INSTALL_DIR="/mnt/artix"
 EFI_DIR=$INSTALL_DIR/efi
