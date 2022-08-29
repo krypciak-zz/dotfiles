@@ -49,14 +49,14 @@ function retry() {
     esac
 }
 
-vgremove $LVM_GROUP_NAME
-cryptsetup close $CRYPT_DIR 
+retry "Start partitioning the disk? $RED(DATA WARNING)"
+
+vgremove -f $LVM_GROUP_NAME > /dev/null 2>&1
+cryptsetup close $CRYPT_DIR > /dev/null 2>&1
 umount -q $EFI_PART > /dev/null 2>&1
 umount -q $CRYPT_DIR > /dev/null 2>&1
 umount -Rq $INSTALL_DIR > /dev/null 2>&1
 mkdir -p $INSTALL_DIR
-
-retry "Start partitioning the disk? $RED(DATA WARNING)"
 
 (
 echo g # set partitioning scheme to GPT
