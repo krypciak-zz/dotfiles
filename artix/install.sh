@@ -120,9 +120,9 @@ pri "Formatting volumes"
 pri "SWAP"
 mkswap $LVM_DIR/swap
 pri "ROOT"
-mkfs.btrfs -L root $LVM_DIR/root
+mkfs.btrfs -fq -L root $LVM_DIR/root
 pri "HOME"
-mkfs.btrfs -L home $LVM_DIR/home
+mkfs.btrfs -fq -L home $LVM_DIR/home
 pri "EFI"
 mkfs.fat -n EFI -F 32 $EFI_PART
 
