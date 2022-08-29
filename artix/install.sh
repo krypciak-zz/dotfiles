@@ -36,23 +36,24 @@ function confirm() {
 
 echo -e "$RED Start partitioning the disk? $RED(DATA WARNING)$NC"
 confirm
-sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
-  g # set partitioning scheme to GPT
-  o # clear the in memory partition table
-  n # Create EFI partition
-  p # primary partition
-  1 # partition number 1
-    # default - start at beginning of disk 
-  +${EFI_SIZE}M # your size
-  n # Create LVM partition
-  p # primary partition
-  2 # partion number 2
-    # default, start immediately after preceding partition
-    # default, extend partition to end of disk
-  p # print the in-memory partition table
-  w # write the partition table
-  q # and we're done
-EOF
+
+(
+echo g # set partitioning scheme to GPT
+echo o # clear the in memory partition table
+echo n # Create EFI partition
+echo p # primary partition
+echo 1 # partition number 1
+echo   # default - start at beginning of disk 
+echo +${EFI_SIZE}M # your size
+echo n # Create LVM partition
+echo p # primary partition
+echo 2 # partion number 2
+echo   # default, start immediately after preceding partition
+echo   # default, extend partition to end of disk
+echo p # print the in-memory partition table
+echo w # write the partition table
+echo q # and we're done
+) | fdisk
 confirm
 
 # Create encryptred container on LVM_PART
