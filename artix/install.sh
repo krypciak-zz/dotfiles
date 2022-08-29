@@ -25,7 +25,7 @@ export LANG="en_US.UTF-8"
 
 export USER_HOME="/home/$USER1"
 export DOTFILES_DIR="$USER_HOME/.config/dotfiles"
-export INSTALL_DIR="$DOTFILES_DIR/artix"
+#export INSTALL_DIR="$DOTFILES_DIR/artix"
 export CONFIGF_DIR="$DOTFILES_DIR/config-files"
 
 LGREEN='\033[1;32m'
