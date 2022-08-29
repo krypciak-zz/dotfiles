@@ -53,7 +53,7 @@ echo   # default, extend partition to end of disk
 echo p # print the in-memory partition table
 echo w # write the partition table
 echo q # and we're done
-) | fdisk
+) | fdisk $DISK
 confirm
 
 # Create encryptred container on LVM_PART
