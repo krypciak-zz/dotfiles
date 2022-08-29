@@ -41,7 +41,7 @@ function retry() {
     esac
 }
 
-
+cryptsetup close $LVM_PART > /dev/null
 umount -q $EFI_PART
 umount -q $LVM_PART
 umount -Rq $INSTALL_DIR
