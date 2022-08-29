@@ -27,12 +27,12 @@ RED='\033[0;31m'
 NC='\033[0m' 
 
 function pri() {
-    echo -e "$LGREEN ||| $NC$1"
+    echo -e "$LGREEN ||| $LGREEN$1$NC"
 }
 
 
 function retry() {
-    echo -en "$LBLUE ||| $LGREEN$1 $LBLUE(y/n)? >> $NC"
+    echo -en "$LBLUE |||$LGREEN $1 $LBLUE(y/n)? >> $NC"
     read choice
     case "$choice" in 
     y|Y ) return;;
