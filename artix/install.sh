@@ -102,7 +102,7 @@ swapon $LVM_DIR/swap
 
 # Prepare to chroot
 confirm "Basestrap basic packages?"
-basestrap -C $DOTFILES_DIR/../config-files/pacman.conf $INSTALL_DIR base openrc elogind-openrc linux-firmware linux-zen 
+basestrap -C $DOTFILES_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware linux-zen 
 
 pri "Generating fstab"
 fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
@@ -114,7 +114,7 @@ mkdir -p $NEW_DOTFILES_DIR/
 cp -rf $DOTFILES_DIR/../ $NEW_DOTFILES_DIR/
 
 pri "Chrooting..."
-artix-chroot $INSTALL_DIR $NEW_DOTFILES_DIR/after-chroot.sh
+artix-chroot $INSTALL_DIR $NEW_DOTFILES_DIR/artix/after-chroot.sh
 
 confirm "Reboot?" "ignore"
 #unmount
