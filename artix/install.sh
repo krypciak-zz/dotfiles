@@ -39,25 +39,32 @@ echo q # and we're done
 confirm
 
 # Create encryptred container on LVM_PART
-while true; do
+
+if [ $TYPE_PASSWORD -eq 1 ]; then 
     pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
-    cryptsetup luksFormat --key-size 512 --hash sha512 --iter-time 5000 $CRYPT_PART
-    if [ $? -eq 0 ]; then
-        break
-    fi
-    confirm "Do you wanna retry?"  "ignore"
-done
-        
-
-while true; do
+    echo $PASSWORD | cryptsetup luksFormat -q --key-size 512 --hash sha512 --iter-time 5000 $CRYPT_PART
     pri "Opening $CRYPT_PART as $CRYPT_NAME"
-    cryptsetup open $CRYPT_PART $CRYPT_NAME 
-    if [ $? -eq 0 ]; then
-        break
-    fi
-    confirm "Do you wanna retry?" "ignore"
-done
-
+    echo $PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME
+else
+    while true; do
+        pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
+        
+        cryptsetup luksFormat --key-size 512 --hash sha512 --iter-time 5000 $CRYPT_PART
+        if [ $? -eq 0 ]; then
+            break
+        fi
+        confirm "Do you wanna retry?"  "ignore"
+    done    
+    
+    while true; do
+        pri "Opening $CRYPT_PART as $CRYPT_NAME"
+        cryptsetup open $CRYPT_PART $CRYPT_NAME 
+        if [ $? -eq 0 ]; then
+            break
+        fi
+        confirm "Do you wanna retry?" "ignore"
+    done
+fi
 
 # Setup LVM
 confirm "Set up LVM?"
