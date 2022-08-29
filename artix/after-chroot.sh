@@ -1,55 +1,52 @@
 #!/bin/sh
 
-DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-source "$DOTFILES_DIR/vars.sh"
+ARTIXD_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+DOTFILES_DIR=$ARTIXD_DIR/..
+CONFIGD_FIT=$DOTFILES_DIR/config-files
 
-confirm "$RED $USER1"
-exit
+source "$ARTIXD_DIR/vars.sh"
 
-# Time
+pri "Setting time"
 ln -sf /usr/share/zoneinfo/$REGION/$CITY /etc/localtime
 hwclock --systohc
 
-# Locale
-cp $CONFIGF_DIR/locale.gen /etc/locale.gen
+pri "Setting the locale"
+cp $CONFIGD_DIR/locale.gen /etc/locale.gen
 locale-gen
 echo "LANG=\"$LANG\"" > /etc/locale.conf
 export LC_COLLATE="C"
 
-# Hostname
+pri "Setting the hostname"
 echo "$HOSTNAME" > /etc/hostname
 echo "hostname=\'$HOSTNAME\'" >> /etc/conf.d/hostname
 
-# Hosts
-cp $CONFIGF_DIR/hosts /etc/hosts
+pri "Setting hosts"
+cp $CONFIGD_DIR/hosts /etc/hosts
 chown root:root /etc/hosts
 
-# Copy pacman configuration
-cp $CONFIGF_DIR/pacman.conf /etc/pacman.conf
+pri "Copying pacman configuration"
+cp $CONFIGD_DIR/pacman.conf /etc/pacman.conf
 chown root:root /etc/pacman.conf
-cp -r $CONFIGF_DIR/pacman.d /etc/
+cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 pacman-key --populate archlinux
 
-# Install base
-sh $INSTALL_DIR/install-base.sh
+confirm "Install base packages?"
+sh $ARTIXD_DIR/install-base.sh
 
-# Add user
-useradd -m -s /bin/zsh $USER1
+pri "Adding user $USER1"
+useradd -m -s /bin/bash $USER1
 chown $USER1:$USER1 $USER_HOME/
-chown -R $USER1:$USER1 $DOTFILES_DIR
+chown -R $USER1:$USER1 $ARTIXD_DIR
 
-# Create temporary doas.conf
+pri "Copying temporary doas config"
 echo "permit nopass root" > /etc/doas.conf
 echo "permit nopass $USER1" >> /etc/doas.conf
 
 sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 
-# Install paru
+pri "Installing paru (AUR manager)"
 if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
-
-#mkdir -p $USER_HOME/.cargo
-#chown -R $USER1:$USER1 $USER_HOME/.cargo
 
 git clone https://aur.archlinux.org/paru-bin.git /tmp/paru
 chown -R $USER1:$USER1 /tmp/paru
@@ -61,29 +58,16 @@ doas -u $USER1 makepkg -si --noconfirm --needed
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
-# Install packages
-doas -u $USER1 sh $INSTALL_DIR/install-packages.sh
+confirm "Install packages?"
+doas -u $USER1 sh $ARTIXD_DIR/install-packages.sh
 
-# Install gpu drivers
-doas -u $USER1 sh $INSTALL_DIR/install-gpudrivers.sh
+pri "Installing GPU drivers"
+doas -u $USER1 sh $ARTIXD_DIR/install-gpudrivers.sh
 
-# Install oh-my-zsh for both users
-# root
-mkdir -p /root/.local/share/
-if [ -d /root/.local/share/oh-my-zsh ]; then rm -rf /root/.local/share/oh-my-zsh; fi
-git clone https://github.com/ohmyzsh/ohmyzsh.git /root/.local/share/oh-my-zsh
-
-# user
-mkdir -p $USER_HOME/.local/share/
-if [ -d $USER_HOME/.local/share/oh-my-zsh ]; then rm -rf $USER_HOME/.local/share/oh-my-zsh; fi
-
-cp -r /root/.local/share/oh-my-zsh $USER_HOME/.local/share/
-chown -R $USER1:$USER1 $USER_HOME/.local/share/oh-my-zsh
-
-# Add user groups
+pri "Adding user $USER1 to groups"
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
 
-# Enable services
+pri "Enabling services"
 rc-update add NetworkManager default
 rc-update add device-mapper boot
 rc-update add lvm boot
@@ -91,17 +75,17 @@ rc-update add dmcrypt boot
 rc-update add dbus default
 rc-update add elogind boot
 
-# libvirtd
+pri "Configuring qemu"
 rc-update add libvirtd default
-cp $CONFIGF_DIR/libvirtd.conf /etc/libvirt/libvirtd.conf
+cp $CONFIGD_DIR/libvirtd.conf /etc/libvirt/libvirtd.conf
 chown root:root /etc/libvirt/libvirtd.conf
 
-cp $CONFIGF_DIR/qemu.conf /etc/libvirt/qemu.conf
+cp $CONFIGD_DIR/qemu.conf /etc/libvirt/qemu.conf
 sed -i "s/USER/${USER1}/g" /etc/libvirt/qemu.conf
 chown root:root /etc/libvirt/qemu.conf
 
-# Autologin
-cp $CONFIGF_DIR/agetty-autologin* /etc/init.d/
+pri "Deploying autologin service"
+cp $CONFIGD_DIR/agetty-autologin* /etc/init.d/
 sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin*
 #sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin.tty1
 chown root:root /etc/init.d/agetty-autologin*
@@ -109,46 +93,47 @@ chown root:root /etc/init.d/agetty-autologin*
 rc-update del agetty.tty1 default
 rc-update add agetty-autologin.tty1 default
 
-mkdir -p /etc/zsh
-cp $CONFIGF_DIR/zprofile /etc/zsh/
-chown root:root /etc/zsh/zprofile
+pri "Installing dotfiles for user $USER1"
+USER1=$USER1 sh $DOTFILES_DIR/install-dotfiles.sh
 
-# Install dotfiles
-sh $DOTFILES_DIR/install-dotfiles.sh
+pri "Installing dotfiles for root"
 sh $DOTFILES_DIR/install-dotfiles-root.sh
 
-# Copy doas.conf config
-cp $CONFIGF_DIR/doas.conf /etc/doas.conf
+pri "Copying doas configuration"
+cp $CONFIGD_DIR/doas.conf /etc/doas.conf
 chown root:root /etc/doas.conf
 chmod -rw /etc/doas.conf
 
-# Cleanup
+pri "Cleaning up"
 rm -rf $USER_HOME/.cargo
 
+pri "Set password for user $USER1"
 
-# Set passwords for user
-echo "Password for $USER1:"
-n=0
-until [ "$n" -ge 5 ]
-do
-   passwd $USER1 && break
-   n=$((n+1)) 
-   sleep 15
-done
+if [ "$USER_PASSWORD" != "" ]; then
+    pri "${NC}Automaticly filling password..."
+    ( echo $USER_PASSWORD; echo $USER_PASSWORD; ) | passwd $USER1
+else
+    n=0
+    until [ "$n" -ge 5 ]; do
+        passwd $USER1 && break
+        n=$((n+1)) 
+        sleep 15
+    done
+fi
 chown -R $USER1:$USER1 $USER_HOME
 
-# Set password for root
-echo "Password for root:"
-n=0
-until [ "$n" -ge 5 ]
-do
-   passwd root && break
-   n=$((n+1)) 
-   sleep 15
-done
+pri "Set password for root"
+if [ "$ROOT_PASSWORD" != "" ]; then
+    pri "${NC}Automaticly filling password..."
+    ( echo $ROOT_PASSWORD; echo $ROOT_PASSWORD; ) | passwd root
+else
+    n=0
+    until [ "$n" -ge 5 ]; do
+        passwd root && break
+        n=$((n+1)) 
+        sleep 15
+    done
+fi
+chsh -s /bin/bash root
 
-chsh -s /bin/zsh root
-mkdir -p /root/.config/zsh
-
-
-echo configre grub now
+pri "grub fsadf"

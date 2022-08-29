@@ -1,7 +1,7 @@
 #!/bin/sh
 
-DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-source "$DOTFILES_DIR/vars.sh"
+ARTIXD_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+source "$ARTIXD_DIR/vars.sh"
 
 function unmount() {
     swapoff $LVM_DIR/swap > /dev/null 2>&1
@@ -40,13 +40,13 @@ confirm
 
 # Create encryptred container on LVM_PART
 
-if [ $TYPE_PASSWORD -eq 1 ]; then 
+if [ "$LVM_PASSWORD" != "" ]; then 
     pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
     pri "${NC}Automaticly filling password..."
-    echo $PASSWORD | cryptsetup luksFormat -q --key-size 512 --hash sha512 --iter-time 5000 $CRYPT_PART
+    echo $LVM_PASSWORD | cryptsetup luksFormat -q --key-size 512 --hash sha512 --iter-time 5000 $CRYPT_PART
     pri "Opening $CRYPT_PART as $CRYPT_NAME"
     pri "${NC}Automaticly filling password..."
-    echo $PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME
+    echo $LVM_PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME
 else
     while true; do
         pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
@@ -111,21 +111,21 @@ swapon $LVM_DIR/swap
 
 # Prepare to chroot
 confirm "Basestrap basic packages?"
-basestrap -C $DOTFILES_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware linux-zen 
+basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware linux-zen 
 
 pri "Generating fstab"
 fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
 
 
-NEW_DOTFILES_DIR=$INSTALL_DIR$USER_HOME/.config/dotfiles
-pri "Copying the repo to $NEW_DOTFILES_DIR"
-mkdir -p $NEW_DOTFILES_DIR/
-cp -rf $DOTFILES_DIR/../ $NEW_DOTFILES_DIR/
+DOTFILES_DIR=$INSTALL_DIR$USER_HOME/.config/dotfiles
+pri "Copying the repo to $NEW_ARTIXD_DIR"
+mkdir -p $DOTFILES_DIR/..
+cp -rf $ARTIXD_DIR/../ $DOTFILES_DIR/
 
 pri "Chrooting..."
 artix-chroot $INSTALL_DIR sh $USER_HOME/.config/dotfiles/artix/after-chroot.sh
 
 confirm "Reboot?" "ignore"
 unmount
-#reboot
+reboot
 
