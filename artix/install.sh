@@ -3,11 +3,12 @@ EFI_PART="${DISK}1"
 # In MB
 EFI_SIZE=40
 LVM_PART="${DISK}2"
+LVM_NAME='artixlvm'
+LVM_DIR='/dev/mapper/$LVM_NAME'
 
 export INSTALL_DIR="/mnt/artix"
 EFI_DIR=$INSTALL_DIR/efi
 
-LVM_NAME='artixlvm'
 
 export USER1="krypek"
 export REGION="Europe"
@@ -41,7 +42,7 @@ function retry() {
     esac
 }
 
-cryptsetup close $LVM_PART > /dev/null
+cryptsetup close $LVM_DIR > /dev/null
 umount -q $EFI_PART
 umount -q $LVM_PART
 umount -Rq $INSTALL_DIR
