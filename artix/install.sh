@@ -1,58 +1,14 @@
-DISK="/dev/vda"
-EFI_PART="${DISK}1"
-# In MB
-EFI_SIZE=40
+#!/bin/sh
 
-CRYPT_PART="${DISK}2"
-CRYPT_NAME='lvmcrypt'
-CRYPT_DIR="/dev/mapper/$CRYPT_NAME"
-LVM_NAME='artixlvm'
-LVM_GROUP_NAME='Artix'
-LVM_DIR="/dev/$LVM_GROUP_NAME"
+DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+source "$DOTFILES_DIR/vars.sh"
 
-SWAP_SIZE='1G'
-ROOT_SIZE='14G'
-
-export INSTALL_DIR="/mnt/artix"
-EFI_DIR=$INSTALL_DIR/efi
-
-
-export USER1="krypek"
-export REGION="Europe"
-export CITY="Warsaw"
-export HOSTNAME="krypekartix"
-export LANG="en_US.UTF-8"
-
-export USER_HOME="/home/$USER1"
-export DOTFILES_DIR="$USER_HOME/.config/dotfiles"
-#export INSTALL_DIR="$DOTFILES_DIR/artix"
-export CONFIGF_DIR="$DOTFILES_DIR/config-files"
-
-LGREEN='\033[1;32m'
-GREEN='\033[0;32m'
-LBLUE='\033[1;34m'
-RED='\033[0;31m'
-NC='\033[0m' 
-
-function pri() {
-    echo -e "$GREEN ||| $LGREEN$1$NC"
-}
-
-
-function retry() {
-    echo -en "$LBLUE |||$LGREEN $1 $LBLUE(y/n)? >> $NC"
-    read choice
-    case "$choice" in 
-    y|Y ) return;;
-    n|N ) echo -e "$RED Exiting..."; exit;;
-    * ) retry $1; return;;
-    esac
-}
-
-retry "Start partitioning the disk? $RED(DATA WARNING)"
+confirm "Start partitioning the disk? $RED(DATA WARNING)"
 pri "Unmouting"
-umount -Rq $INSTALL_DIR > /dev/null 2>&1
+unmount
 vgremove -f $LVM_GROUP_NAME > /dev/null 2>&1
+
+
 cryptsetup close $CRYPT_DIR > /dev/null 2>&1
 umount -q $EFI_PART > /dev/null 2>&1
 umount -q $CRYPT_DIR > /dev/null 2>&1
@@ -65,7 +21,7 @@ echo n # Create EFI partition
 echo p # primary partition
 echo 1 # partition number 1
 echo   # default - start at beginning of disk 
-echo +${EFI_SIZE}M # your size
+echo +${EFI_SIZE} # your size
 echo n # Create LVM partition
 echo p # primary partition
 echo 2 # partion number 2
@@ -84,7 +40,7 @@ while true; do
     if [ $? -eq 0 ]; then
         break
     fi
-    retry "Do you wanna retry?" 
+    confirm "Do you wanna retry?" 
 done
         
 
@@ -94,13 +50,12 @@ while true; do
     if [ $? -eq 0 ]; then
         break
     fi
-    retry "Do you wanna retry?" 
+    confirm "Do you wanna retry?" 
 done
 
 
 # Setup LVM
-retry "Setup LVM?"
-pri "Setting up LVM"
+confirm "Set up LVM?"
 
 pri "Creating LVM group $LVM_GROUP_NAME"
 pvcreate $CRYPT_DIR
@@ -114,19 +69,15 @@ lvcreate -L $ROOT_SIZE $LVM_GROUP_NAME -n root
 pri "Creating HOME of size 100%FREE"
 lvcreate -l 100%FREE $LVM_GROUP_NAME -n home
 
-retry
-
 pri "Formatting volumes"
 pri "SWAP"
 mkswap $LVM_DIR/swap
 pri "ROOT"
-mkfs.btrfs -fq -L root $LVM_DIR/root
+mkfs.btrfs -f -L root $LVM_DIR/root > /dev/null 2>&1
 pri "HOME"
-mkfs.btrfs -fq -L home $LVM_DIR/home
+mkfs.btrfs -f -L home $LVM_DIR/home > /dev/null 2>&1
 pri "EFI"
 mkfs.fat -n EFI -F 32 $EFI_PART
-
-retry
 
 pri "Mounting volumes"
 pri "$INSTALL_DIR"
@@ -141,6 +92,26 @@ pri "Mounting $EFI_PART to $EFI_DIR"
 mkdir -p $EFI_DIR
 mount $EFI_PART $EFI_DIR
 
+pri "Turning swap on"
+swapon $LVM_DIR/swap
 
-retry
+# Prepare to chroot
+confirm "Install base packages?"
+sh $DOTFILES_DIR/artix/install-base.sh
+
+pri "Generating fstab"
+fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
+
+
+NEW_DOTFILES_DIR=$INSTALL_DIR$USERHOME/.config/dotfiles
+pri "Copying the repo to $NEW_DOTFILES_DIR"
+mkdir -p $NEW_DOTFILES_DIR/../
+copy -rf $DOTFILES_DIR $NEW_DOTFILES_DIR/../
+
+pri "Chrooting..."
+artix-chroot $INSTALL_DIR $NEW_DOTFILES_DIR/artix/after-chroot.sh
+
+confirm "Reboot?"
+unmount
+reboot
 
