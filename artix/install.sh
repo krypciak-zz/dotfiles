@@ -42,9 +42,9 @@ function retry() {
 }
 
 
-umount $EFI_PART
-umount $LVM_PART
-umount -R $INSTALL_DIR
+umount -q $EFI_PART
+umount -q $LVM_PART
+umount -Rq $INSTALL_DIR
 mkdir -p $INSTALL_DIR
 
 retry "Start partitioning the disk? $RED(DATA WARNING)"
