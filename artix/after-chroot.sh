@@ -3,7 +3,7 @@
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$DOTFILES_DIR/vars.sh"
 
-retry "$RED $USER1"
+confirm "$RED $USER1"
 exit
 
 # Time
