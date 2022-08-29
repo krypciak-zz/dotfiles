@@ -47,8 +47,8 @@ echo +${EFI_SIZE}M # your size
 echo n # Create LVM partition
 echo p # primary partition
 echo 2 # partion number 2
-echo   # default, start immediately after preceding partition
-echo   # default, extend partition to end of disk
+echo " "  # default, start immediately after preceding partition
+echo " " # default, extend partition to end of disk
 echo p # print the in-memory partition table
 echo w # write the partition table
 echo q # and we're done
