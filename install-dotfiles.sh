@@ -15,6 +15,7 @@ SYMLINKS_DIRS=(
 	"ttyper"
 	"X11"
 	"chromium/Default/Extensions"
+	"chromium/Default/Extension State"
 	"gtk-2.0"
 	"gtk-3.0"
 	"gtk-4.0"
