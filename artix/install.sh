@@ -34,7 +34,7 @@ echo p # print the in-memory partition table
 echo w # write the partition table
 echo q # and we're done
 ) | fdisk $DISK
-retry
+confirm
 
 # Create encryptred container on LVM_PART
 while true; do
