@@ -51,7 +51,7 @@ function retry() {
 
 cryptsetup close $CRYPT_DIR > /dev/null
 umount -q $EFI_PART
-umount -q $LVM_PART
+umount -q $CRYPT_DIR
 umount -Rq $INSTALL_DIR
 mkdir -p $INSTALL_DIR
 
