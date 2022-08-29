@@ -1,4 +1,4 @@
-DISK="/dev/sdX"
+DISK="/dev/vda"
 EFI_PART="${DISK}1"
 # In MB
 EFI_SIZE=40
