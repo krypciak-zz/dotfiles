@@ -20,21 +20,21 @@ export DOTFILES_DIR="$USER_HOME/.config/dotfiles"
 export INSTALL_DIR="$DOTFILES_DIR/artix"
 export CONFIGF_DIR="$DOTFILES_DIR/config-files"
 
-LGREEN='\033[1;32m'l
-GREEN='\033[0;32m'l
+LGREEN='\033[1;32m'
+GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' 
 
 function confirm() {
     read -p "Continue (y/n)?" choice
     case "$choice" in 
-    y|Y ) echo "yes";;
+    y|Y ) return;;
     n|N ) exit;;
     * ) confirm; return;;
     esac
 }
 
-echo -e "$RED Start partitioning the disk? $RED(DATA WARNING)$NC"
+echo -e "$LGREEN ||| Start partitioning the disk? $RED(DATA WARNING)$NC"
 confirm
 
 (
@@ -56,20 +56,20 @@ echo q # and we're done
 confirm
 
 # Create encryptred container on LVM_PART
-echo -e "$LGREEN Setting up luks on $LVM_PART $RED(DATA WARNING)$NC"
+echo -e "$LGREEN ||| Setting up luks on $LVM_PART $RED(DATA WARNING)$NC"
 cryptsetup luksFormat --key-size 512 --hash sha512 --iter-time 5000 $LVM_PART
 
-echo -e "$LGREEN Opening $LVM_PART as $LVM_NAME $NC"
+echo -e "$LGREEN ||| Opening $LVM_PART as $LVM_NAME $NC"
 cryptsetup open $LVM_PART $LVM_NAME
 
 confirm
 
 # Format EFI_PART
-echo -e"$LGREEN Formatting $EFI_PART as FAT32 $RED(DATA WARNING)$NC"
+echo -e "$LGREEN ||| Formatting $EFI_PART as FAT32 $RED(DATA WARNING)$NC"
 mkfs.fat -n efi -F 32 $EFI_PART
 
 # Mount EFI_PART
-echo -e "$GREEN Mounting $EFI_PART to $EFI_DIR $NC"
+echo -e "$GREEN ||| Mounting $EFI_PART to $EFI_DIR $NC"
 mkdir -p $EFI_DIR
 mount $EFI_PART $EFI_DIR
 
