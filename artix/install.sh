@@ -129,12 +129,13 @@ mkfs.fat -n EFI -F 32 $EFI_PART
 retry
 
 pri "Mounting volumes"
-pri "Mounting ROOT to $INSTALL_DIR/"
+pri "$INSTALL_DIR"
+pri "Mounting $LVM_DIR/root to $INSTALL_DIR/"
 mount $LVM_DIR/root $INSTALL_DIR/
 
-pri "Mounting HOME to $INSTALL_DIR/home/$USER1/"
+pri "Mounting $LVM_DIR/home to $INSTALL_DIR/home/$USER1/"
 mkdir -p $INSTALL_DIR/home/$USER1
-mount $LVM_DIR/root $INSTALL_DIR/home/$USER1/
+mount $LVM_DIR/home $INSTALL_DIR/home/$USER1/
 
 pri "Mounting $EFI_PART to $EFI_DIR"
 mkdir -p $EFI_DIR
