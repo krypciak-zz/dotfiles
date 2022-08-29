@@ -26,20 +26,24 @@ LBLUE='\033[1;34m'
 RED='\033[0;31m'
 NC='\033[0m' 
 
-function retry() {
-    echo -en "${LBLUE} ||| $1 (y/n)? >> $NC"
-    read choice
-    case "$choice" in 
-    y|Y ) return;;
-    n|N ) exit;;
-    * ) retry; return;;
-    esac
+function pri() {
+    echo -e "$LGREEN ||| $NC$1"
 }
 
 
+function retry() {
+    echo -en "$LBLUE ||| $LGREEN$1 $LBLUE(y/n)? >> $NC"
+    read choice
+    case "$choice" in 
+    y|Y ) return;;
+    n|N ) echo -e "$RED Exiting..."; exit;;
+    * ) retry $1; return;;
+    esac
+}
 
-echo -e "$LGREEN ||| Start partitioning the disk? $RED(DATA WARNING)$NC"
-retry
+mkdir -p $INSTALL_DIR
+
+retry "Start partitioning the disk? $RED(DATA WARNING)"
 
 (
 echo g # set partitioning scheme to GPT
@@ -61,7 +65,7 @@ retry
 
 # Create encryptred container on LVM_PART
 while true; do
-    echo -e "$LGREEN ||| Setting up luks on $LVM_PART $RED(DATA WARNING)$NC"
+    pri "Setting up luks on $LVM_PART $RED(DATA WARNING)$NC"
     cryptsetup luksFormat --key-size 512 --hash sha512 --iter-time 5000 $LVM_PART
     if [ $? -eq 0 ]; then
         break
@@ -71,7 +75,7 @@ done
         
 
 while true; do
-    echo -e "$LGREEN ||| Opening $LVM_PART as $LVM_NAME $NC"
+    pri "Opening $LVM_PART as $LVM_NAME $NC"
     cryptsetup open $LVM_PART $LVM_NAME
     if [ $? -eq 0 ]; then
         break
@@ -82,14 +86,17 @@ done
 
 
 # Format EFI_PART
-echo -e "$LGREEN ||| Formatting $EFI_PART as FAT32 $RED(DATA WARNING)$NC"
-mkfs.fat -n efi -F 32 $EFI_PART
+pri "Formatting $EFI_PART as FAT32 $RED(DATA WARNING)$NC"
+mkfs.fat -n EFI -F 32 $EFI_PART
 
 # Mount EFI_PART
-echo -e "$GREEN ||| Mounting $EFI_PART to $EFI_DIR $NC"
+pri "Mounting $EFI_PART to $EFI_DIR $NC"
 mkdir -p $EFI_DIR
 mount $EFI_PART $EFI_DIR
-
 retry
+
+# Setup LVM
+retry "Setup LVM?"
+pri "Setting up LVM"
 
 
