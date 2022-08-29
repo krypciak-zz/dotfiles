@@ -39,7 +39,6 @@ confirm
 
 (
 echo g # set partitioning scheme to GPT
-echo o # clear the in memory partition table
 echo n # Create EFI partition
 echo p # primary partition
 echo 1 # partition number 1
