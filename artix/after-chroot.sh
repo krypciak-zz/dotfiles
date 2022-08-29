@@ -31,6 +31,8 @@ cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 pacman-key --populate archlinux
 
+confirm "" "ignore"
+
 confirm "Install base packages?"
 sh $ARTIXD_DIR/install-base.sh
 
@@ -45,6 +47,8 @@ echo "permit nopass $USER1" >> /etc/doas.conf
 
 sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 
+confirm "" "ignore"
+
 pri "Installing paru (AUR manager)"
 if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
 
@@ -58,14 +62,22 @@ doas -u $USER1 makepkg -si --noconfirm --needed
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
+confirm "" "ignore"
+
 confirm "Install packages?"
 doas -u $USER1 sh $ARTIXD_DIR/install-packages.sh
+
+confirm "" "ignore"
 
 pri "Installing GPU drivers"
 doas -u $USER1 sh $ARTIXD_DIR/install-gpudrivers.sh
 
+confirm "" "ignore"
+
 pri "Adding user $USER1 to groups"
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
+
+confirm "" "ignore"
 
 pri "Enabling services"
 rc-update add NetworkManager default
@@ -74,6 +86,8 @@ rc-update add lvm boot
 rc-update add dmcrypt boot
 rc-update add dbus default
 rc-update add elogind boot
+
+confirm "" "ignore"
 
 pri "Configuring qemu"
 rc-update add libvirtd default
@@ -93,6 +107,8 @@ chown root:root /etc/init.d/agetty-autologin*
 rc-update del agetty.tty1 default
 rc-update add agetty-autologin.tty1 default
 
+confirm "" "ignore"
+
 pri "Installing dotfiles for user $USER1"
 USER1=$USER1 sh $DOTFILES_DIR/install-dotfiles.sh
 
@@ -106,6 +122,8 @@ chmod -rw /etc/doas.conf
 
 pri "Cleaning up"
 rm -rf $USER_HOME/.cargo
+
+confirm "" "ignore"
 
 pri "Set password for user $USER1"
 
