@@ -100,7 +100,7 @@ swapon $LVM_DIR/swap
 
 # Prepare to chroot
 confirm "Install base packages?"
-sh $DOTFILES_DIR/artix/install-base.sh
+sh $DOTFILES_DIR/install-base.sh
 
 pri "Generating fstab"
 fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
@@ -109,7 +109,7 @@ fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
 NEW_DOTFILES_DIR=$INSTALL_DIR$USERHOME/.config/dotfiles
 pri "Copying the repo to $NEW_DOTFILES_DIR"
 mkdir -p $NEW_DOTFILES_DIR/../
-copy -rf $DOTFILES_DIR $NEW_DOTFILES_DIR/../
+cp -rf $DOTFILES_DIR $NEW_DOTFILES_DIR/../
 
 pri "Chrooting..."
 artix-chroot $INSTALL_DIR $NEW_DOTFILES_DIR/artix/after-chroot.sh
