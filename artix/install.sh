@@ -49,7 +49,8 @@ function retry() {
     esac
 }
 
-cryptsetup close $CRYPT_DIR > /dev/null 2>&1
+#vgremove $LVM_GROUP_NAME
+cryptsetup close $CRYPT_DIR 
 umount -q $EFI_PART > /dev/null 2>&1
 umount -q $CRYPT_DIR > /dev/null 2>&1
 umount -Rq $INSTALL_DIR > /dev/null 2>&1
