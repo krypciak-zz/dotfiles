@@ -60,24 +60,20 @@ echo q # and we're done
 retry
 
 # Create encryptred container on LVM_PART
-while true 
-do
+while true; do
     echo -e "$LGREEN ||| Setting up luks on $LVM_PART $RED(DATA WARNING)$NC"
     cryptsetup luksFormat --key-size 512 --hash sha512 --iter-time 5000 $LVM_PART
-    if [ $? -eq 0 ]
-    then
+    if [ $? -eq 0 ]; then
         break
     fi
     retry "Do you wanna retry?" 
 done
         
 
-while true 
-do
+while true; do
     echo -e "$LGREEN ||| Opening $LVM_PART as $LVM_NAME $NC"
     cryptsetup open $LVM_PART $LVM_NAME
-    if [ $? -eq 0 ]
-    then
+    if [ $? -eq 0 ]; then
         break
     fi
     retry "Do you wanna retry?" 
