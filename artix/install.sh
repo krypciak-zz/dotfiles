@@ -26,20 +26,20 @@ LBLUE='\033[1;34m'
 RED='\033[0;31m'
 NC='\033[0m' 
 
-function confirm() {
-    echo -en "${LBLUE} ||| Continue (y/n)? >> $NC"
+function retry() {
+    echo -en "${LBLUE} ||| $1 (y/n)? >> $NC"
     read choice
     case "$choice" in 
     y|Y ) return;;
     n|N ) exit;;
-    * ) confirm; return;;
+    * ) retry; return;;
     esac
 }
 
 
 
 echo -e "$LGREEN ||| Start partitioning the disk? $RED(DATA WARNING)$NC"
-confirm
+retry
 
 (
 echo g # set partitioning scheme to GPT
@@ -57,7 +57,7 @@ echo p # print the in-memory partition table
 echo w # write the partition table
 echo q # and we're done
 ) | fdisk $DISK
-confirm
+retry
 
 # Create encryptred container on LVM_PART
 while true 
@@ -68,7 +68,7 @@ do
     then
         break
     fi
-    echo -e "$LGREEN ||| $RED Please retry."
+    retry "Do you wanna retry?" 
 done
         
 
@@ -80,7 +80,7 @@ do
     then
         break
     fi
-    echo -e "$LGREEN ||| $RED Please retry."
+    retry "Do you wanna retry?" 
 done
 
 
@@ -94,6 +94,6 @@ echo -e "$GREEN ||| Mounting $EFI_PART to $EFI_DIR $NC"
 mkdir -p $EFI_DIR
 mount $EFI_PART $EFI_DIR
 
-confirm
+retry
 
 
