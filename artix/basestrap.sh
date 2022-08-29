@@ -1,2 +1,1 @@
-basestrap /mnt/artix base openrc elogind-openrc linux-firmware linux-zen 
-
+basestrap $INSTALL_DIR base openrc elogind-openrc linux-firmware linux-zen 

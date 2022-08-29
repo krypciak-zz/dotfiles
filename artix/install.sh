@@ -100,8 +100,8 @@ pri "Turning swap on"
 swapon $LVM_DIR/swap
 
 # Prepare to chroot
-confirm "Install base packages?"
-sh $DOTFILES_DIR/install-base.sh
+confirm "Basestrap basic packages?"
+INSTALL_DIR=$INSTALL_DIR sh $DOTFILES_DIR/basestrap.sh
 
 pri "Generating fstab"
 fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
