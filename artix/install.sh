@@ -50,7 +50,8 @@ function retry() {
 }
 
 retry "Start partitioning the disk? $RED(DATA WARNING)"
-
+pri "Unmouting"
+umount -Rq $INSTALL_DIR > /dev/null 2>&1
 vgremove -f $LVM_GROUP_NAME > /dev/null 2>&1
 cryptsetup close $CRYPT_DIR > /dev/null 2>&1
 umount -q $EFI_PART > /dev/null 2>&1
