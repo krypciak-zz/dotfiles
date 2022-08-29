@@ -1,5 +1,4 @@
-return require('packer')
-.startup(function()
+require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   use {
@@ -12,13 +11,21 @@ return require('packer')
 
   use 'itchyny/lightline.vim'
 
-  use 'rubixninja314/vim-mcfunction'
-
   use 'vim-syntastic/syntastic'
 
-  use 'euclidianAce/BetterLua.vim'
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    requires = { 'nvim-lua/plenary.nvim' }
+  }
+  use 'nvim-telescope/telescope-fzf-native.nvim'
+  use 'nvim-lua/plenary.nvim'
+  use 'nvim-treesitter/nvim-treesitter'
 
-  use 'junegunn/fzf.vim'
+end)
 
-  use 'ervandew/supertab'
-  end)
+
+require('nvim-tree').setup{}
+cmd('highlight NvimTreeFolderIcon guibg=blue')
+
+
+
