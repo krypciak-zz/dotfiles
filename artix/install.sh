@@ -27,7 +27,7 @@ RED='\033[0;31m'
 NC='\033[0m' 
 
 function confirm() {
-    echo -e "${LBLUE} ||| Continue (y/n)?$NC}"
+    echo -en "${LBLUE} ||| Continue (y/n)? >>$NC"
     read choice
     case "$choice" in 
     y|Y ) return;;
