@@ -4,7 +4,8 @@ DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd 
 source "$DOTFILES_DIR/vars.sh"
 
 function unmount() {
-    swapoff $LVM_DIR/swap
+    swapoff $LVM_DIR/swap > /dev/null 2>&1
+    sleep 1
     lvchange -an $LVM_GROUP_NAME > /dev/null 2>&1
     cryptsetup close $CRYPT_DIR > /dev/null 2>&1
     umount -q $EFI_PART > /dev/null 2>&1
