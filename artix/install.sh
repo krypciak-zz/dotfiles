@@ -102,7 +102,7 @@ swapon $LVM_DIR/swap
 
 # Prepare to chroot
 confirm "Basestrap basic packages?"
-INSTALL_DIR=$INSTALL_DIR sh $DOTFILES_DIR/basestrap.sh
+basestrap -C $DOTFILES_DIR/../config-files/pacman.conf $INSTALL_DIR base openrc elogind-openrc linux-firmware linux-zen 
 
 pri "Generating fstab"
 fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
@@ -111,7 +111,7 @@ fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
 NEW_DOTFILES_DIR=${INSTALL_DIR}${USER_HOME}/.config/dotfiles
 pri "Copying the repo to $NEW_DOTFILES_DIR"
 mkdir -p $NEW_DOTFILES_DIR/
-cp -rf $DOTFILES_DIR/../ $NEW_DOTFILES_DIR/../
+cp -rf $DOTFILES_DIR/../ $NEW_DOTFILES_DIR/
 
 pri "Chrooting..."
 artix-chroot $INSTALL_DIR $NEW_DOTFILES_DIR/after-chroot.sh
