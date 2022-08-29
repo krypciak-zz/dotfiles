@@ -30,9 +30,11 @@ chown root:root /etc/pacman.conf
 cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 
-confirm "" "ignore"
+pri "Updating keyring"
+pacman -Sy archlinux-keyring artix-keyring artix-mirrorlist && pacman -Su
 
 confirm "Install base packages?"
+find /var/cache/pacman/pkg/ -iname "*.part" -delete
 sh $ARTIXD_DIR/install-base.sh
 
 pri "Adding user $USER1"
@@ -45,8 +47,6 @@ echo "permit nopass root" > /etc/doas.conf
 echo "permit nopass $USER1" >> /etc/doas.conf
 
 sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
-
-confirm "" "ignore"
 
 pri "Installing paru (AUR manager)"
 if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
@@ -61,9 +61,8 @@ doas -u $USER1 makepkg -si --noconfirm --needed
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
-confirm "" "ignore"
-
 confirm "Install packages?"
+find /var/cache/pacman/pkg/ -iname "*.part" -delete
 doas -u $USER1 sh $ARTIXD_DIR/install-packages.sh
 
 confirm "" "ignore"
@@ -121,6 +120,7 @@ chmod -rw /etc/doas.conf
 
 pri "Cleaning up"
 rm -rf $USER_HOME/.cargo
+find /var/cache/pacman/pkg/ -iname "*.part" -delete
 
 confirm "" "ignore"
 
