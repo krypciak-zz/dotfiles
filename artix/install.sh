@@ -7,8 +7,8 @@ CRYPT_PART="${DISK}2"
 CRYPT_NAME='lvmcrypt'
 CRYPT_DIR="/dev/mapper/$CRYPT_NAME"
 LVM_NAME='artixlvm'
-LVM_DIR="/dev/$LVM_NAME"
 LVM_GROUP_NAME='Artix'
+LVM_DIR="/dev/$LVM_GROUP_NAME"
 
 SWAP_SIZE='1G'
 ROOT_SIZE='14G'
