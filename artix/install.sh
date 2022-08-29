@@ -124,7 +124,7 @@ cp -rf $DOTFILES_DIR/../ $NEW_DOTFILES_DIR/
 
 pri "Chrooting..."
 confirm "bul" "ignore"
-artix-chroot $INSTALL_DIR 'sh $USER_HOME/.config/dotfiles/artix/after-chroot.sh'
+artix-chroot $INSTALL_DIR "sh $USER_HOME/.config/dotfiles/artix/after-chroot.sh"
 
 confirm "Reboot?" "ignore"
 unmount
