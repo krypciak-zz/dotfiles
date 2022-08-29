@@ -23,6 +23,7 @@ SYMLINKS_DIRS=(
 	"redshift"
     "copyq"
     "keepassxc"
+    "fish"
 )
 
 HARDLINKS_DIRS=(
