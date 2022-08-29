@@ -29,7 +29,6 @@ cp $CONFIGD_DIR/pacman.conf /etc/pacman.conf
 chown root:root /etc/pacman.conf
 cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
-pacman-key --populate archlinux
 
 confirm "" "ignore"
 
