@@ -1,10 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
 ARTIXD_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 DOTFILES_DIR=$ARTIXD_DIR/..
 CONFIGD_DIR=$DOTFILES_DIR/config-files
 
 source "$ARTIXD_DIR/vars.sh"
+export PACMAN_ARGUMENTS
+export PARU_ARGUMENTS
 
 pri "Setting time"
 ln -sf /usr/share/zoneinfo/$REGION/$CITY /etc/localtime
