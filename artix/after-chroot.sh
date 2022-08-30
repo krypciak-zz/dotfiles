@@ -131,11 +131,10 @@ chmod -rw /etc/doas.conf
 pri "Installing dmenu_run_history"
 wget --quiet https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/dmenu_run_history -O /bin/dmenu_run_history
 
-
 pri "Cleaning up"
 rm -rf $USER_HOME/.cargo
 find /var/cache/pacman/pkg/ -iname "*.part" -delete
-paru --noconfirm -Scc
+paru --noconfirm -Scc > /dev/null 2>&1
 
 pri "Set password for user $USER1"
 
@@ -177,8 +176,6 @@ chown root:root /etc/mkinitcpio.conf
 pri "Copying grub configuration"
 cp $CONFIGD_DIR/grub /etc/default/grub
 chown root:root /etc/default/grub
-
-confirm "" "ignore"
 
 CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
 ESCAPED_CRYPT_UUID=$(printf '%s\n' "$CRYPT_UUID" | sed -e 's/[\/&]/\\&/g')
