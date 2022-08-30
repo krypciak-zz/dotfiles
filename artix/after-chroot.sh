@@ -31,7 +31,10 @@ cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 
 pri "Updating keyring"
-pacman -Sy archlinux-keyring artix-keyring artix-mirrorlist && pacman -Su
+pacman-key --init
+pacman-key --populate
+
+confirm "" "ignore"
 
 confirm "Install base packages?"
 find /var/cache/pacman/pkg/ -iname "*.part" -delete
