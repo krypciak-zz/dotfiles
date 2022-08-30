@@ -84,8 +84,6 @@ doas -u $USER1 sh $ARTIXD_DIR/install-gpudrivers.sh
 confirm "Install packages?"
 doas -u $USER1 sh $ARTIXD_DIR/install-packages.sh
 
-confirm "" "ignore"
-
 pri "Adding user $USER1 to groups"
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
 
@@ -191,8 +189,7 @@ grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=
 pri "Generating grub config"
 grub-mkconfig -o /boot/grub/grub.cfg
 
-confirm "" "ignore"
-
 pri "Generating mkinitcpio"
 mkinitcpio -P
 
+bash
