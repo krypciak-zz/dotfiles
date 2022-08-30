@@ -179,9 +179,12 @@ cp $CONFIGD_DIR/grub /etc/default/grub
 chown root:root /etc/default/grub
 
 CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
-sed -i "s/CRYPT_UUID/'$CRYPTUUID'/g" /etc/default/grub
-sed -i "s/CRYPT_NAME/'$CRYPT_NAME'/g" /etc/default/grub
-sed -i "s/LVM_DIR/'$LVM_DIR'/g" /etc/default/grub
+ESCAPED_CRYPT_UUID=$(printf '%s\n' "$CRYPT_UUID" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/CRYPT_UUID/$ESCAPED_CRYPT_UUID/g" /etc/default/grub
+ESCAPED_CRYPT_NAME=$(printf '%s\n' "$CRYPT_NAME" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/CRYPT_NAME/$ESCAPED_CRYPT_NAME/g" /etc/default/grub
+ESCAPED_LVM_DIR=$(printf '%s\n' "$LVM_DIR" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/LVM_DIR/$ESCAPED_LVM_DIR/g" /etc/default/grub
 
 pri "Installing grub to $EFI_DIR_ALONE"
 grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE
