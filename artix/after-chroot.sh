@@ -173,8 +173,8 @@ pri "Copying grub configuration"
 cp $CONFIGD_DIR/grub /etc/default/grub
 chown root:root /etc/default/grub
 
-CRYPT_UUID=$(blkid $LVM_PART -s UUID -o value)
-pri "CRYPTUUID: $CRYPT_UUID"
+CRYPT_UUID=$(blkid $EFI_PART -s UUID -o value)
+pri "CRYPTUUID: $CRYPT_UUID $NC"
 sed -i "s/CRYPT_UUID/$CRYPTUUID/g" /etc/default/grub
 sed -i "s/CRYPT_NAME/$CRYPT_NAME/g" /etc/default/grub
 sed -i "s/LVM_DIR/$LVM_DIR/g" /etc/default/grub
