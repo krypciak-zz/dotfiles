@@ -9,6 +9,8 @@ source "$ARTIXD_DIR/vars.sh"
 pri "Setting time"
 ln -sf /usr/share/zoneinfo/$REGION/$CITY /etc/localtime
 hwclock --systohc
+ntpd -qg
+hwclock -w
 
 pri "Setting the locale"
 cp $CONFIGD_DIR/locale.gen /etc/locale.gen
@@ -30,14 +32,17 @@ chown root:root /etc/pacman.conf
 cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 
-pri "Entering the shell..."
-bash
-
-#pri "Updating keyring"
-pacman ---noconfirm -S archlinux-keyring artix-archlinux-support
+pri "Updating keyring"
+# Disable package signature verification
+#sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/' /etc/pacman.conf
+#sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional' /etc/pacman.conf
+pacman ---noconfirm -S artix-archlinux-support
 pacman-key --init
 pacman-key --populate
-
+# Enable package signature verification
+#sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/' /etc/pacman.conf
+#sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional' /etc/pacman.conf
+bash
 confirm "" "ignore"
 
 confirm "Install base packages?"
