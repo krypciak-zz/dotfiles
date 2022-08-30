@@ -30,8 +30,11 @@ chown root:root /etc/pacman.conf
 cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 
+pri "Entering the shell..."
+bash
+
 #pri "Updating keyring"
-pacman ---noconfirm -S archlinux-keyring
+pacman ---noconfirm -S archlinux-keyring artix-archlinux-support
 pacman-key --init
 pacman-key --populate
 
