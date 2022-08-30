@@ -83,3 +83,7 @@ for dir in "${HARDLINKS_DIRS[@]}"; do
 	ln -fT "$FROM" "$DEST"
 	chown -R $USER1:$USER1 "$DEST"
 done
+
+# Update nvim plugins
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+

@@ -163,6 +163,31 @@ pri "Enabling mkinitpckio"
 mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
 #sed -i '1d' /bin/mkinitcpio
 
+pri "Copying mkinitpcio configuration"
+cp $CONFIGD_DIR/mkinitcpio.conf /etc/mkinitcpio.conf
+chown root:root /etc/mkinitcpio.conf
+
+pri "Copying grub configuration"
+cp $CONFIGD_DIR/grub /etc/default/grub
+chown root:root /etc/default/grub
+
+CRYPT_UUID=$(blkid $LVM_PART -s UUID -o value)
+
+sed -i "s/CRYPT_UUID/$CRYPTUUID/g" /etc/default/grub
+sed -i "s/CRYPT_NAME/$CRYPT_NAME/g" /etc/default/grub
+sed -i "s/LVM_DIR/$LVM_DIR/g" /etc/default/grub
+
+pri "Installing grub to $EFI_DIR_ALONE"
+grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE
+
+pri "Generating grub config"
+grub-mkconfig -o /boot/grub/grub.cfg
+
+pri "Generating mkinitcpio"
+mkinitcpio -P
+
+
 
 
 pri "grub fsadf"
+
