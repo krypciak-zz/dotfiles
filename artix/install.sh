@@ -40,10 +40,6 @@ echo q # and we're done
 ) | fdisk $DISK
 confirm
 
-confirm "obama sus" "ignore"
-pri "bul"
-confirm "gaming sus" "ignore"
-
 # Create encryptred container on LVM_PART
 
 if [ "$LVM_PASSWORD" != "" ]; then 
