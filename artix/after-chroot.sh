@@ -60,7 +60,7 @@ chown -R $USER1:$USER1 $USER_HOME/
 chown -R $USER1:$USER1 $ARTIXD_DIR
 
 pri "Copying temporary doas config"
-echo "permit nopass root" > /etc/doas.conf
+echo "permit nopass setenv { PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
 echo "permit nopass setenv { PACMAN_ARGUMENTS PARU_ARGUMENTS } $USER1" >> /etc/doas.conf
 
 sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
