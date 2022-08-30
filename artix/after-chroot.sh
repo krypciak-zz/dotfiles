@@ -60,8 +60,8 @@ chown -R $USER1:$USER1 $USER_HOME/
 chown -R $USER1:$USER1 $ARTIXD_DIR
 
 pri "Copying temporary doas config"
-echo "permit nopass setenv { PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
-echo "permit nopass setenv { PACMAN_ARGUMENTS PARU_ARGUMENTS } $USER1" >> /etc/doas.conf
+echo "permit nopass setenv { USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
+echo "permit nopass setenv { USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } $USER1" >> /etc/doas.conf
 
 sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 
@@ -117,7 +117,8 @@ rc-update add agetty-autologin.tty1 default
 
 pri "Installing dotfiles for user $USER1"
 rm -rf $USER_HOME/.config
-USER1=$USER1 sh $DOTFILES_DIR/install-dotfiles.sh
+chown -R $USER1:$USER1 $USER_HOME
+doas -u sh $DOTFILES_DIR/install-dotfiles.sh
 
 pri "Installing dotfiles for root"
 sh $DOTFILES_DIR/install-dotfiles-root.sh
