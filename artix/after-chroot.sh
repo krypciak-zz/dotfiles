@@ -36,7 +36,7 @@ pri "Updating keyring"
 # Disable package signature verification
 #sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/' /etc/pacman.conf
 #sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional' /etc/pacman.conf
-pacman ---noconfirm -S artix-archlinux-support
+pacman --noconfirm -S artix-archlinux-support
 pacman-key --init
 pacman-key --populate
 # Enable package signature verification
