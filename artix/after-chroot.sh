@@ -91,7 +91,7 @@ if [ $ALL_DRIVERS -eq 0 ]; then
     elif [ "$GPU" == 'nvidia' ]; then DRIVER_LIST="$DRIVER_LIST xf86-video-nouveau nvidia-utils"
     else confirm "Invalid GPU: $GPU" "ignore"; fi
 
-elif [ $ALL_DRIVERS -eq 1]; then
+elif [ $ALL_DRIVERS -eq 1 ]; then
     DRIVER_LIST="$DRIVER_LIST amd-ucode intel-ucode"
     DRIVER_LIST="$DRIVER_LIST $(pacman -Ssq xf86-video-)"
     DRIVER_LIST="$DRIVER_LIST $(pacman -Ssq vulkan)"
