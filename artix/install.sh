@@ -4,8 +4,7 @@ ARTIXD_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$ARTIXD_DIR/vars.sh"
 
 function unmount() {
-    umount -lq $EFI_PART > /dev/null 2>&1
-    umount -lRq $INSTALL_DIR > /dev/null 2>&1
+    umount -q $EFI_PART > /dev/null 2>&1
     swapoff $LVM_DIR/swap > /dev/null 2>&1
     lvchange -an $LVM_GROUP_NAME > /dev/null 2>&1
     cryptsetup close $CRYPT_DIR > /dev/null 2>&1
