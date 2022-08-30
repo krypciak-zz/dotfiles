@@ -133,8 +133,6 @@ pri "Cleaning up"
 rm -rf $USER_HOME/.cargo
 find /var/cache/pacman/pkg/ -iname "*.part" -delete
 
-confirm "" "ignore"
-
 pri "Set password for user $USER1"
 
 if [ "$USER_PASSWORD" != "" ]; then
@@ -177,10 +175,9 @@ cp $CONFIGD_DIR/grub /etc/default/grub
 chown root:root /etc/default/grub
 
 CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
-pri "CRYPTUUID: $CRYPT_UUID $NC"
-sed -i "s/CRYPT_UUID/$CRYPTUUID/g" /etc/default/grub
-sed -i "s/CRYPT_NAME/$CRYPT_NAME/g" /etc/default/grub
-sed -i "s/LVM_DIR/$LVM_DIR/g" /etc/default/grub
+sed -i "s/CRYPT_UUID/\'$CRYPTUUID\'/g" /etc/default/grub
+sed -i "s/CRYPT_NAME/\'$CRYPT_NAME\'/g" /etc/default/grub
+sed -i "s/LVM_DIR/\'$LVM_DIR\'/g" /etc/default/grub
 
 pri "Installing grub to $EFI_DIR_ALONE"
 grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE
