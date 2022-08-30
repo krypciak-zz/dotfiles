@@ -116,6 +116,7 @@ rc-update del agetty.tty1 default
 rc-update add agetty-autologin.tty1 default
 
 pri "Installing dotfiles for user $USER1"
+rm -rf $USER_HOME/.config
 USER1=$USER1 sh $DOTFILES_DIR/install-dotfiles.sh
 
 pri "Installing dotfiles for root"
