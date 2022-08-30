@@ -128,6 +128,10 @@ cp $CONFIGD_DIR/doas.conf /etc/doas.conf
 chown root:root /etc/doas.conf
 chmod -rw /etc/doas.conf
 
+pri "Installing dmenu_run_history"
+wget https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/dmenu_run_history -O /bin/dmenu_run_history
+
+
 pri "Cleaning up"
 rm -rf $USER_HOME/.cargo
 find /var/cache/pacman/pkg/ -iname "*.part" -delete
@@ -188,9 +192,4 @@ confirm "" "ignore"
 
 pri "Generating mkinitcpio"
 mkinitcpio -P
-
-
-
-
-pri "grub fsadf"
 
