@@ -131,7 +131,7 @@ chown root:root /etc/doas.conf
 chmod -rw /etc/doas.conf
 
 pri "Installing dmenu_run_history"
-wget https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/dmenu_run_history -O /bin/dmenu_run_history
+wget --quiet https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/dmenu_run_history -O /bin/dmenu_run_history
 
 
 pri "Cleaning up"
@@ -166,7 +166,7 @@ else
         sleep 15
     done
 fi
-chsh -s /bin/bash root
+chsh -s /bin/bash root > /dev/null 2>&1
 
 pri "Enabling mkinitpckio"
 mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
