@@ -135,6 +135,7 @@ wget https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/dme
 pri "Cleaning up"
 rm -rf $USER_HOME/.cargo
 find /var/cache/pacman/pkg/ -iname "*.part" -delete
+paru --noconfirm -Scc
 
 pri "Set password for user $USER1"
 
@@ -178,9 +179,9 @@ cp $CONFIGD_DIR/grub /etc/default/grub
 chown root:root /etc/default/grub
 
 CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
-sed -i "s/CRYPT_UUID/\'$CRYPTUUID\'/g" /etc/default/grub
-sed -i "s/CRYPT_NAME/\'$CRYPT_NAME\'/g" /etc/default/grub
-sed -i "s/LVM_DIR/\'$LVM_DIR\'/g" /etc/default/grub
+sed -i "s/CRYPT_UUID/'$CRYPTUUID'/g" /etc/default/grub
+sed -i "s/CRYPT_NAME/'$CRYPT_NAME'/g" /etc/default/grub
+sed -i "s/LVM_DIR/'$LVM_DIR'/g" /etc/default/grub
 
 pri "Installing grub to $EFI_DIR_ALONE"
 grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE

@@ -6,4 +6,4 @@ cp -r $DOTFILES_DIR/dotfiles/root-files/nvim /root/.config/
 chown -R root:root /root/.config/nvim
 
 # Update nvim plugins
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1
