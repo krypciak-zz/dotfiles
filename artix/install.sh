@@ -43,7 +43,7 @@ confirm
 if [ "$LVM_PASSWORD" != "" ]; then 
     pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
     pri "${NC}Automaticly filling password..."
-    echo $LVM_PASSWORD | cryptsetup luksFormat -q --key-size 512 --hash sha512 --iter-time 5000 $CRYPT_PART
+    echo $LVM_PASSWORD | cryptsetup luksFormat -q --key-size $KEY_SIZE --hash $HASH --iter-time $ITER_TIME $CRYPT_PART
     pri "Opening $CRYPT_PART as $CRYPT_NAME"
     pri "${NC}Automaticly filling password..."
     echo $LVM_PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME
@@ -111,7 +111,7 @@ swapon $LVM_DIR/swap
 
 # Prepare to chroot
 confirm "Basestrap basic packages?"
-basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware linux-zen system/mkinitcpio iptables-nft artix-keyring artix-mirrorlist
+basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware linux-zen system/mkinitcpio iptables-nft artix-keyring artix-mirrorlist openntpd
 
 pri "Generating fstab"
 fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
