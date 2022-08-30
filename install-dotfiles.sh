@@ -19,7 +19,7 @@ SYMLINKS_DIRS=(
 	"gtk-2.0"
 	"gtk-3.0"
 	"gtk-4.0"
-	"Notepadqq/Notepadqq.ini"
+	#"Notepadqq/Notepadqq.ini"
 	"redshift"
     "copyq"
     "keepassxc"
@@ -52,6 +52,7 @@ LINK_HOME_DIRS=(
 mkdir -p $REAL_HOMEDIR
 mkdir -p $HOMEDIR
 
+
 for dir in "${LINK_HOME_DIRS[@]}"; do
     mkdir -p $HOMEDIR/$dir
     ln -sf $HOMEDIR/$dir $REAL_HOMEDIR/
@@ -60,6 +61,7 @@ done
 
 mkdir -p $REAL_HOMEDIR/.config/chromium/Default
 mkdir -p $REAL_HOMEDIR/.config/FreeTube
+#mkdir -p $REAL_HOMEDIR/.config/Notepadqq
 
 for dir in "${HOME_DIRS[@]}"; do
     FROM="$DOTFILES_DIR/dotfiles/$dir"

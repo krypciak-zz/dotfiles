@@ -31,7 +31,8 @@ cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 
 pri "Disabling mkinitcpio"
-sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
+mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
+#sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
 
 pri "Updating keyring"
 # Disable package signature verification
@@ -83,12 +84,8 @@ confirm "" "ignore"
 pri "Installing GPU drivers"
 doas -u $USER1 sh $ARTIXD_DIR/install-gpudrivers.sh
 
-confirm "" "ignore"
-
 pri "Adding user $USER1 to groups"
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
-
-confirm "" "ignore"
 
 pri "Enabling services"
 rc-update add NetworkManager default
@@ -97,8 +94,6 @@ rc-update add lvm boot
 rc-update add dmcrypt boot
 rc-update add dbus default
 rc-update add elogind boot
-
-confirm "" "ignore"
 
 pri "Configuring qemu"
 rc-update add libvirtd default
@@ -117,8 +112,6 @@ chown root:root /etc/init.d/agetty-autologin*
 
 rc-update del agetty.tty1 default
 rc-update add agetty-autologin.tty1 default
-
-confirm "" "ignore"
 
 pri "Installing dotfiles for user $USER1"
 USER1=$USER1 sh $DOTFILES_DIR/install-dotfiles.sh
@@ -167,6 +160,9 @@ fi
 chsh -s /bin/bash root
 
 pri "Enabling mkinitpckio"
-sed -i '1d' /bin/mkinitcpio
+mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
+#sed -i '1d' /bin/mkinitcpio
+
+
 
 pri "grub fsadf"

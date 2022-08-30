@@ -117,13 +117,13 @@ pri "Generating fstab"
 fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
 
 
-DOTFILES_DIR=$INSTALL_DIR$USER_HOME/.config/dotfiles
+DOTFILES_DIR=$INSTALL_DIR$USER_HOME/home/.config/dotfiles
 pri "Copying the repo to $NEW_ARTIXD_DIR"
 mkdir -p $DOTFILES_DIR/..
 cp -rf $ARTIXD_DIR/../ $DOTFILES_DIR/
 
 pri "Chrooting..."
-artix-chroot $INSTALL_DIR sh $USER_HOME/.config/dotfiles/artix/after-chroot.sh
+artix-chroot $INSTALL_DIR sh $USER_HOME/home/.config/dotfiles/artix/after-chroot.sh
 
 confirm "Reboot?" "ignore"
 unmount
