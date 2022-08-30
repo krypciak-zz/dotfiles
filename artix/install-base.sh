@@ -1,3 +1,3 @@
 #!/bin/sh
-pacman --needed --noconfirm -Syu neovim networkmanager-openrc autoconf automake binutils bison fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed opendoas texinfo which git wget cargo lvm2 linux-lts linux-firmware system/mkinitcpio world/rust
+pacman --needed --noconfirm -Syu world/rust neovim networkmanager-openrc autoconf automake bison fakeroot flex gcc groff libtool m4 make patch pkgconf opendoas texinfo which git wget cargo lvm2 linux-lts neofetch
 

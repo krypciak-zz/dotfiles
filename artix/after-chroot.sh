@@ -30,6 +30,9 @@ chown root:root /etc/pacman.conf
 cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 
+pri "Disabling mkinitcpio"
+sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
+
 pri "Updating keyring"
 # Disable package signature verification
 sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
@@ -40,11 +43,13 @@ pacman-key --populate
 # Enable package signature verification
 sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/g' /etc/pacman.conf
 sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional/g' /etc/pacman.conf
-confirm "" "ignore"
 
 confirm "Install base packages?"
-find /var/cache/pacman/pkg/ -iname "*.part" -delete
+# Remove conficting dir
+rm -rf /usr/lib64
 sh $ARTIXD_DIR/install-base.sh
+
+neofetch
 
 pri "Adding user $USER1"
 useradd -m -s /bin/bash $USER1

@@ -69,7 +69,7 @@ else
 fi
 
 # Setup LVM
-confirm "Set up LVM?" "ignore"
+confirm "Set up LVM?" 
 
 pri "Creating LVM group $LVM_GROUP_NAME"
 pvcreate $CRYPT_DIR
@@ -110,11 +110,8 @@ pri "Turning swap on"
 swapon $LVM_DIR/swap
 
 # Prepare to chroot
-pri "Disabling mkinitcpio"
-sed -i '1s/^/exit\n/' /bin/mkinitcpio
-
 confirm "Basestrap basic packages?"
-basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware linux-zen system/mkinitcpio iptables-nft artix-keyring artix-mirrorlist openntpd filesystem glibc
+basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware linux-zen system/mkinitcpio iptables-nft artix-keyring artix-mirrorlist
 
 pri "Generating fstab"
 fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
