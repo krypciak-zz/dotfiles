@@ -31,8 +31,9 @@ cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 
 #pri "Updating keyring"
-#pacman-key --init
-#pacman-key --populate
+pacman ---noconfirm -S archlinux-keyring
+pacman-key --init
+pacman-key --populate
 
 confirm "" "ignore"
 
