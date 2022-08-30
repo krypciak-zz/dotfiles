@@ -34,15 +34,14 @@ chown -R root:root /etc/pacman.d
 
 pri "Updating keyring"
 # Disable package signature verification
-#sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/' /etc/pacman.conf
-#sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional' /etc/pacman.conf
+sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/' /etc/pacman.conf
+sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional' /etc/pacman.conf
 pacman --noconfirm -Sy artix-archlinux-support
 pacman-key --init
 pacman-key --populate
 # Enable package signature verification
-#sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/' /etc/pacman.conf
-#sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional' /etc/pacman.conf
-bash
+sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/' /etc/pacman.conf
+sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional' /etc/pacman.conf
 confirm "" "ignore"
 
 confirm "Install base packages?"
