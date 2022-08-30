@@ -33,7 +33,7 @@ cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 
 pri "Disabling mkinitcpio"
-mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
+#mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
 #sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
 
 pri "Updating keyring"
@@ -117,7 +117,6 @@ rc-update add agetty-autologin.tty1 default
 
 pri "Installing dotfiles for user $USER1"
 rm -rf $USER_HOME/.config
-chown -R $USER1:$USER1 $USER_HOME
 export USER1
 doas -u $USER1 sh $DOTFILES_DIR/install-dotfiles.sh
 
@@ -163,7 +162,7 @@ fi
 chsh -s /bin/bash root
 
 pri "Enabling mkinitpckio"
-mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
+#mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
 #sed -i '1d' /bin/mkinitcpio
 
 pri "Copying mkinitpcio configuration"
