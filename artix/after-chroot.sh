@@ -118,7 +118,7 @@ rc-update add agetty-autologin.tty1 default
 pri "Installing dotfiles for user $USER1"
 rm -rf $USER_HOME/.config
 chown -R $USER1:$USER1 $USER_HOME
-doas -u sh $DOTFILES_DIR/install-dotfiles.sh
+doas -u $USER1 sh $DOTFILES_DIR/install-dotfiles.sh
 
 pri "Installing dotfiles for root"
 sh $DOTFILES_DIR/install-dotfiles-root.sh
@@ -175,7 +175,7 @@ pri "Copying grub configuration"
 cp $CONFIGD_DIR/grub /etc/default/grub
 chown root:root /etc/default/grub
 
-CRYPT_UUID=$(blkid $EFI_PART -s UUID -o value)
+CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
 pri "CRYPTUUID: $CRYPT_UUID $NC"
 sed -i "s/CRYPT_UUID/$CRYPTUUID/g" /etc/default/grub
 sed -i "s/CRYPT_NAME/$CRYPT_NAME/g" /etc/default/grub
