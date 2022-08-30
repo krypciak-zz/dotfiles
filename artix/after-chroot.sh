@@ -120,8 +120,6 @@ rm -rf $USER_HOME/.config
 export USER1
 doas -u $USER1 sh $DOTFILES_DIR/install-dotfiles.sh
 
-confirm "" "ignore"
-
 pri "Installing dotfiles for root"
 sh $DOTFILES_DIR/install-dotfiles-root.sh
 
@@ -179,6 +177,8 @@ chown root:root /etc/mkinitcpio.conf
 pri "Copying grub configuration"
 cp $CONFIGD_DIR/grub /etc/default/grub
 chown root:root /etc/default/grub
+
+confirm "" "ignore"
 
 CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
 ESCAPED_CRYPT_UUID=$(printf '%s\n' "$CRYPT_UUID" | sed -e 's/[\/&]/\\&/g')
