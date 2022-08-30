@@ -78,13 +78,13 @@ doas -u $USER1 makepkg -si --noconfirm --needed
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
+pri "Installing GPU drivers"
+doas -u $USER1 sh $ARTIXD_DIR/install-gpudrivers.sh
+
 confirm "Install packages?"
 doas -u $USER1 sh $ARTIXD_DIR/install-packages.sh
 
 confirm "" "ignore"
-
-pri "Installing GPU drivers"
-doas -u $USER1 sh $ARTIXD_DIR/install-gpudrivers.sh
 
 pri "Adding user $USER1 to groups"
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
