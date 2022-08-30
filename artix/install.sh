@@ -4,6 +4,7 @@ ARTIXD_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$ARTIXD_DIR/vars.sh"
 
 function unmount() {
+    pacman --noconfirm -S lsof > /dev/null 2>&1
     lsof -t $INSTALL_DIR | pkill -
     umount -q $EFI_PART > /dev/null 2>&1
     umount -Rq $INSTALL_DIR > /dev/null 2>&1
