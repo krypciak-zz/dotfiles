@@ -85,5 +85,5 @@ for dir in "${HARDLINKS_DIRS[@]}"; do
 done
 
 # Update nvim plugins
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1
 

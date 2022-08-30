@@ -187,6 +187,8 @@ grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=
 pri "Generating grub config"
 grub-mkconfig -o /boot/grub/grub.cfg
 
+confirm "" "ignore"
+
 pri "Generating mkinitcpio"
 mkinitcpio -P
 
