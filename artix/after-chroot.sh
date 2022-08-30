@@ -120,6 +120,8 @@ rm -rf $USER_HOME/.config
 export USER1
 doas -u $USER1 sh $DOTFILES_DIR/install-dotfiles.sh
 
+confirm "" "ignore"
+
 pri "Installing dotfiles for root"
 sh $DOTFILES_DIR/install-dotfiles-root.sh
 
