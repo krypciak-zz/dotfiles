@@ -27,6 +27,8 @@ echo p # primary partition
 echo 1 # partition number 1
 echo   # default - start at beginning of disk 
 echo +${EFI_SIZE} # your size
+echo t # set partition type
+echo 1 # to EFI system
 echo n # Create LVM partition
 echo p # primary partition
 echo 2 # partion number 2
