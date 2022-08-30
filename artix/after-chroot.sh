@@ -162,4 +162,7 @@ else
 fi
 chsh -s /bin/bash root
 
+pri "Enabling mkinitpckio"
+sed -i '1d' /bin/mkinitcpio
+
 pri "grub fsadf"

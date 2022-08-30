@@ -95,14 +95,14 @@ mkfs.fat -n EFI -F 32 $EFI_PART
 
 pri "Mounting volumes"
 pri "$INSTALL_DIR"
-pri "Mounting $LVM_DIR/root to $INSTALL_DIR/"
+pri "Mounting ${LBLUE}$LVM_DIR/root ${LGREEN}to ${LBLUE}$INSTALL_DIR/"
 mount $LVM_DIR/root $INSTALL_DIR/
 
-pri "Mounting $LVM_DIR/home to $INSTALL_DIR/home/$USER1/"
+pri "Mounting ${LBLUE}$LVM_DIR/home${LGREEN} to ${LBLUE}$INSTALL_DIR/home/$USER1/"
 mkdir -p $INSTALL_DIR/home/$USER1
 mount $LVM_DIR/home $INSTALL_DIR/home/$USER1/
 
-pri "Mounting $EFI_PART to $EFI_DIR"
+pri "Mounting ${LBLUE}${EFI_PART}${LGREEN} to ${LBLUE}$EFI_DIR"
 mkdir -p $EFI_DIR
 mount $EFI_PART $EFI_DIR
 
@@ -110,8 +110,11 @@ pri "Turning swap on"
 swapon $LVM_DIR/swap
 
 # Prepare to chroot
+pri "Disabling mkinitcpio"
+sed -i '1s/^/exit\n/' /bin/mkinitcpio
+
 confirm "Basestrap basic packages?"
-basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware linux-zen system/mkinitcpio iptables-nft artix-keyring artix-mirrorlist openntpd
+basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware linux-zen system/mkinitcpio iptables-nft artix-keyring artix-mirrorlist openntpd filesystem glibc
 
 pri "Generating fstab"
 fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
