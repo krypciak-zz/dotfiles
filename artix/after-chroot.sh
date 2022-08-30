@@ -37,7 +37,7 @@ pri "Updating keyring"
 # Disable package signature verification
 sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
 sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional/g' /etc/pacman.conf
-pacman --noconfirm -Sy artix-archlinux-support
+pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support
 pacman-key --init
 pacman-key --populate
 # Enable package signature verification
@@ -52,8 +52,8 @@ sh $ARTIXD_DIR/install-base.sh
 neofetch
 
 pri "Adding user $USER1"
-useradd -m -s /bin/bash $USER1
-chown $USER1:$USER1 $USER_HOME/
+useradd -s /bin/bash $USER1
+chown -R $USER1:$USER1 $USER_HOME/
 chown -R $USER1:$USER1 $ARTIXD_DIR
 
 pri "Copying temporary doas config"
@@ -76,7 +76,6 @@ sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
 confirm "Install packages?"
-find /var/cache/pacman/pkg/ -iname "*.part" -delete
 doas -u $USER1 sh $ARTIXD_DIR/install-packages.sh
 
 confirm "" "ignore"

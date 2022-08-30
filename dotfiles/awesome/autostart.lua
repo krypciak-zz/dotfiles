@@ -1,5 +1,5 @@
 -- Spawn music_player in tag music
-awful.spawn("kmix")
+--awful.spawn("kmix")
 
 awful.spawn(music_player)
 

@@ -1,2 +1,2 @@
-paru --noremovemake --skipreview --noupgrademenu --needed -S jdk17-openjdk jdk8-openjdk lua-format rust ungoogled-chromium icecat
+paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S jdk17-openjdk jdk8-openjdk ungoogled-chromium icecat
 
