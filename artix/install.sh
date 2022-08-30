@@ -69,7 +69,7 @@ else
 fi
 
 # Setup LVM
-confirm "Set up LVM?"
+confirm "Set up LVM?" "ignore"
 
 pri "Creating LVM group $LVM_GROUP_NAME"
 pvcreate $CRYPT_DIR
