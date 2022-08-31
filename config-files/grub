@@ -11,7 +11,7 @@ GRUB_CMDLINE_LINUX="cryptdevice=UUID=CRYPT_UUID:CRYPT_NAME root=/dev/mapper/LVM_
 GRUB_PRELOAD_MODULES="part_gpt part_msdos"
 
 # Uncomment to enable booting from LUKS encrypted devices
-#GRUB_ENABLE_CRYPTODISK=y
+GRUB_ENABLE_CRYPTODISK=y
 
 # Set to 'countdown' or 'hidden' to change timeout behavior,
 # press ESC key to display menu.

@@ -45,7 +45,7 @@ confirm
 if [ "$LVM_PASSWORD" != "" ]; then 
     pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
     pri "${NC}Automaticly filling password..."
-    echo $LVM_PASSWORD | cryptsetup luksFormat -q --key-size $KEY_SIZE --hash $HASH --iter-time $ITER_TIME $CRYPT_PART
+    echo $LVM_PASSWORD | cryptsetup luksFormat $LUKSFORMAT_ARGUMENTS $CRYPT_PART
     pri "Opening $CRYPT_PART as $CRYPT_NAME"
     pri "${NC}Automaticly filling password..."
     echo $LVM_PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME
@@ -53,7 +53,7 @@ else
     while true; do
         pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
         
-        cryptsetup luksFormat --key-size 512 --hash sha512 --iter-time 5000 $CRYPT_PART
+        cryptsetup luksFormat $LUKSFORMAT_ARGUMENTS $CRYPT_PART
         if [ $? -eq 0 ]; then
             break
         fi
