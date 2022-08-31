@@ -45,7 +45,6 @@ echo q # and we're done
 confirm "Is this OK?"
 
 # Create encryptred container on LVM_PART
- cryptsetup benchmark
 
 if [ "$LVM_PASSWORD" != "" ]; then 
     pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
