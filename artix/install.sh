@@ -34,6 +34,8 @@ echo p # primary partition
 echo 2 # partion number 2
 echo " "  # default, start immediately after preceding partition
 echo " " # default, extend partition to end of disk
+echo t # set partition type
+echo 43 # to LV
 echo p # print the in-memory partition table
 echo w # write the partition table
 echo q # and we're done
@@ -87,16 +89,15 @@ lvcreate -l 100%FREE $LVM_GROUP_NAME -n home
 
 pri "Formatting volumes"
 pri "SWAP"
-mkswap $LVM_DIR/swap
+mkswap -L swap $LVM_DIR/swap
 pri "ROOT"
-mkfs.btrfs -f -L root $LVM_DIR/root > /dev/null 2>&1
+$ROOT_FORMAT_COMMAND
 pri "HOME"
-mkfs.btrfs -f -L home $LVM_DIR/home > /dev/null 2>&1
+$HOME_FORMAT_COMMAND
 pri "EFI"
-mkfs.fat -n EFI -F 32 $EFI_PART
+$EFI_FORMAT_COMMAND
 
-pri "Mounting volumes"
-pri "$INSTALL_DIR"
+
 pri "Mounting ${LBLUE}$LVM_DIR/root ${LGREEN}to ${LBLUE}$INSTALL_DIR/"
 mount $LVM_DIR/root $INSTALL_DIR/
 
@@ -129,6 +130,8 @@ pri "Chrooting..."
 artix-chroot $INSTALL_DIR sh $USER_HOME/home/.config/dotfiles/artix/after-chroot.sh
 
 confirm "Reboot?" "ignore"
+sync
 unmount
+sync
 reboot
 
