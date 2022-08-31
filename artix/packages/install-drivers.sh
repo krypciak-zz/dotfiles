@@ -18,7 +18,7 @@ function install_drivers() {
     elif [ $ALL_DRIVERS -eq 1 ]; then
         DRIVER_LIST="$DRIVER_LIST amd-ucode intel-ucode"
         DRIVER_LIST="$DRIVER_LIST $(pacman -Ssq xf86-video-)"
-        DRIVER_LIST="$DRIVER_LIST $(pacman -Ssq vulkan)"
+        DRIVER_LIST="$DRIVER_LIST $(pacman -Sqs vulkan | grep vulkan)"
     fi
     echo $DRIVER_LIST
 }
