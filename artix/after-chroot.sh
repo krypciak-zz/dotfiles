@@ -169,7 +169,7 @@ fi
 chsh -s /bin/bash root > /dev/null 2>&1
 
 pri "Enabling mkinitpckio"
-#mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
+mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
 #sed -i '1d' /bin/mkinitcpio
 
 pri "Copying mkinitpcio configuration"
