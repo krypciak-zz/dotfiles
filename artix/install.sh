@@ -92,7 +92,9 @@ pri "Formatting volumes"
 pri "SWAP"
 mkswap -L swap $LVM_DIR/swap
 pri "ROOT"
-$ROOT_FORMAT_COMMAND > /dev/null 2>&1
+$ROOT_FORMAT_COMMAND 
+# > /dev/null 2>&1
+confirm "" "ignore"
 pri "HOME"
 $HOME_FORMAT_COMMAND > /dev/null 2>&1
 pri "EFI"
