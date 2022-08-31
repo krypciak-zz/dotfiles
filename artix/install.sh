@@ -41,7 +41,7 @@ echo p # print the in-memory partition table
 echo w # write the partition table
 echo q # and we're done
 ) | fdisk $DISK
-confirm "" "ignore"
+confirm "Is this OK?"
 
 # Create encryptred container on LVM_PART
 
