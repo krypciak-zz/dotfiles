@@ -186,13 +186,10 @@ chown root:root /etc/default/grub
 pri "Installing grub to $EFI_DIR_ALONE"
 grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE
 
-#CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
+CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
 ESCAPED_CRYPT_UUID=$(printf '%s\n' "$CRYPT_UUID" | sed -e 's/[\/&]/\\&/g')
-ESCAPED_CRYPT_PART=$(printf '%s\n' "$CRYPT_PART" | sed -e 's/[\/&]/\\&/g')
-sed -i "s/CRYPT_PART/$ESCAPED_CRYPT_PART/g" /etc/default/grub
 
-ESCAPED_CRYPT_NAME=$(printf '%s\n' "$CRYPT_NAME" | sed -e 's/[\/&]/\\&/g')
-sed -i "s/CRYPT_NAME/$ESCAPED_CRYPT_NAME/g" /etc/default/grub
+sed -i "s/CRYPT_UUID/$ESCAPED_CRYPT_UUID/g" /etc/default/grub
 
 ESCAPED_LVM_GROUP_NAME=$(printf '%s\n' "$LVM_GROUP_NAME" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/LVM_GROUP_NAME/$ESCAPED_LVM_GROUP_NAME/g" /etc/default/grub
