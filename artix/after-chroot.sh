@@ -16,11 +16,12 @@ pri "Setting the locale"
 cp $CONFIGD_DIR/locale.gen /etc/locale.gen
 locale-gen
 echo "LANG=\"$LANG\"" > /etc/locale.conf
+export LANG
 export LC_COLLATE="C"
 
 pri "Setting the hostname"
 echo "$HOSTNAME" > /etc/hostname
-echo "hostname=\'$HOSTNAME\'" >> /etc/conf.d/hostname
+echo "hostname=\'$HOSTNAME\'" > /etc/conf.d/hostname
 
 pri "Setting hosts"
 cp $CONFIGD_DIR/hosts /etc/hosts
@@ -196,7 +197,7 @@ sed -i "s/LVM_GROUP_NAME/$ESCAPED_LVM_GROUP_NAME/g" /etc/default/grub
 #sed -i "s/LVM_DIR/$ESCAPED_LVM_DIR/g" /etc/default/grub
 
 pri "Installing grub to $EFI_DIR_ALONE"
-grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE
+grub-install --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE --bootloader-id=$BOOTLOADER_ID
 
 pri "Generating grub config"
 grub-mkconfig -o /boot/grub/grub.cfg

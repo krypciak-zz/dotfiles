@@ -4,6 +4,7 @@ ARTIXD_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$ARTIXD_DIR/vars.sh"
 
 function unmount() {
+    sync
     swapoff -a > /dev/null 2>&1
     umount -q $EFI_PART > /dev/null 2>&1
     umount -Rq $INSTALL_DIR > /dev/null 2>&1
@@ -11,6 +12,7 @@ function unmount() {
     lvchange -an $LVM_GROUP_NAME > /dev/null 2>&1
     cryptsetup close $CRYPT_DIR > /dev/null 2>&1
     umount -q $CRYPT_DIR > /dev/null 2>&1
+    sync
 }
 
 confirm "Start partitioning the disk? $RED(DATA WARNING)"
@@ -83,11 +85,11 @@ vgcreate $LVM_GROUP_NAME $CRYPT_DIR
 
 pri "Creating volumes"
 pri "Creating SWAP"
-lvcreate -L $SWAP_SIZE $LVM_GROUP_NAME -n swap
+lvcreate -C y -L $SWAP_SIZE $LVM_GROUP_NAME -n swap
 pri "Creating ROOT of size $ROOT_SIZE"
-lvcreate -L $ROOT_SIZE $LVM_GROUP_NAME -n root
+lvcreate -C y -L $ROOT_SIZE $LVM_GROUP_NAME -n root
 pri "Creating HOME of size 100%FREE"
-lvcreate -l 100%FREE $LVM_GROUP_NAME -n home
+lvcreate -C y -l 100%FREE $LVM_GROUP_NAME -n home
 
 pri "Formatting volumes"
 pri "SWAP"
@@ -117,7 +119,7 @@ swapon $LVM_DIR/swap
 # Prepare to chroot
 confirm "Basestrap basic packages?"
 export LANG
-basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware $KERNEL $KERNEL-headers iptables-nft artix-keyring artix-mirrorlist mkinitcpio btrfs-progs
+basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware $KERNEL $KERNEL-headers artix-keyring artix-mirrorlist autoconf automake bison fakeroot flex gcc groff libtool m4 make patch pkgconf opendoas texinfo which btrfs-progs iptables-nft
 
 pri "Generating fstab"
 fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
@@ -132,8 +134,6 @@ pri "Chrooting..."
 artix-chroot $INSTALL_DIR sh $USER_HOME/home/.config/dotfiles/artix/after-chroot.sh
 
 confirm "Reboot?" "ignore"
-sync
 unmount
-sync
 reboot
 
