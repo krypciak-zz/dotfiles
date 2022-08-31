@@ -86,7 +86,7 @@ for group in "${PACKAGE_GROUPS[@]}"; do
     PACKAGE_LIST="$PACKAGE_LIST $(install_${group}) "
 done
 
-paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
+doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
 
 pri "Adding user $USER1 to groups"
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
