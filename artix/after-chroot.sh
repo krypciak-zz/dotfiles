@@ -117,7 +117,6 @@ chown root:root /etc/init.d/agetty-autologin*
 rc-update del agetty.tty1 default
 rc-update add agetty-autologin.tty1 default
 
-confirm "" "ignore"
 
 pri "Installing dotfiles for user $USER1"
 rm -rf $USER_HOME/.config
@@ -140,7 +139,6 @@ rm -rf $USER_HOME/.cargo
 find /var/cache/pacman/pkg/ -iname "*.part" -delete
 paru --noconfirm -Scc > /dev/null 2>&1
 
-confirm "" "ignore"
 
 pri "Set password for user $USER1"
 
