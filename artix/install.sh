@@ -114,7 +114,7 @@ swapon $LVM_DIR/swap
 # Prepare to chroot
 confirm "Basestrap basic packages?"
 export LANG
-basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware $KERNEL $KERNEL-headers iptables-nft artix-keyring artix-mirrorlist mkinitcpio
+basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc linux-firmware $KERNEL $KERNEL-headers iptables-nft artix-keyring artix-mirrorlist mkinitcpio btrfs-progs
 
 pri "Generating fstab"
 fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
