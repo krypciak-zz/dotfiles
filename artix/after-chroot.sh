@@ -33,7 +33,7 @@ cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 
 pri "Disabling mkinitcpio"
-mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
+#mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
 #sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
 
 pri "Updating keyring"
@@ -168,13 +168,19 @@ else
 fi
 chsh -s /bin/bash root > /dev/null 2>&1
 
+pri "Installing grub to $EFI_DIR_ALONE"
+grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE
+
 pri "Enabling mkinitpckio"
-mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
+#mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
 #sed -i '1d' /bin/mkinitcpio
 
 pri "Copying mkinitpcio configuration"
 cp $CONFIGD_DIR/mkinitcpio.conf /etc/mkinitcpio.conf
 chown root:root /etc/mkinitcpio.conf
+
+pri "Generating mkinitcpio"
+mkinitcpio -P
 
 pri "Copying grub configuration"
 cp $CONFIGD_DIR/grub /etc/default/grub
@@ -192,16 +198,8 @@ sed -i "s/LVM_GROUP_NAME/$ESCAPED_LVM_GROUP_NAME/g" /etc/default/grub
 #ESCAPED_LVM_DIR=$(printf '%s\n' "$LVM_DIR" | sed -e 's/[\/&]/\\&/g')
 #sed -i "s/LVM_DIR/$ESCAPED_LVM_DIR/g" /etc/default/grub
 
-pri "Installing grub to $EFI_DIR_ALONE"
-grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE
-
-pri "Generating mkinitcpio"
-mkinitcpio -P
-
 pri "Generating grub config"
 grub-mkconfig -o /boot/grub/grub.cfg
 
 confirm "" "ignore"
 
-
-bash
