@@ -1,5 +1,8 @@
 #!/bin/bash
 function install_drivers() {
+    PACKAGES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+    source "$PACKAGES_DIR/../vars.sh"
+    
     DRIVER_LIST='mesa lib32-mesa vulkan-icd-loader lib32-vulkan-icd-loader vulkan-headers '
     if [ $ALL_DRIVERS -eq 0 ]; then
         if [ "$CPU" == 'amd' ]; then DRIVER_LIST="$DRIVER_LIST amd-ucode"
