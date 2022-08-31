@@ -93,8 +93,7 @@ mkfs.btrfs -f -L root $LVM_DIR/root > /dev/null 2>&1
 pri "HOME"
 mkfs.btrfs -f -L home $LVM_DIR/home > /dev/null 2>&1
 pri "EFI"
-#mkfs.fat -n EFI -F 32 $EFI_PART
-mkfs.fat -F 32 $EFI_PART
+mkfs.fat -n EFI -F 32 $EFI_PART
 
 pri "Mounting volumes"
 pri "$INSTALL_DIR"
