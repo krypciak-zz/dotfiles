@@ -98,6 +98,7 @@ $HOME_FORMAT_COMMAND
 pri "EFI"
 $EFI_FORMAT_COMMAND
 
+confirm "" "ignore"
 
 pri "Mounting ${LBLUE}$LVM_DIR/root ${LGREEN}to ${LBLUE}$INSTALL_DIR/"
 mount $LVM_DIR/root $INSTALL_DIR/
@@ -109,6 +110,8 @@ mount $LVM_DIR/home $INSTALL_DIR/home/$USER1/
 pri "Mounting ${LBLUE}${EFI_PART}${LGREEN} to ${LBLUE}$EFI_DIR"
 mkdir -p $EFI_DIR
 mount $EFI_PART $EFI_DIR
+
+confirm "" "ignore"
 
 pri "Turning swap on"
 swapon $LVM_DIR/swap
