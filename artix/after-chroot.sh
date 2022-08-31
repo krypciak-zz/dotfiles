@@ -78,28 +78,16 @@ doas -u $USER1 makepkg -si --noconfirm --needed
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
-pri "Installing drivers"
-DRIVER_LIST='mesa lib32-mesa vulkan-icd-loader lib32-vulkan-icd-loader '
-if [ $ALL_DRIVERS -eq 0 ]; then
-    if [ "$CPU" == 'amd' ]; then DRIVER_LIST="$DRIVER_LIST amd-ucode"
-    elif [ "$CPU" == 'intel' ]; then DRIVER_LIST="$DRIVER_LIST intel-ucode"
-    else confirm "Invalid CPU: $CPU" "ignore"; fi
-
-    if [ "$GPU" == 'amd' ]; then DRIVER_LIST="$DRIVER_LIST xf86-video-amdgpu amdvlk lib32-amdvlk vulkan-radeon lib32-vulkan-radeon"
-    elif [ "$GPU" == 'ati' ]; then DRIVER_LIST="$DRIVER_LIST xf86-video-ati amdvlk lib32-amdvlk vulkan-radeon lib32-vulkan-radeon"
-    elif [ "$GPU" == 'intel' ]; then DRIVER_LIST="$DRIVER_LIST xf86-video-intel vulkan-intel lib32-vulkan-intel"
-    elif [ "$GPU" == 'nvidia' ]; then DRIVER_LIST="$DRIVER_LIST xf86-video-nouveau nvidia-utils"
-    else confirm "Invalid GPU: $GPU" "ignore"; fi
-
-elif [ $ALL_DRIVERS -eq 1 ]; then
-    DRIVER_LIST="$DRIVER_LIST amd-ucode intel-ucode"
-    DRIVER_LIST="$DRIVER_LIST $(pacman -Ssq xf86-video-)"
-    DRIVER_LIST="$DRIVER_LIST $(pacman -Ssq vulkan)"
-fi
-pacman $PACMAN_ARGUMENTS -S $DRIVER_LIST
-
 confirm "Install packages?"
-doas -u $USER1 sh $ARTIXD_DIR/install-packages.sh
+PACKAGE_LIST=''
+for group in "${PACKAGE_GROUPS[@]}"; do
+    source $ARTIXD_DIR/packages/install-${group}.sh
+    pri "Installing $group"
+    PACKAGE_LIST="$PACKAGE_LIST $(install_${group}) "
+done
+pri "$PACKAGE_LIST"
+confirm "" "ignore"
+paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
 
 pri "Adding user $USER1 to groups"
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1

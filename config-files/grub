@@ -5,6 +5,7 @@ GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR="Artix"
 GRUB_CMDLINE_LINUX_DEFAULT=""
 GRUB_CMDLINE_LINUX="cryptdevice=UUID=CRYPT_UUID:CRYPT_NAME root=LVM_DIR/root"
+#GRUB_CMDLINE_LINUX="cryptdevice=UUID=CRYPT_UUID:CRYPT_NAME root=LVM_DIR/root"
 
 # Preload both GPT and MBR modules so that they are not missed
 GRUB_PRELOAD_MODULES="part_gpt part_msdos"
