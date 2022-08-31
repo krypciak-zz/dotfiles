@@ -85,8 +85,7 @@ for group in "${PACKAGE_GROUPS[@]}"; do
     pri "Installing $group"
     PACKAGE_LIST="$PACKAGE_LIST $(install_${group}) "
 done
-pri "$PACKAGE_LIST"
-confirm "" "ignore"
+
 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
 
 pri "Adding user $USER1 to groups"
