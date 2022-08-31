@@ -98,8 +98,6 @@ $HOME_FORMAT_COMMAND > /dev/null 2>&1
 pri "EFI"
 $EFI_FORMAT_COMMAND 
 
-confirm "" "ignore"
-
 pri "Mounting ${LBLUE}$LVM_DIR/root ${LGREEN}to ${LBLUE}$INSTALL_DIR/"
 mount $LVM_DIR/root $INSTALL_DIR/
 
