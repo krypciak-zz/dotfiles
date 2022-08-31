@@ -203,12 +203,13 @@ sed -i "s/LVM_DIR/$ESCAPED_LVM_DIR/g" /etc/default/grub
 pri "Installing grub to $EFI_DIR_ALONE"
 grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE
 
+pri "Generating mkinitcpio"
+mkinitcpio -P
+
 pri "Generating grub config"
 grub-mkconfig -o /boot/grub/grub.cfg
 
 confirm "" "ignore"
 
-pri "Generating mkinitcpio"
-mkinitcpio -P
 
 bash
