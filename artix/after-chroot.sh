@@ -168,9 +168,6 @@ else
 fi
 chsh -s /bin/bash root > /dev/null 2>&1
 
-pri "Installing grub to $EFI_DIR_ALONE"
-grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE
-
 pri "Enabling mkinitpckio"
 #mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
 #sed -i '1d' /bin/mkinitcpio
@@ -186,9 +183,13 @@ pri "Copying grub configuration"
 cp $CONFIGD_DIR/grub /etc/default/grub
 chown root:root /etc/default/grub
 
-CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
+pri "Installing grub to $EFI_DIR_ALONE"
+grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE
+
+#CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
 ESCAPED_CRYPT_UUID=$(printf '%s\n' "$CRYPT_UUID" | sed -e 's/[\/&]/\\&/g')
-sed -i "s/CRYPT_UUID/$ESCAPED_CRYPT_UUID/g" /etc/default/grub
+ESCAPED_CRYPT_PART=$(printf '%s\n' "$CRYPT_PART" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/CRYPT_PART/$ESCAPED_CRYPT_PART/g" /etc/default/grub
 
 ESCAPED_CRYPT_NAME=$(printf '%s\n' "$CRYPT_NAME" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/CRYPT_NAME/$ESCAPED_CRYPT_NAME/g" /etc/default/grub
