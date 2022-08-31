@@ -93,10 +93,9 @@ pri "SWAP"
 mkswap -L swap $LVM_DIR/swap
 pri "ROOT"
 $ROOT_FORMAT_COMMAND 
-# > /dev/null 2>&1
 confirm "" "ignore"
 pri "HOME"
-$HOME_FORMAT_COMMAND > /dev/null 2>&1
+$HOME_FORMAT_COMMAND 
 pri "EFI"
 $EFI_FORMAT_COMMAND 
 
