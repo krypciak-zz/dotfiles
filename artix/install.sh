@@ -34,6 +34,7 @@ echo p # primary partition
 echo 2 # partion number 2
 echo " "  # default, start immediately after preceding partition
 echo " " # default, extend partition to end of disk
+echo " "
 echo t # set partition type
 echo 43 # to LV
 echo p # print the in-memory partition table
