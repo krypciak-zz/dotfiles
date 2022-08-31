@@ -48,12 +48,6 @@ pacman-key --populate
 sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/g' /etc/pacman.conf
 sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional/g' /etc/pacman.conf
 
-confirm "Install base packages?"
-# Remove conficting dir
-rm -rf /usr/lib64
-sh $ARTIXD_DIR/install-base.sh
-
-neofetch
 
 pri "Adding user $USER1"
 useradd -s /bin/bash $USER1
@@ -78,6 +72,13 @@ doas -u $USER1 makepkg -si --noconfirm --needed
 # Set paru auth method to doas
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
+
+confirm "Install base packages?"
+# Remove conficting dir
+#rm -rf /usr/lib64
+sh $ARTIXD_DIR/install-base.sh
+
+
 
 confirm "Install packages?"
 PACKAGE_LIST=''
