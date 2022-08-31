@@ -177,14 +177,12 @@ cp $CONFIGD_DIR/mkinitcpio.conf /etc/mkinitcpio.conf
 chown root:root /etc/mkinitcpio.conf
 
 pri "Generating mkinitcpio"
-mkinitcpio -P
+mkinitcpio -p $KERNEL
 
 pri "Copying grub configuration"
 cp $CONFIGD_DIR/grub /etc/default/grub
 chown root:root /etc/default/grub
 
-pri "Installing grub to $EFI_DIR_ALONE"
-grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE
 
 CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
 ESCAPED_CRYPT_UUID=$(printf '%s\n' "$CRYPT_UUID" | sed -e 's/[\/&]/\\&/g')
@@ -195,6 +193,9 @@ ESCAPED_LVM_GROUP_NAME=$(printf '%s\n' "$LVM_GROUP_NAME" | sed -e 's/[\/&]/\\&/g
 sed -i "s/LVM_GROUP_NAME/$ESCAPED_LVM_GROUP_NAME/g" /etc/default/grub
 #ESCAPED_LVM_DIR=$(printf '%s\n' "$LVM_DIR" | sed -e 's/[\/&]/\\&/g')
 #sed -i "s/LVM_DIR/$ESCAPED_LVM_DIR/g" /etc/default/grub
+
+pri "Installing grub to $EFI_DIR_ALONE"
+grub-install --bootloader-id=$BOOTLOADER_ID --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE
 
 pri "Generating grub config"
 grub-mkconfig -o /boot/grub/grub.cfg

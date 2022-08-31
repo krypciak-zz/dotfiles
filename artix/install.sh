@@ -4,6 +4,7 @@ ARTIXD_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$ARTIXD_DIR/vars.sh"
 
 function unmount() {
+    swapoff -a > /dev/null 2>&1
     umount -q $EFI_PART > /dev/null 2>&1
     umount -Rq $INSTALL_DIR > /dev/null 2>&1
     swapoff $LVM_DIR/swap > /dev/null 2>&1
@@ -44,6 +45,7 @@ echo q # and we're done
 confirm "Is this OK?"
 
 # Create encryptred container on LVM_PART
+ cryptsetup benchmark
 
 if [ "$LVM_PASSWORD" != "" ]; then 
     pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
