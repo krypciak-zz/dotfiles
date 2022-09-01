@@ -77,9 +77,9 @@ sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
 confirm "Install base packages?"
-rm -rf /usr/lib64
+#rm -rf /usr/lib64
 #doas -u $USER1 sh $ARTIXD_DIR/install-base.sh
-sh $ARTIXD_DIR/install-base.sh
+#sh $ARTIXD_DIR/install-base.sh
 pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc
 
 
