@@ -38,8 +38,6 @@ chown root:root /etc/hosts
 pri "Disabling mkinitcpio"
 mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
 #sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
-pacman -Sy
-: <<'END_COMMENT'
 
 pri "Updating keyring"
 # Disable package signature verification
@@ -51,7 +49,7 @@ pacman-key --populate
 # Enable package signature verification
 sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/g' /etc/pacman.conf
 sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional/g' /etc/pacman.conf
-END_COMMENT
+
 pri "Adding user $USER1"
 useradd -s /bin/bash $USER1
 chown -R $USER1:$USER1 $USER_HOME/
@@ -78,12 +76,11 @@ doas -u $USER1 makepkg -si --noconfirm --needed
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
-#: <<'END_COMMENT'
+: <<'END_COMMENT'
 confirm "Install base packages?"
 rm -rf /usr/lib64
 doas -u $USER1 sh $ARTIXD_DIR/install-base.sh
 
-confirm "" "ignore"
 
 
 confirm "Install packages?"
