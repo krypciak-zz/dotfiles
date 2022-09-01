@@ -50,6 +50,10 @@ pacman-key --populate
 sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/g' /etc/pacman.conf
 sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional/g' /etc/pacman.conf
 
+confirm "Install base packages?"
+pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget
+doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S opendoas-sudo nvim-packer-git
+
 pri "Adding user $USER1"
 useradd -s /bin/bash $USER1
 chown -R $USER1:$USER1 $USER_HOME/
@@ -76,12 +80,6 @@ doas -u $USER1 makepkg -si --noconfirm --needed
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
-confirm "Install base packages?"
-#rm -rf /usr/lib64
-#doas -u $USER1 sh $ARTIXD_DIR/install-base.sh
-#sh $ARTIXD_DIR/install-base.sh
-pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc
-confirm "" "ignore"
 
 confirm "Install packages?"
 PACKAGE_LIST=''
@@ -105,7 +103,7 @@ rc-update add dmcrypt boot
 rc-update add dbus default
 rc-update add elogind boot
 
-#: <<'END_COMMENT'
+
 pri "Configuring qemu"
 rc-update add libvirtd default
 cp $CONFIGD_DIR/libvirtd.conf /etc/libvirt/libvirtd.conf
