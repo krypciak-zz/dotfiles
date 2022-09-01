@@ -133,7 +133,9 @@ cp -rf $ARTIXD_DIR/../ $DOTFILES_DIR/
 pri "Chrooting..."
 artix-chroot $INSTALL_DIR sh $USER_HOME/home/.config/dotfiles/artix/after-chroot.sh
 
-confirm "Reboot?" 
+if [ $AUTO_REBOOT -eq 0 ]; then
+    confirm "Reboot?" "ignore"
+fi
 unmount
 reboot
 
