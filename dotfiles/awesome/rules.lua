@@ -80,7 +80,8 @@ awful.rules.rules = {
         rule_any = {
             class = {
 		        "leagueclient.exe", "leagueclientux.exe",
-     		    "riotclientux.exe"
+     		    "riotclientux.exe", "keepassxc",
+                "KeePassXC"
 	        },
         },
         callback = awful.placement.centered,
