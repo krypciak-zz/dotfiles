@@ -38,7 +38,7 @@ chown root:root /etc/hosts
 pri "Disabling mkinitcpio"
 mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
 #sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
-
+pacman -Sy
 : <<'END_COMMENT'
 
 pri "Updating keyring"
