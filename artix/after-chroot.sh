@@ -38,17 +38,16 @@ mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.ho
 #sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
 
 
-#pri "Updating keyring"
-pacman -Sy
+pri "Updating keyring"
 # Disable package signature verification
-#sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
-#sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional/g' /etc/pacman.conf
-#pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support
-#pacman-key --init
-#pacman-key --populate
+sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
+sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional/g' /etc/pacman.conf
+pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support
+pacman-key --init
+pacman-key --populate
 # Enable package signature verification
-#sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/g' /etc/pacman.conf
-#sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional/g' /etc/pacman.conf
+sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/g' /etc/pacman.conf
+sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional/g' /etc/pacman.conf
 
 
 pri "Adding user $USER1"
