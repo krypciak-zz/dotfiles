@@ -27,6 +27,7 @@ pri "Setting hosts"
 cp $CONFIGD_DIR/hosts /etc/hosts
 chown root:root /etc/hosts
 
+: <<'END_COMMENT'
 
 pri "Copying pacman configuration"
 cp $CONFIGD_DIR/pacman.conf /etc/pacman.conf
@@ -38,7 +39,6 @@ pri "Disabling mkinitcpio"
 mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
 #sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
 
-: <<'END_COMMENT'
 
 pri "Updating keyring"
 # Disable package signature verification
