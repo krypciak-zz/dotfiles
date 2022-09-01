@@ -28,11 +28,12 @@ cp $CONFIGD_DIR/hosts /etc/hosts
 chown root:root /etc/hosts
 
 
-pri "Copying pacman configuration"
-cp $CONFIGD_DIR/pacman.conf /etc/pacman.conf
-chown root:root /etc/pacman.conf
-cp -r $CONFIGD_DIR/pacman.d /etc/
-chown -R root:root /etc/pacman.d
+#pri "Copying pacman configuration"
+#p $CONFIGD_DIR/pacman.conf /etc/pacman.conf
+#chown root:root /etc/pacman.conf
+#cp -r $CONFIGD_DIR/pacman.d /etc/
+#chown -R root:root /etc/pacman.d
+
 
 pri "Disabling mkinitcpio"
 mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
