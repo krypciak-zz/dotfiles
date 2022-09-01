@@ -97,6 +97,9 @@ doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
 pri "Adding user $USER1 to groups"
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
 END_COMMENT
+
+pacman -S lvm2 cryptsetup glibc mkinitcpio grub dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc
+
 pri "Enabling services"
 rc-update add NetworkManager default
 rc-update add device-mapper boot
