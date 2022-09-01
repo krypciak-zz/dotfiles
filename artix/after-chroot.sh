@@ -34,21 +34,24 @@ chown root:root /etc/hosts
 #cp -r $CONFIGD_DIR/pacman.d /etc/
 #chown -R root:root /etc/pacman.d
 
+sed -i 's/#Color/Color/g' /etc/pacman.conf
+sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
+
 
 pri "Disabling mkinitcpio"
 mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
 #sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
 
-pri "Updating keyring"
+#pri "Updating keyring"
 # Disable package signature verification
-sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
-sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional/g' /etc/pacman.conf
-pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support
-pacman-key --init
-pacman-key --populate
+#sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
+#sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional/g' /etc/pacman.conf
+#pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support
+#pacman-key --init
+#pacman-key --populate
 # Enable package signature verification
-sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/g' /etc/pacman.conf
-sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional/g' /etc/pacman.conf
+#sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/g' /etc/pacman.conf
+#sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional/g' /etc/pacman.conf
 
 pri "Copying temporary doas config"
 echo "permit nopass setenv { USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
