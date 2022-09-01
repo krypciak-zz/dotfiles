@@ -77,7 +77,7 @@ sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
 confirm "Install base packages?"
 # Remove conficting dir
-#rm -rf /usr/lib64
+rm -rf /usr/lib64
 doas -u $USER1 sh $ARTIXD_DIR/install-base.sh
 
 confirm "" "ignore"
