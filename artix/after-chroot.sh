@@ -82,6 +82,7 @@ rm -rf /usr/lib64
 doas -u $USER1 sh $ARTIXD_DIR/install-base.sh
 
 
+END_COMMENT
 
 confirm "Install packages?"
 PACKAGE_LIST=''
@@ -93,7 +94,6 @@ done
 
 doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
 
-END_COMMENT
 pri "Adding user $USER1 to groups"
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
 
