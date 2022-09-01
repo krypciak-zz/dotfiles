@@ -41,7 +41,8 @@ pri "Updating keyring"
 # Disable package signature verification
 sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
 sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional/g' /etc/pacman.conf
-pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support
+#pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support
+pacman $PACMAN_ARGUMENTS -Sy artix-keyring artix-mirrorlist
 pacman-key --init
 pacman-key --populate
 # Enable package signature verification
@@ -134,7 +135,6 @@ cp $CONFIGD_DIR/doas.conf /etc/doas.conf
 chown root:root /etc/doas.conf
 chmod -rw /etc/doas.conf
 
-pri "Installing dmenu_run_history"
 
 pri "Cleaning up"
 rm -rf $USER_HOME/.cargo
