@@ -48,10 +48,12 @@ pri "Updating keyring"
 # Disable package signature verification
 sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
 sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional/g' /etc/pacman.conf
+# Add lib32 repo
+printf '[lib32]\nInclude = /etc/pacman.d/mirrorlist\n' >> /etc/pacman.conf
 # Add universe repo
 printf '[universe]\nServer = https://universe.artixlinux.org/$arch\nServer = https://mirror1.artixlinux.org/universe/$arch\nServer = https://mirror.pascalpuffke.de/artix-universe/$arch\nServer = https://artixlinux.qontinuum.space/artixlinux/universe/os/$arch\nServer = https://mirror1.cl.netactuate.com/artix/universe/$arch\nServer = https://ftp.crifo.org/artix-universe/' >> /etc/pacman.conf
 
-pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support
+pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support lib32-artix-archlinux-support
 pacman-key --init
 pacman-key --populate
 pri "Copying pacman configuration"
