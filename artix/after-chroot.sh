@@ -27,6 +27,8 @@ pri "Setting hosts"
 cp $CONFIGD_DIR/hosts /etc/hosts
 chown root:root /etc/hosts
 
+: <<'END_COMMENT'
+
 pri "Copying pacman configuration"
 cp $CONFIGD_DIR/pacman.conf /etc/pacman.conf
 chown root:root /etc/pacman.conf
@@ -49,7 +51,6 @@ pacman-key --populate
 sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/g' /etc/pacman.conf
 sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional/g' /etc/pacman.conf
 
-
 pri "Adding user $USER1"
 useradd -s /bin/bash $USER1
 chown -R $USER1:$USER1 $USER_HOME/
@@ -58,6 +59,7 @@ chown -R $USER1:$USER1 $ARTIXD_DIR
 pri "Copying temporary doas config"
 echo "permit nopass setenv { USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
 echo "permit nopass setenv { USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } $USER1" >> /etc/doas.conf
+
 
 sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 
@@ -71,16 +73,16 @@ cd /tmp/paru
 doas -u $USER1 makepkg -si --noconfirm --needed
 
 # Set paru auth method to doas
+
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
-
 confirm "Install base packages?"
-# Remove conficting dir
 rm -rf /usr/lib64
 doas -u $USER1 sh $ARTIXD_DIR/install-base.sh
 
 confirm "" "ignore"
+
 
 confirm "Install packages?"
 PACKAGE_LIST=''
@@ -94,7 +96,7 @@ doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
 
 pri "Adding user $USER1 to groups"
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
-
+END_COMMENT
 pri "Enabling services"
 rc-update add NetworkManager default
 rc-update add device-mapper boot
@@ -103,6 +105,7 @@ rc-update add dmcrypt boot
 rc-update add dbus default
 rc-update add elogind boot
 
+: <<'END_COMMENT'
 pri "Configuring qemu"
 rc-update add libvirtd default
 cp $CONFIGD_DIR/libvirtd.conf /etc/libvirt/libvirtd.conf
@@ -131,7 +134,6 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
     pri "Installing dotfiles for root"
     sh $DOTFILES_DIR/install-dotfiles-root.sh
 fi
-
 pri "Copying doas configuration"
 cp $CONFIGD_DIR/doas.conf /etc/doas.conf
 chown root:root /etc/doas.conf
@@ -157,6 +159,7 @@ else
     done
 fi
 chown -R $USER1:$USER1 $USER_HOME
+END_COMMENT
 
 pri "Set password for root"
 if [ "$ROOT_PASSWORD" != "" ]; then
