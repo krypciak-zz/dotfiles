@@ -80,6 +80,8 @@ confirm "Install base packages?"
 #rm -rf /usr/lib64
 doas -u $USER1 sh $ARTIXD_DIR/install-base.sh
 
+confirm "" "ignore"
+
 confirm "Install packages?"
 PACKAGE_LIST=''
 for group in "${PACKAGE_GROUPS[@]}"; do
