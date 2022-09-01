@@ -28,12 +28,6 @@ cp $CONFIGD_DIR/hosts /etc/hosts
 chown root:root /etc/hosts
 
 
-#pri "Copying pacman configuration"
-#p $CONFIGD_DIR/pacman.conf /etc/pacman.conf
-#chown root:root /etc/pacman.conf
-#cp -r $CONFIGD_DIR/pacman.d /etc/
-#chown -R root:root /etc/pacman.d
-
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 
@@ -42,23 +36,30 @@ pri "Disabling mkinitcpio"
 mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
 #sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
 
-#pri "Updating keyring"
-# Disable package signature verification
-#sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
-#sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional/g' /etc/pacman.conf
-#pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support
-#pacman-key --init
-#pacman-key --populate
-# Enable package signature verification
-#sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/g' /etc/pacman.conf
-#sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional/g' /etc/pacman.conf
-
 pri "Copying temporary doas config"
 echo "permit nopass setenv { USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
 echo "permit nopass setenv { USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } $USER1" >> /etc/doas.conf
 
 confirm "Install base packages?"
 pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget
+
+
+pri "Updating keyring"
+# Disable package signature verification
+sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
+sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional/g' /etc/pacman.conf
+# Add universe repo
+printf '[universe]\nServer = https://universe.artixlinux.org/$arch\nServer = https://mirror1.artixlinux.org/universe/$arch\nServer = https://mirror.pascalpuffke.de/artix-universe/$arch\nServer = https://artixlinux.qontinuum.space/artixlinux/universe/os/$arch\nServer = https://mirror1.cl.netactuate.com/artix/universe/$arch\nServer = https://ftp.crifo.org/artix-universe/' >> /etc/pacman.conf
+
+pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support
+pacman-key --init
+pacman-key --populate
+pri "Copying pacman configuration"
+cp $CONFIGD_DIR/pacman.conf /etc/pacman.conf
+chown root:root /etc/pacman.conf
+cp -r $CONFIGD_DIR/pacman.d /etc/
+chown -R root:root /etc/pacman.d
+
 
 pri "Adding user $USER1"
 useradd -s /bin/bash $USER1
