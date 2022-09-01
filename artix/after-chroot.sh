@@ -79,7 +79,6 @@ confirm "Install base packages?"
 rm -rf /usr/lib64
 doas -u $USER1 sh $ARTIXD_DIR/install-base.sh
 
-
 confirm "Install packages?"
 PACKAGE_LIST=''
 for group in "${PACKAGE_GROUPS[@]}"; do
@@ -120,13 +119,15 @@ rc-update del agetty.tty1 default
 rc-update add agetty-autologin.tty1 default
 
 
-pri "Installing dotfiles for user $USER1"
-rm -rf $USER_HOME/.config
-export USER1
-doas -u $USER1 sh $DOTFILES_DIR/install-dotfiles.sh
+if [ $INSTALL_DOTFILES -eq 1 ]; then
+    pri "Installing dotfiles for user $USER1"
+    rm -rf $USER_HOME/.config
+    export USER1
+    doas -u $USER1 sh $DOTFILES_DIR/install-dotfiles.sh
 
-pri "Installing dotfiles for root"
-sh $DOTFILES_DIR/install-dotfiles-root.sh
+    pri "Installing dotfiles for root"
+    sh $DOTFILES_DIR/install-dotfiles-root.sh
+fi
 
 pri "Copying doas configuration"
 cp $CONFIGD_DIR/doas.conf /etc/doas.conf
@@ -134,7 +135,6 @@ chown root:root /etc/doas.conf
 chmod -rw /etc/doas.conf
 
 pri "Installing dmenu_run_history"
-wget --quiet https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/dmenu_run_history -O /bin/dmenu_run_history
 
 pri "Cleaning up"
 rm -rf $USER_HOME/.cargo
