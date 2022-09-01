@@ -56,7 +56,6 @@ echo "permit nopass setenv { USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } $USER1" >> 
 
 confirm "Install base packages?"
 pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget
-doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S opendoas-sudo nvim-packer-git
 
 pri "Adding user $USER1"
 useradd -s /bin/bash $USER1
@@ -81,6 +80,7 @@ sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
 
 confirm "Install packages?"
+doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S opendoas-sudo nvim-packer-git
 PACKAGE_LIST=''
 for group in "${PACKAGE_GROUPS[@]}"; do
     source $ARTIXD_DIR/packages/install-${group}.sh
