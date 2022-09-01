@@ -50,7 +50,7 @@ pacman-key --populate
 # Enable package signature verification
 sed -i 's/SigLevel = Never/SigLevel    = Required DatabaseOptional/g' /etc/pacman.conf
 sed -i 's/#LocalFileSigLevel = Optional/LocalFileSigLevel = Optional/g' /etc/pacman.conf
-
+END_COMMENT
 pri "Adding user $USER1"
 useradd -s /bin/bash $USER1
 chown -R $USER1:$USER1 $USER_HOME/
@@ -77,6 +77,7 @@ doas -u $USER1 makepkg -si --noconfirm --needed
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
+: <<'END_COMMENT'
 confirm "Install base packages?"
 rm -rf /usr/lib64
 doas -u $USER1 sh $ARTIXD_DIR/install-base.sh
@@ -94,9 +95,9 @@ done
 
 doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
 
+END_COMMENT
 pri "Adding user $USER1 to groups"
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
-END_COMMENT
 
 pacman -S lvm2 cryptsetup glibc mkinitcpio grub dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc
 
