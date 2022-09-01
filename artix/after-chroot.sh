@@ -39,6 +39,7 @@ mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.ho
 
 
 #pri "Updating keyring"
+pacman -Sy
 # Disable package signature verification
 #sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
 #sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional/g' /etc/pacman.conf
