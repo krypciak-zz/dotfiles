@@ -7,6 +7,8 @@ CONFIGD_DIR=$DOTFILES_DIR/config-files
 source "$ARTIXD_DIR/vars.sh"
 export PACMAN_ARGUMENTS
 export PARU_ARGUMENTS
+export YOLO
+export USER1
 
 pri "Setting time"
 ln -sf /usr/share/zoneinfo/$REGION/$CITY /etc/localtime
@@ -136,10 +138,8 @@ rc-update add agetty-autologin.tty1 default
 END_COMMENT
 
 if [ $INSTALL_DOTFILES -eq 1 ]; then
-    export YOLO
     pri "Installing dotfiles for user $USER1"
     rm -rf $USER_HOME/.config
-    export USER1
     doas -u $USER1 sh $DOTFILES_DIR/install-dotfiles.sh
 
     pri "Installing dotfiles for root"
@@ -184,6 +184,13 @@ else
         sleep 15
     done
 fi
+
+ if [ $INSTALL_PRIVATE_DOTFILES -eq 1 ]; then
+    confirm "Install private dotfiles?"
+    sh $DOTFILES_DIR/decrypt-private-data.sh
+    conrifm "" "ignore"
+ fi
+
 chsh -s /bin/bash root > /dev/null 2>&1
 
 pri "Enabling mkinitpckio"

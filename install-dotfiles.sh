@@ -28,7 +28,6 @@ SYMLINKS_DIRS=(
 
 HOME_DIRS=(
     ".bashrc"
-    ".bash_profile"
 )
 
 LINK_HOME_DIRS=(
