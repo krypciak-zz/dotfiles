@@ -37,8 +37,8 @@ mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.ho
 #sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
 
 pri "Copying temporary doas config"
-echo "permit nopass setenv { USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
-echo "permit nopass setenv { USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } $USER1" >> /etc/doas.conf
+echo "permit nopass setenv { YOLO USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
+echo "permit nopass setenv { YOLO USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } $USER1" >> /etc/doas.conf
 
 confirm "Install base packages?"
 pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget
@@ -136,6 +136,7 @@ rc-update add agetty-autologin.tty1 default
 END_COMMENT
 
 if [ $INSTALL_DOTFILES -eq 1 ]; then
+    export YOLO
     pri "Installing dotfiles for user $USER1"
     rm -rf $USER_HOME/.config
     export USER1
