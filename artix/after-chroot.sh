@@ -66,8 +66,6 @@ cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 pacman -Sy 
 
-confirm "" "ignore"
-
 
 pri "Adding user $USER1"
 useradd -s /bin/bash -G tty,ftp,games,network,scanner,users,video,audio,wheel $USER1
@@ -94,8 +92,6 @@ chown -R root:root /etc/paru.conf
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
-confirm "" "ignore"
-
 confirm "Install packages?"
 doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S opendoas-sudo nvim-packer-git greetd-tuigreet-bin greetd-artix-openrc greetd-tuigreet-bin
 PACKAGE_LIST=''
@@ -115,15 +111,12 @@ for group in "${PACKAGE_GROUPS[@]}"; do
     fi
 done
 
-confirm "" "ignore"
 
 pri "Enabling services"
 rc-update add NetworkManager default
 #rc-update add device-mapper boot
 rc-update add lvm boot
 #rc-update add dmcrypt boot
-rc-update add dbus default
-rc-update add elogind boot
 
 pri "Configuring greetd"
 cp $CONFIGD_DIR/greetd_config.toml /etc/greetd/config.toml
@@ -136,7 +129,6 @@ rc-update del agetty.tty4 default
 rc-update del agetty.tty5 default
 rc-update del agetty.tty6 default
 
-confirm "" "ignore"
 
 : << END_COMMENT
 pri "Deploying autologin service"
@@ -159,6 +151,7 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
 
     if [ $INSTALL_PRIVATE_DOTFILES -eq 1 ]; then
         confirm "Install private dotfiles?"
+        export GPG_AGENT_INFO=""
         sh $DOTFILES_DIR/decrypt-private-data.sh
     fi
 fi
