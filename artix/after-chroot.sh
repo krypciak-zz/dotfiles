@@ -55,7 +55,7 @@ printf '[lib32]\nInclude = /etc/pacman.d/mirrorlist\n' >> /etc/pacman.conf
 # Add universe repo
 printf '[universe]\nServer = https://universe.artixlinux.org/$arch\nServer = https://mirror1.artixlinux.org/universe/$arch\nServer = https://mirror.pascalpuffke.de/artix-universe/$arch\nServer = https://artixlinux.qontinuum.space/artixlinux/universe/os/$arch\nServer = https://mirror1.cl.netactuate.com/artix/universe/$arch\nServer = https://ftp.crifo.org/artix-universe/\n' >> /etc/pacman.conf
 
-pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support lib32-artix-archlinux-support
+pacman $PACMAN_ARGUMENTS -S artix-archlinux-support lib32-artix-archlinux-support
 pacman-key --init
 pacman-key --populate
 pri "Copying pacman configuration"
@@ -63,6 +63,7 @@ cp $CONFIGD_DIR/pacman.conf /etc/pacman.conf
 chown root:root /etc/pacman.conf
 cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
+pacman -Sy 
 
 
 pri "Adding user $USER1"
@@ -74,12 +75,16 @@ sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 
 pri "Installing paru (AUR manager)"
 if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
-pacman $PACMAN_ARGUMENTS -Sy git
+pacman $PACMAN_ARGUMENTS -S git
 git clone https://aur.archlinux.org/paru-bin.git /tmp/paru
 chown -R $USER1:$USER1 /tmp/paru
 chmod +wrx /tmp/paru
 cd /tmp/paru
 doas -u $USER1 makepkg -si --noconfirm --needed
+
+# Copy paru configuration
+cp -r $CONFIGD_DIR/paru.conf /etc/
+chown -R root:root /etc/paru.conf
 
 # Set paru auth method to doas
 
@@ -109,9 +114,9 @@ done
 
 pri "Enabling services"
 rc-update add NetworkManager default
-rc-update add device-mapper boot
+#rc-update add device-mapper boot
 rc-update add lvm boot
-rc-update add dmcrypt boot
+#rc-update add dmcrypt boot
 rc-update add dbus default
 rc-update add elogind boot
 
