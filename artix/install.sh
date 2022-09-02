@@ -41,10 +41,13 @@ echo t # set partition type
 echo 2
 echo 43 # to LV
 echo p # print the in-memory partition table
-echo w # write the partition table
-echo q # and we're done
+if [ $YOLO -eq 1 ]; then
+    echo w # write
+    echo q # quit
+else
+    pri "If those changes are OK, type w to write and q to quit."
+fi
 ) | fdisk $DISK
-confirm "Is this OK?"
 
 # Create encryptred container on LVM_PART
 
