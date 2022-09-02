@@ -66,6 +66,8 @@ cp -r $CONFIGD_DIR/pacman.d /etc/
 chown -R root:root /etc/pacman.d
 pacman -Sy 
 
+confirm "" "ignore"
+
 
 pri "Adding user $USER1"
 useradd -s /bin/bash -G tty,ftp,games,network,scanner,users,video,audio,wheel $USER1
@@ -92,6 +94,7 @@ chown -R root:root /etc/paru.conf
 sed -i 's/#\[bin\]/\[bin\]/g' /etc/paru.conf
 sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
+confirm "" "ignore"
 
 confirm "Install packages?"
 doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S opendoas-sudo nvim-packer-git greetd-tuigreet-bin greetd-artix-openrc greetd-tuigreet-bin

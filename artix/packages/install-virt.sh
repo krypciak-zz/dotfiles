@@ -11,6 +11,8 @@ function configure_virt() {
     cp $CONFIGD_DIR/qemu.conf /etc/libvirt/qemu.conf
     sed -i "s/USER/${USER1}/g" /etc/libvirt/qemu.conf
     chown root:root /etc/libvirt/qemu.conf
+
+    usermod -aG libvirt $USER1
 }
 
 printf 'bul\nbul\nbul\nbul'
