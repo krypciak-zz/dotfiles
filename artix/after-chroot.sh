@@ -120,7 +120,8 @@ rc-update add lvm boot
 
 pri "Configuring greetd"
 cp $CONFIGD_DIR/greetd_config.toml /etc/greetd/config.toml
-sed -i "s/USER_HOME/${USER_HOME}/g" /etc/greetd/config.toml
+ESCAPED_USER_HOME=$(printf '%s\n' "$USER_HOME" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/USER_HOME/${ESCAPED_USER_HOME}/g" /etc/greetd/config.toml
 sed -i "s/USER1/${USER1}/g" /etc/greetd/config.toml
 chown greeter:greeter /etc/greetd/config.toml
 rc-update add greetd default
