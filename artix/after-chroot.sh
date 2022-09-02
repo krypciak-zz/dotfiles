@@ -105,8 +105,6 @@ for group in "${PACKAGE_GROUPS[@]}"; do
 done
 
 
-
-
 pri "Enabling services"
 rc-update add NetworkManager default
 rc-update add device-mapper boot
@@ -115,8 +113,19 @@ rc-update add dmcrypt boot
 rc-update add dbus default
 rc-update add elogind boot
 
+pri "Configuring ly"
+wget https://raw.githubusercontent.com/fairyglade/ly/master/res/ly-openrc -O /etc/init.d/ly
+chmod +x /etc/init.d/ly
+rc-update add ly default
+rc-update del agetty.tty1
+rc-update del agetty.tty2
+rc-update del agetty.tty3
+rc-update del agetty.tty4
+rc-update del agetty.tty5
+rc-update del agetty.tty6
 
 
+: << END_COMMENT
 pri "Deploying autologin service"
 cp $CONFIGD_DIR/agetty-autologin* /etc/init.d/
 sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin
@@ -124,6 +133,7 @@ chown root:root /etc/init.d/agetty-autologin*
 
 rc-update del agetty.tty1 default
 rc-update add agetty-autologin.tty1 default
+END_COMMENT
 
 if [ $INSTALL_DOTFILES -eq 1 ]; then
     pri "Installing dotfiles for user $USER1"
