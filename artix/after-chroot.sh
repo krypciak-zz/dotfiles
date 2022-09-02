@@ -111,20 +111,14 @@ rc-update add dbus default
 rc-update add elogind boot
 
 
-pri "Configuring qemu"
-rc-update add libvirtd default
-cp $CONFIGD_DIR/libvirtd.conf /etc/libvirt/libvirtd.conf
-chown root:root /etc/libvirt/libvirtd.conf
-
-cp $CONFIGD_DIR/qemu.conf /etc/libvirt/qemu.conf
-sed -i "s/USER/${USER1}/g" /etc/libvirt/qemu.conf
-chown root:root /etc/libvirt/qemu.conf
 
 pri "Deploying autologin service"
 cp $CONFIGD_DIR/agetty-autologin* /etc/init.d/
 sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin*
 #sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin.tty1
 chown root:root /etc/init.d/agetty-autologin*
+
+confirm "" "ignore"
 
 rc-update del agetty.tty1 default
 rc-update add agetty-autologin.tty1 default
