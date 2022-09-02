@@ -233,6 +233,8 @@ grub-install --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE --bootloader-id=
 pri "Generating grub config"
 grub-mkconfig -o /boot/grub/grub.cfg
 
+neofetch
+
 if [ $PAUSE_AFTER_DONE -eq 1 ]; then
     confirm "" "ignore"
 fi
