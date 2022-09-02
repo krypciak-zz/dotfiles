@@ -52,7 +52,7 @@ NC='\033[0m'
 
 function confirm() {
     echo -en "$LBLUE |||$GREEN Do you want to override ${LGREEN}$1 $LBLUE(Y/n)? >> $NC"
-    if [ -n $YOLO ] && [ $YOLO -eq 1 ]; then
+    if [ ! -z $YOLO ] && [ $YOLO -eq 1 ]; then
         echo y
         rm -rf "$1"
         return
@@ -82,7 +82,7 @@ mkdir -p $HOMEDIR/.config/FreeTube
 for dir in "${HOME_DIRS[@]}"; do
     FROM="$DOTFILES_DIR/dotfiles/$dir"
     DEST="$HOMEDIR/$dir"
-    if [ -f "$DEST" ]; then
+    if [ -d "$DEST" ]; then
         confirm $DEST
     fi
 	ln -sfT "$FROM" "$DEST"
@@ -92,7 +92,7 @@ done
 for dir in "${SYMLINKS_DIRS[@]}"; do
 	FROM="$DOTFILES_DIR/dotfiles/$dir"
 	DEST="$HOMEDIR/.config/$dir"
-    if [ -f "$DEST" ]; then
+    if [ -d "$DEST" ]; then
         confirm $DEST
     fi
 	ln -sfT "$FROM" "$DEST"
