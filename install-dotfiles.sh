@@ -52,7 +52,7 @@ NC='\033[0m'
 
 function confirm() {
     echo -en "$LBLUE |||$GREEN Do you want to override ${LGREEN}$1 $LBLUE(Y/n)? >> $NC"
-    if [ $YOLO -eq 1 ]; then
+    if [ -n $YOLO ] && [ $YOLO -eq 1 ]; then
         echo y
         rm -rf "$1"
         return
