@@ -64,7 +64,7 @@ chown -R root:root /etc/pacman.d
 
 
 pri "Adding user $USER1"
-useradd -s /bin/bash $USER1
+useradd -s /bin/bash -G tty,ftp,games,network,scanner,users,video,audio,wheel $USER1
 chown -R $USER1:$USER1 $USER_HOME/
 chown -R $USER1:$USER1 $ARTIXD_DIR
 
@@ -97,17 +97,14 @@ done
 doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
 
 for group in "${PACKAGE_GROUPS[@]}"; do
-    CONF_FILE=$ARTIXD_DIR/packages/configure-${group}.sh
-    if [ -f "$CONF_FILE" ]; then
-        source "$CONF_FILE"
+    CONFIG_FUNC="configure-${group}"
+    if command -v "$CONFIG_FUNC" &> /dev/null; then
         pri "Configuring $group"
         configure_${group}
     fi
 done
 
 
-pri "Adding user $USER1 to groups"
-usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
 
 
 pri "Enabling services"
@@ -122,8 +119,7 @@ rc-update add elogind boot
 
 pri "Deploying autologin service"
 cp $CONFIGD_DIR/agetty-autologin* /etc/init.d/
-sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin*
-#sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin.tty1
+sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin
 chown root:root /etc/init.d/agetty-autologin*
 
 rc-update del agetty.tty1 default
