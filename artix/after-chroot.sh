@@ -158,7 +158,6 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
     fi
 fi
 
-bash
 
 pri "Copying doas configuration"
 cp $CONFIGD_DIR/doas.conf /etc/doas.conf
