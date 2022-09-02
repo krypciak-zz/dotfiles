@@ -32,7 +32,7 @@ n=0
 until [ "$n" -ge 5 ]; do
     gpg --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
     n=$((n+1)) 
-    sleep 15
+    sleep 3
 done
 
 tar -xf /tmp/private.tar.gz 

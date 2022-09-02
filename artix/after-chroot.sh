@@ -179,7 +179,7 @@ else
     until [ "$n" -ge 5 ]; do
         passwd $USER1 && break
         n=$((n+1)) 
-        sleep 15
+        sleep 3
     done
 fi
 chown -R $USER1:$USER1 $USER_HOME
@@ -194,7 +194,7 @@ else
     until [ "$n" -ge 5 ]; do
         passwd root && break
         n=$((n+1)) 
-        sleep 15
+        sleep 3
     done
 fi
 
