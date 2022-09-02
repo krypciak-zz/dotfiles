@@ -45,7 +45,7 @@ if [ $YOLO -eq 1 ]; then
     echo w # write
     echo q # quit
 else
-    pri "If those changes are OK, type w to write and q to quit."
+    echo "If those changes are OK, type w to write and q to quit."
 fi
 ) | fdisk $DISK
 confirm "" "ignore"
