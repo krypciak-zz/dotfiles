@@ -124,12 +124,12 @@ pri "Configuring greetd"
 cp $CONFIGD_DIR/greetd_config.toml /etc/greetd/config.toml
 chown greeter:greeter /etc/greetd/config.tol
 rc-update add greetd default
-rc-update del agetty.tty1
-rc-update del agetty.tty2
-rc-update del agetty.tty3
-rc-update del agetty.tty4
-rc-update del agetty.tty5
-rc-update del agetty.tty6
+rc-update del agetty.tty1 default
+rc-update del agetty.tty2 default
+rc-update del agetty.tty3 default
+rc-update del agetty.tty4 default
+rc-update del agetty.tty5 default
+rc-update del agetty.tty6 default
 
 
 : << END_COMMENT
@@ -231,5 +231,7 @@ grub-install --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE --bootloader-id=
 pri "Generating grub config"
 grub-mkconfig -o /boot/grub/grub.cfg
 
-confirm "" "ignore"
+if [ $PAUSE_AFTER_DONE -eq 1 ]; then
+    confirm "" "ignore"
+fi
 
