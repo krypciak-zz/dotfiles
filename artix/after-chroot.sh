@@ -149,7 +149,16 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
 
     pri "Installing dotfiles for root"
     sh $DOTFILES_DIR/install-dotfiles-root.sh
+
+
+    if [ $INSTALL_PRIVATE_DOTFILES -eq 1 ]; then
+        confirm "Install private dotfiles?"
+        sh $DOTFILES_DIR/decrypt-private-data.sh
+        conrifm "" "ignore"
+    fi
 fi
+
+
 pri "Copying doas configuration"
 cp $CONFIGD_DIR/doas.conf /etc/doas.conf
 chown root:root /etc/doas.conf
@@ -189,12 +198,6 @@ else
         sleep 15
     done
 fi
-
- if [ $INSTALL_PRIVATE_DOTFILES -eq 1 ]; then
-    confirm "Install private dotfiles?"
-    sh $DOTFILES_DIR/decrypt-private-data.sh
-    conrifm "" "ignore"
- fi
 
 chsh -s /bin/bash root > /dev/null 2>&1
 
