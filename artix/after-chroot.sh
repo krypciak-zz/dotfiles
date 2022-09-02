@@ -44,7 +44,7 @@ echo "permit nopass setenv { YOLO USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" 
 echo "permit nopass setenv { YOLO USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } $USER1" >> /etc/doas.conf
 
 confirm "Install base packages?"
-pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget
+pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget tar
 
 
 pri "Updating keyring"
@@ -125,13 +125,12 @@ sed -i "s/USER_HOME/${ESCAPED_USER_HOME}/g" /etc/greetd/config.toml
 sed -i "s/USER1/${USER1}/g" /etc/greetd/config.toml
 chown greeter:greeter /etc/greetd/config.toml
 rc-update add greetd default
-#rc-update del agetty.tty1 default
+rc-update del agetty.tty1 default
 rc-update del agetty.tty2 default
 rc-update del agetty.tty3 default
 rc-update del agetty.tty4 default
 rc-update del agetty.tty5 default
 rc-update del agetty.tty6 default
-confirm "" "ignore"
 
 : << END_COMMENT
 pri "Deploying autologin service"
