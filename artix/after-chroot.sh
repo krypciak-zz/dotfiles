@@ -10,6 +10,7 @@ export PARU_ARGUMENTS
 export YOLO
 export USER1
 
+
 pri "Setting time"
 ln -sf /usr/share/zoneinfo/$REGION/$CITY /etc/localtime
 hwclock --systohc
