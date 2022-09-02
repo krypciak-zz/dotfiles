@@ -111,6 +111,7 @@ for group in "${PACKAGE_GROUPS[@]}"; do
     fi
 done
 
+conrifm "" "ignore"
 
 pri "Enabling services"
 rc-update add NetworkManager default
@@ -154,10 +155,10 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
     if [ $INSTALL_PRIVATE_DOTFILES -eq 1 ]; then
         confirm "Install private dotfiles?"
         sh $DOTFILES_DIR/decrypt-private-data.sh
-        conrifm "" "ignore"
     fi
 fi
 
+conrifm "" "ignore"
 
 pri "Copying doas configuration"
 cp $CONFIGD_DIR/doas.conf /etc/doas.conf
