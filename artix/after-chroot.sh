@@ -96,6 +96,12 @@ done
 
 doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
 
+for group in "${PACKAGE_GROUPS[@]}"; do
+    source $ARTIXD_DIR/packages/configure-${group}.sh
+    pri "Configuring $group"
+    install_${group}
+done
+
 confirm "" "ignore"
 
 pri "Adding user $USER1 to groups"
@@ -118,11 +124,10 @@ sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin*
 #sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin.tty1
 chown root:root /etc/init.d/agetty-autologin*
 
-confirm "" "ignore"
-
 rc-update del agetty.tty1 default
 rc-update add agetty-autologin.tty1 default
-
+pri "$CONFIGD_DIR"
+confirm "" "ignore"
 
 if [ $INSTALL_DOTFILES -eq 1 ]; then
     pri "Installing dotfiles for user $USER1"
