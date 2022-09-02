@@ -105,7 +105,6 @@ for group in "${PACKAGE_GROUPS[@]}"; do
     fi
 done
 
-confirm "" "ignore"
 
 pri "Adding user $USER1 to groups"
 usermod -aG tty,ftp,games,network,scanner,libvirt,users,video,audio,wheel $USER1
@@ -129,8 +128,6 @@ chown root:root /etc/init.d/agetty-autologin*
 
 rc-update del agetty.tty1 default
 rc-update add agetty-autologin.tty1 default
-pri "$CONFIGD_DIR"
-confirm "" "ignore"
 
 if [ $INSTALL_DOTFILES -eq 1 ]; then
     pri "Installing dotfiles for user $USER1"
