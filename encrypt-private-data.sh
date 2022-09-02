@@ -17,7 +17,7 @@ if [ -f $DOTFILES_DIR/dotfiles/private/sync.sh ]; then
 fi
 
 cd $DOTFILES_DIR/dotfiles
-tar -cz private | gpg --symmetric --output $ENCRYPTED_ARCHIVE
+tar -cz private | gpg --batch --yes --symmetric --output $ENCRYPTED_ARCHIVE
 rm -r $ENCRYPTED_ARCHIVE.sha512
 sha512sum private.tar.gz.gpg > $ENCRYPTED_ARCHIVE.sha512
 
