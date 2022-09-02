@@ -86,7 +86,7 @@ sed -i 's/#Sudo = doas/Sudo = doas/g' /etc/paru.conf
 
 
 confirm "Install packages?"
-doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S opendoas-sudo nvim-packer-git
+doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S opendoas-sudo nvim-packer-git greetd-tuigreet-bin greetd-artix-openrc greetd-tuigreet-bin
 PACKAGE_LIST=''
 for group in "${PACKAGE_GROUPS[@]}"; do
     source $ARTIXD_DIR/packages/install-${group}.sh
@@ -113,10 +113,10 @@ rc-update add dmcrypt boot
 rc-update add dbus default
 rc-update add elogind boot
 
-pri "Configuring ly"
-wget https://raw.githubusercontent.com/fairyglade/ly/master/res/ly-openrc -O /etc/init.d/ly
-chmod +x /etc/init.d/ly
-rc-update add ly default
+pri "Configuring greetd"
+cp $CONFIGD_DIR/greetd_config.toml /etc/greetd/config.toml
+chown greeter:greeter /etc/greetd/config.tol
+rc-update add greetd default
 rc-update del agetty.tty1
 rc-update del agetty.tty2
 rc-update del agetty.tty3

@@ -1,0 +1,11 @@
+[terminal]
+vt = 1
+
+[default_session]
+
+command = "agreety --cmd -t -r --asterisks-char A --power-shutdown 'loginctl poweroff' --power-reboot 'loginctl reboot' --cmd USER_HOME/.config/awesome/run.sh"
+user = "greeter"
+
+[initial_session]
+command = "USER_HOME/.config/awesome/run.sh"
+user = "USER1"
