@@ -35,6 +35,7 @@ until [ "$n" -ge 5 ]; do
     sleep 3
 done
 
+cd $DOTFILES_DIR/dotfiles/
 tar -xf /tmp/private.tar.gz 
 rm -f /tmp/private.tar.gz
 sh $PRIV_DIR/install.sh
