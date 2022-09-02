@@ -101,3 +101,4 @@ done
 # Update nvim plugins
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1
 
+chmod +x $USER_HOME/.config/awesome/run.sh
