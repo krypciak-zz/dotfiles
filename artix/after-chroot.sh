@@ -97,9 +97,12 @@ done
 doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
 
 for group in "${PACKAGE_GROUPS[@]}"; do
-    source $ARTIXD_DIR/packages/configure-${group}.sh
-    pri "Configuring $group"
-    install_${group}
+    CONF_FILE=$ARTIXD_DIR/packages/configure-${group}.sh
+    if [ -f "$CONF_FILE" ]; then
+        source "$CONF_FILE"
+        pri "Configuring $group"
+        configure_${group}
+    fi
 done
 
 confirm "" "ignore"
