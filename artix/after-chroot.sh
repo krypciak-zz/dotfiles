@@ -131,7 +131,7 @@ rc-update del agetty.tty3 default
 rc-update del agetty.tty4 default
 rc-update del agetty.tty5 default
 rc-update del agetty.tty6 default
-
+confirm "" "ignore"
 
 : << END_COMMENT
 pri "Deploying autologin service"
