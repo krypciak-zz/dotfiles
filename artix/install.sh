@@ -44,13 +44,7 @@ echo p # print the in-memory partition table
 echo w # write changes
 echo q # quit
 ) | fdisk $DISK
-if [ $YOLO -eq 1 ]; then
-    echo w # write
-    echo q # quit
-else
-    echo "If those changes are OK, type w to write and q to quit."
-fi
-confirm "" "ignore"
+
 # Create encryptred container on LVM_PART
 
 if [ "$LVM_PASSWORD" != "" ]; then 
