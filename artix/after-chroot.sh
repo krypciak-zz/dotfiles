@@ -124,7 +124,7 @@ rc-update add elogind boot
 
 pri "Configuring greetd"
 cp $CONFIGD_DIR/greetd_config.toml /etc/greetd/config.toml
-chown greeter:greeter /etc/greetd/config.tol
+chown greeter:greeter /etc/greetd/config.toml
 rc-update add greetd default
 #rc-update del agetty.tty1 default
 rc-update del agetty.tty2 default
@@ -133,6 +133,8 @@ rc-update del agetty.tty4 default
 rc-update del agetty.tty5 default
 rc-update del agetty.tty6 default
 
+conrifm "" "ignore"
+read
 
 : << END_COMMENT
 pri "Deploying autologin service"
