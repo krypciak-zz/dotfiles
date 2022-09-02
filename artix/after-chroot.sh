@@ -156,8 +156,8 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
     fi
 fi
 
+bash
 
-confirm "" "ignore"
 pri "Copying doas configuration"
 cp $CONFIGD_DIR/doas.conf /etc/doas.conf
 chown root:root /etc/doas.conf

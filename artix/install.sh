@@ -48,7 +48,7 @@ else
     pri "If those changes are OK, type w to write and q to quit."
 fi
 ) | fdisk $DISK
-
+confirm "" "ignore"
 # Create encryptred container on LVM_PART
 
 if [ "$LVM_PASSWORD" != "" ]; then 
