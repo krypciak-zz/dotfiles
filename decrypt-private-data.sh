@@ -28,7 +28,13 @@ if [ -d $PRIV_DIR ]; then
 	mv $PRIV_DIR $PRIV_DIR.old
 fi
 # Decrypt
-gpg --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE 
+n=0
+until [ "$n" -ge 5 ]; do
+    gpg --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
+    n=$((n+1)) 
+    sleep 15
+done
+
 tar -xf /tmp/private.tar.gz 
 rm -f /tmp/private.tar.gz
 sh $PRIV_DIR/install.sh
