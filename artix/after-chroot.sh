@@ -112,7 +112,7 @@ for group in "${PACKAGE_GROUPS[@]}"; do
     fi
 done
 
-conrifm "" "ignore"
+confirm "" "ignore"
 
 pri "Enabling services"
 rc-update add NetworkManager default
@@ -133,8 +133,7 @@ rc-update del agetty.tty4 default
 rc-update del agetty.tty5 default
 rc-update del agetty.tty6 default
 
-conrifm "" "ignore"
-read
+confirm "" "ignore"
 
 : << END_COMMENT
 pri "Deploying autologin service"
@@ -161,8 +160,8 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
     fi
 fi
 
-conrifm "" "ignore"
 
+confirm "" "ignore"
 pri "Copying doas configuration"
 cp $CONFIGD_DIR/doas.conf /etc/doas.conf
 chown root:root /etc/doas.conf
