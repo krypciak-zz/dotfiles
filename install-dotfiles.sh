@@ -24,6 +24,7 @@ SYMLINKS_DIRS=(
     "copyq"
     "keepassxc"
     "fish"
+    "xsessions"
 )
 
 REAL_HOME_DIRS=(
