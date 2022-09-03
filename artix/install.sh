@@ -2,6 +2,7 @@
 
 ARTIXD_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$ARTIXD_DIR/vars.sh"
+export OUTPUT_REDIRECT
 
 function unmount() {
     sync
