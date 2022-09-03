@@ -26,7 +26,7 @@ SYMLINKS_DIRS=(
     "fish"
 )
 
-HOME_DIRS=(
+REAL_HOME_DIRS=(
     ".bashrc"
 )
 
@@ -78,9 +78,9 @@ mkdir -p $HOMEDIR/.config/chromium/Default
 mkdir -p $HOMEDIR/.config/FreeTube
 #mkdir -p $REAL_HOMEDIR/.config/Notepadqq
 
-for dir in "${HOME_DIRS[@]}"; do
+for dir in "${REAL_HOME_DIRS[@]}"; do
     FROM="$DOTFILES_DIR/dotfiles/$dir"
-    DEST="$HOMEDIR/$dir"
+    DEST="$REAL_HOMEDIR/$dir"
     if [ -d "$DEST" ]; then
         confirm $DEST
     fi
