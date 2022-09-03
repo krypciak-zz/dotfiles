@@ -2,6 +2,7 @@
 
 ARTIXD_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$ARTIXD_DIR/vars.sh"
+export OUTPUT_REDIRECT
 
 function unmount() {
     sync
@@ -25,19 +26,26 @@ mkdir -p $INSTALL_DIR
 echo bul
 (
 echo g # set partitioning scheme to GPT
+echo n # Create EFI partition
+echo p # primary partition
+echo 1 # partition number 1
+echo   # default - start at beginning of disk 
+echo +${EFI_SIZE} # your size
+echo t # set partition type
+echo 1 # to EFI system
 echo n # Create LVM partition
 echo p # primary partition
-echo 1 # partion number 1
+echo 2 # partion number 2
 echo " "  # default, start immediately after preceding partition
 echo " " # default, extend partition to end of disk
 echo t # set partition type
-echo 1
+echo 2
 echo 43 # to LV
 echo p # print the in-memory partition table
 echo w # write changes
 echo q # quit
 ) | fdisk $DISK
-confirm "" "ignore"
+
 # Create encryptred container on LVM_PART
 
 if [ "$LVM_PASSWORD" != "" ]; then 
@@ -101,8 +109,8 @@ mkdir -p $INSTALL_DIR/home/$USER1
 mount $LVM_DIR/home $INSTALL_DIR/home/$USER1/
 
 pri "Mounting ${LBLUE}${EFI_PART}${LGREEN} to ${LBLUE}$EFI_DIR"
-mkdir -p $INSTALL_DIR/boot
-mount $LVM_DIR/boot $INSTALL_DIR/boot
+mkdir -p $EFI_DIR
+mount $EFI_PART $EFI_DIR
 
 
 pri "Turning swap on"
