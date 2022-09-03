@@ -91,8 +91,8 @@ pri "ROOT"
 $ROOT_FORMAT_COMMAND > /dev/null 2>&1
 pri "HOME"
 $HOME_FORMAT_COMMAND > /dev/null 2>&1
-pri "EFI"
-$EFI_FORMAT_COMMAND 
+pri "BOOT"
+$BOOT_FORMAT_COMMAND 
 
 pri "Mounting ${LBLUE}$LVM_DIR/root ${LGREEN}to ${LBLUE}$INSTALL_DIR/"
 mount $LVM_DIR/root $INSTALL_DIR/
@@ -101,13 +101,15 @@ pri "Mounting ${LBLUE}$LVM_DIR/home${LGREEN} to ${LBLUE}$INSTALL_DIR/home/$USER1
 mkdir -p $INSTALL_DIR/home/$USER1
 mount $LVM_DIR/home $INSTALL_DIR/home/$USER1/
 
-pri "Mounting ${LBLUE}${EFI_PART}${LGREEN} to ${LBLUE}$EFI_DIR"
+pri "Mounting ${LBLUE}$LVM_DIR/boot${LGREEN} to ${LBLUE}$INSTALL_DIR/boot"
 mkdir -p $INSTALL_DIR/boot
 mount $LVM_DIR/boot $INSTALL_DIR/boot
 
 
 pri "Turning swap on"
 swapon $LVM_DIR/swap
+
+confirm "" "ignore"
 
 # Prepare to chroot
 confirm "Basestrap basic packages?"
