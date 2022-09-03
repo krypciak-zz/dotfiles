@@ -75,10 +75,10 @@ pvcreate $CRYPT_DIR
 vgcreate $LVM_GROUP_NAME $CRYPT_DIR
 
 pri "Creating volumes"
+pri "Creating BOOT of size $BOOT_SIZE"
+lvcreate -C y -L $BOOT_SIZE $LVM_GROUP_NAME -n boot
 pri "Creating SWAP"
 lvcreate -C y -L $SWAP_SIZE $LVM_GROUP_NAME -n swap
-pri "Creating BOOT"
-lvcreate -C y -L $BOOT_SIZE $LVM_GROUP_NAME -n boot
 pri "Creating ROOT of size $ROOT_SIZE"
 lvcreate -C y -L $ROOT_SIZE $LVM_GROUP_NAME -n root
 pri "Creating HOME of size 100%FREE"
@@ -109,7 +109,6 @@ mount $LVM_DIR/boot $INSTALL_DIR/boot
 pri "Turning swap on"
 swapon $LVM_DIR/swap
 
-confirm "" "ignore"
 
 # Prepare to chroot
 confirm "Basestrap basic packages?"
