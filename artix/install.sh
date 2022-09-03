@@ -18,7 +18,7 @@ function unmount() {
 confirm "Start partitioning the disk? $RED(DATA WARNING)"
 pri "Unmouting"
 
-unmount
+unmount 
 vgremove -f $LVM_GROUP_NAME > /dev/null 2>&1
 unmount
 mkdir -p $INSTALL_DIR
@@ -43,7 +43,7 @@ echo 43 # to LV
 echo p # print the in-memory partition table
 echo w # write changes
 echo q # quit
-) | fdisk $DISK
+) | fdisk $DISK > $OUTPUT_REDIRECT
 
 # Create encryptred container on LVM_PART
 
