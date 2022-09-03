@@ -109,6 +109,7 @@ mount $LVM_DIR/boot $INSTALL_DIR/boot
 pri "Turning swap on"
 swapon $LVM_DIR/swap
 
+confirm "" "ignore"
 
 # Prepare to chroot
 confirm "Basestrap basic packages?"
