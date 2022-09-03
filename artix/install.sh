@@ -44,9 +44,7 @@ echo 43 # to LV
 echo p # print the in-memory partition table
 echo w # write changes
 echo q # quit
-) | fdisk $DISK > $OUTPUT_REDIRECT
-
-confirm "$OUTPUT_REDIRECT" "ignore"
+) | fdisk $DISK
 
 # Create encryptred container on LVM_PART
 
