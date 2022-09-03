@@ -45,6 +45,8 @@ echo w # write changes
 echo q # quit
 ) | fdisk $DISK > $OUTPUT_REDIRECT
 
+confirm "" "ignore"
+
 # Create encryptred container on LVM_PART
 
 if [ "$LVM_PASSWORD" != "" ]; then 
