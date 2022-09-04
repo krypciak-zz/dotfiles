@@ -1,15 +1,10 @@
 -- Spawn music_player in tag music
 --awful.spawn("kmix")
 
-awful.spawn(music_player)
+run_if_not_running_pgrep({ music_player_class }, function() awful.spawn(music_player, { tag = tag.name }) end )
 
 -- Start redshift if not running
-local redshift_running = os.capture("pgrep redshift")
-if redshift_running == "" then
-	awful.spawn("redshift")
-else
-
-end
+run_if_not_running_pgrep("redshift")
 
 -- Hide the mouse after 3 seconds of inactivity
 os.execute("killall unclutter")

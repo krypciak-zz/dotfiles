@@ -11,7 +11,6 @@ SYMLINKS_DIRS=(
 	"zsh"
 	"alacritty"
 	"qt5ct"
-	"strawberry"
 	"ttyper"
 	"X11"
 	"chromium/Default/Extensions"
@@ -25,6 +24,8 @@ SYMLINKS_DIRS=(
     "keepassxc"
     "fish"
     "xsessions"
+    "cmus/autosave"
+    "cmus/red_theme.theme"
 )
 
 REAL_HOME_DIRS=(
@@ -77,6 +78,7 @@ done
 
 mkdir -p $HOMEDIR/.config/chromium/Default
 mkdir -p $HOMEDIR/.config/FreeTube
+mkdir -p $HOMEDIR/.config/cmus
 #mkdir -p $REAL_HOMEDIR/.config/Notepadqq
 
 for dir in "${REAL_HOME_DIRS[@]}"; do

@@ -21,7 +21,7 @@ local discord_icon = iconsdir .. "discord.png"
 local media_icon = iconsdir .. "media.png"
 local lol_icon = iconsdir .. "lol.png"
 local mc_icon = iconsdir .. "mc.png"
-local music_icon = iconsdir .. "strawberry.png"
+local music_icon = iconsdir .. "music.png"
 local icecat_icon = iconsdir .. "icecat.png"
 local chromium_icon = iconsdir .. "chromium.png"
 local dialect_icon = iconsdir .. "dialect.png"
@@ -39,10 +39,10 @@ add_tag({
 
     c_key = "n",
     c_defactivated = false,
-    c_apps = { class = { music_player, "kmix" }},
+    c_apps = { name = { "cmus" }},
     c_switchaction = function(tag)
         -- music_player is in vars.lua
-        awful.spawn(music_player, {tag = "music"})
+        run_if_not_running_pgrep({ music_player_class }, function() awful.spawn(music_player, { tag = tag.name }) end )
     end,
     c_autogenrules = true,
 })

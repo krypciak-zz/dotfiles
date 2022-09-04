@@ -173,12 +173,12 @@ function sort_clients()
 
     for _, tag in pairs(all_tags) do
         if tag.c_apps ~= nil then
-	    local clients = get_running_clients(get_all_clients(), tag.c_apps["class"], tag.c_apps["name"])
-	    if #clients ~= 0 then 
-	        local tag1 = get_tag(tag, false)
-	        for _, client in ipairs(clients) do
-	            client:move_to_tag(tag1)
-	        end
+            local clients = get_running_clients(get_all_clients(), tag.c_apps["class"], tag.c_apps["name"])
+            if #clients ~= 0 then 
+                local tag1 = get_tag(tag, false)
+                for _, client in ipairs(clients) do
+                    client:move_to_tag(tag1)
+                end
             end
         end
     end
