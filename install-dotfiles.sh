@@ -26,6 +26,9 @@ SYMLINKS_DIRS=(
     "xsessions"
     "cmus/autosave"
     "cmus/red_theme.theme"
+    "tutanota-desktop/conf.json"
+    "topgrade.toml"
+    "neofetch"
 )
 
 REAL_HOME_DIRS=(
@@ -79,6 +82,7 @@ done
 mkdir -p $HOMEDIR/.config/chromium/Default
 mkdir -p $HOMEDIR/.config/FreeTube
 mkdir -p $HOMEDIR/.config/cmus
+mkdir -p $HOMEDIR/.config/tutanota-desktop
 #mkdir -p $REAL_HOMEDIR/.config/Notepadqq
 
 for dir in "${REAL_HOME_DIRS[@]}"; do
