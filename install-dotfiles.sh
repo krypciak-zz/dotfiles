@@ -26,6 +26,7 @@ SYMLINKS_DIRS=(
     "xsessions"
     "cmus/autosave"
     "cmus/red_theme.theme"
+    "cmus/notify.sh"
     "tutanota-desktop/conf.json"
     "topgrade.toml"
     "neofetch"
