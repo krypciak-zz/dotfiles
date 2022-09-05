@@ -28,6 +28,7 @@ local dialect_icon = iconsdir .. "dialect.png"
 local lutris_icon = iconsdir .. "lutris.png"
 local btd6_icon = iconsdir .. "btd6.png"
 local mail_icon = iconsdir .. "tutanota.png"
+local virt_icon = iconsdir .. "virt.png"
 
 add_tag({
     name = "music",
@@ -198,6 +199,24 @@ add_tag({
     c_autogenrules = true,
 })
 
+
+add_tag({
+    name = "virt",
+    layout = default_layout,
+    volatile = true,
+
+    icon = virt_icon,
+    icon_only = true,
+
+    c_key = "g",
+    c_defactivated = false,
+    c_apps = { class = { "virt-manager", "Virt-manager" }},
+    c_switchaction = function(tag)
+	    run_if_not_running_pgrep("virt-manager")
+    end,
+    c_autogenrules = true,
+})
+
 local lol_classes = { 	
 	"leagueclient.exe",   "league of legends.exe", 
         "leagueclientux.exe", "riotclientux.exe"}
@@ -226,32 +245,14 @@ add_tag({
     icon = lutris_icon,
     icon_only = true,
 
-    c_key = "g",
+    c_key = "h",
     c_defactivated = false,
-    c_apps = { class = { "Steam", "lutris", "Lutris" }, name = { "Steam" }},
+    c_apps = { class = { "Steam", "lutris", "Lutris", "steam_app_960090" }, name = { "Steam", "BloonsTD6" }},
     c_autogenrules = true,
 
     --[[c_switchaction = function(tag)
 	run_if_not_running_clients({{"env LUTRIS_SKIP_INIT=1 lutris",
 	  { tag = tag.name }}}, get_all_clients(), tag.c_apps["class"], {})
     end]]
-})
-
-add_tag({
-    name = "btd6",
-    layout = default_layout,
-    volatile = true, 
-
-    icon = btd6_icon,
-    icon_only = true,
-
-    c_key = "j",
-    c_defactivated = false,
-    c_apps = { class = { "steam_app_960090" }, name = {"BloonsTD6"}},
-    c_switchaction = function(tag)
-	run_if_not_running_clients({{"env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/2",
-	  { tag = tag.name }}}, get_all_clients(), tag.c_apps["class"], {})
-    end,
-    c_autogenrules = true,
 })
 

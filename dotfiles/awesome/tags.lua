@@ -22,25 +22,25 @@ function get_running_clients(clients, classes, names)
     local client_list = {}
 
     for i=1, #clients do
-	local client = clients[i]
-	
-	if classes ~= nil then
-	    for _, class in ipairs(classes) do
-	        if client.class ~= nil and string.match(client.class, class) then
-	            table.insert(client_list, client)
-		    goto continue
-	        end
-	    end
-	end
-	if names ~= nil then
-	    for _, name in ipairs(names) do 
-	        if client.class ~= nil and string.match(client.name, name) then 
-	            table.insert(client_list, client)
-		    goto continue
-	        end
+        local client = clients[i]
+        
+        if classes ~= nil then
+            for _, class in ipairs(classes) do
+                if client.class ~= nil and string.match(client.class, class) then
+                    table.insert(client_list, client)
+                goto continue
+                end
             end
         end
-	::continue::
+        if names ~= nil then
+            for _, name in ipairs(names) do 
+                if client.class ~= nil and string.match(client.name, name) then 
+                    table.insert(client_list, client)
+                goto continue
+                end
+                end
+            end
+        ::continue::
     end
     --noti("clients:", tostring(#client_list))
     return client_list
