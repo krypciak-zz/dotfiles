@@ -8,3 +8,7 @@ xmodmap("add mod4 = Super_L Super_L Super_L Hyper_L")
 xmodmap("clear lock")
 xmodmap("keycode 66 = Super_R Super_R Super_R Super_R")
 xmodmap("add mod3 = Super_R")
+
+run_if_not_running_pgrep("keepassxc")
+
+run_if_not_running_pgrep({ "tutanota" }, function() awful.spawn("tutanota-desktop") end)
