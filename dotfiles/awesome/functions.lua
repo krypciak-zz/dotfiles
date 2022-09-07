@@ -58,6 +58,7 @@ function run_if_not_running_pgrep(name, func)
     if running == 0 then
         func()
     end
+    return running
 end
 
 
