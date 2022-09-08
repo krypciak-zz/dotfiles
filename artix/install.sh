@@ -112,6 +112,7 @@ pri "Mounting ${LBLUE}${EFI_PART}${LGREEN} to ${LBLUE}$EFI_DIR"
 mkdir -p $EFI_DIR
 mount $EFI_PART $EFI_DIR
 
+confirm "" "ignore"
 
 pri "Turning swap on"
 swapon $LVM_DIR/swap
