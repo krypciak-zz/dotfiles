@@ -16,7 +16,8 @@ function unmount() {
     sync
 }
 
-confirm "Start partitioning the disk? $RED(DATA WARNING)"
+fdisk -l $DISK
+confirm "Start partitioning the disk (${DISK})? $RED(DATA WARNING)"
 pri "Unmouting"
 
 unmount 
