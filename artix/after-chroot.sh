@@ -30,10 +30,6 @@ sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 
 
-pri "Disabling mkinitcpio"
-mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
-#sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
-
 
 confirm "Install base packages?"
 n=0
@@ -89,6 +85,9 @@ doas -u $USER1 makepkg -si --noconfirm --needed
 
 cp $CONFIGD_DIR/root/etc/paru.conf /etc/paru.conf
 
+pri "Disabling mkinitcpio"
+mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
+#sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
 
 confirm "Install packages?"
 doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S opendoas-sudo nvim-packer-git greetd-artix-openrc greetd-tuigreet-bin

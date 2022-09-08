@@ -25,7 +25,6 @@ vgremove -f $LVM_GROUP_NAME > /dev/null 2>&1
 unmount
 
 mkdir -p $INSTALL_DIR
-echo bul
 (
 echo g # set partitioning scheme to GPT
 echo n # Create EFI partition
