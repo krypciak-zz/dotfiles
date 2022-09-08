@@ -135,7 +135,7 @@ if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 # Prepare to chroot
 confirm "Basestrap basic packages?"
 export LANG
-basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc artix-keyring artix-mirrorlist autoconf automake bison fakeroot flex gcc groff libtool m4 make patch pkgconf texinfo which 
+basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc artix-keyring artix-mirrorlist autoconf automake bison fakeroot flex gcc groff libtool m4 make patch pkgconf texinfo which iptables-nft
 
 pri "Generating fstab"
 fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab

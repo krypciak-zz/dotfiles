@@ -36,7 +36,7 @@ mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.ho
 
 
 confirm "Install base packages?"
-pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget tar fish linux-firmware $KERNEL $KERNEL-headers opendoas mkinitcpio iptables-nft world/rust btrfs-progs 
+pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget tar fish linux-firmware $KERNEL $KERNEL-headers opendoas mkinitcpio world/rust btrfs-progs 
 
 
 pri "Updating keyring"
