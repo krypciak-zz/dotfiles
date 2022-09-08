@@ -132,15 +132,6 @@ rc-update del agetty.tty4 default
 rc-update del agetty.tty5 default
 rc-update del agetty.tty6 default
 
-: << END_COMMENT
-pri "Deploying autologin service"
-cp $CONFIGD_DIR/agetty-autologin* /etc/init.d/
-sed -i "s/USER/${USER1}/g" /etc/init.d/agetty-autologin
-chown root:root /etc/init.d/agetty-autologin*
-
-rc-update del agetty.tty1 default
-rc-update add agetty-autologin.tty1 default
-END_COMMENT
 
 if [ $INSTALL_DOTFILES -eq 1 ]; then
     pri "Installing dotfiles for user $USER1"
