@@ -20,9 +20,8 @@ confirm "Start partitioning the disk? $RED(DATA WARNING)"
 pri "Unmouting"
 
 unmount 
-vgremove -f $LVM_GROUP_NAME 
+vgremove -f $LVM_GROUP_NAME > /dev/null 2>&1
 unmount
-confirm "" "ignore"
 
 mkdir -p $INSTALL_DIR
 echo bul
@@ -59,6 +58,7 @@ if [ "$LVM_PASSWORD" != "" ]; then
     pri "Opening $CRYPT_PART as $CRYPT_NAME"
     pri "${NC}Automaticly filling password..."
     echo $LVM_PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME
+    if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 else
     while true; do
         pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
@@ -85,41 +85,52 @@ confirm "Set up LVM?"
 
 pri "Creating LVM group $LVM_GROUP_NAME"
 pvcreate $CRYPT_DIR
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 vgcreate $LVM_GROUP_NAME $CRYPT_DIR
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
 pri "Creating volumes"
 pri "Creating SWAP"
 lvcreate -C y -L $SWAP_SIZE $LVM_GROUP_NAME -n swap
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 pri "Creating ROOT of size $ROOT_SIZE"
 lvcreate -C y -L $ROOT_SIZE $LVM_GROUP_NAME -n root
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 pri "Creating HOME of size 100%FREE"
 lvcreate -C y -l 100%FREE $LVM_GROUP_NAME -n home
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
 pri "Formatting volumes"
 pri "SWAP"
 mkswap -L swap $LVM_DIR/swap
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 pri "ROOT"
 $ROOT_FORMAT_COMMAND > /dev/null 2>&1
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 pri "HOME"
 $HOME_FORMAT_COMMAND > /dev/null 2>&1
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 pri "EFI"
 $EFI_FORMAT_COMMAND 
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
 pri "Mounting ${LBLUE}$LVM_DIR/root ${LGREEN}to ${LBLUE}$INSTALL_DIR/"
 mount $LVM_DIR/root $INSTALL_DIR/
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
 pri "Mounting ${LBLUE}$LVM_DIR/home${LGREEN} to ${LBLUE}$INSTALL_DIR/home/$USER1/"
 mkdir -p $INSTALL_DIR/home/$USER1
 mount $LVM_DIR/home $INSTALL_DIR/home/$USER1/
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
 pri "Mounting ${LBLUE}${EFI_PART}${LGREEN} to ${LBLUE}$EFI_DIR"
 mkdir -p $EFI_DIR
 mount $EFI_PART $EFI_DIR
-
-confirm "" "ignore"
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
 pri "Turning swap on"
 swapon $LVM_DIR/swap
+if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
 # Prepare to chroot
 confirm "Basestrap basic packages?"
