@@ -52,9 +52,8 @@ if [ "$LVM_PASSWORD" != "" ]; then
     pri "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
     pri "${NC}Automaticly filling password..."
     echo $LVM_PASSWORD | cryptsetup luksFormat $LUKSFORMAT_ARGUMENTS $CRYPT_PART
-    if [ $? -ne 0 ]; then
-        pri "${RED}ERROR. Exiting..."
-    fi
+    if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
+
     pri "Opening $CRYPT_PART as $CRYPT_NAME"
     pri "${NC}Automaticly filling password..."
     echo $LVM_PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME
