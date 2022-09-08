@@ -20,7 +20,7 @@ confirm "Start partitioning the disk? $RED(DATA WARNING)"
 pri "Unmouting"
 
 unmount 
-vgremove -f $LVM_GROUP_NAME > /dev/null 2>&1
+vgremove -f $LVM_GROUP_NAME 
 unmount
 confirm "" "ignore"
 
