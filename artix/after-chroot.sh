@@ -34,12 +34,9 @@ pri "Disabling mkinitcpio"
 mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
 #sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
 
-pri "Creating temporary doas config"
-echo "permit nopass setenv { YOLO USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
-echo "permit nopass setenv { YOLO USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } $USER1" >> /etc/doas.conf
 
 confirm "Install base packages?"
-pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget tar fish
+pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget tar fish linux-firmware $KERNEL $KERNEL-headers opendoas mkinitcpio iptables-nft world/rust btrfs-progs 
 
 
 pri "Updating keyring"
@@ -51,14 +48,17 @@ printf '[lib32]\nInclude = /etc/pacman.d/mirrorlist\n' >> /etc/pacman.conf
 # Add universe repo
 printf '[universe]\nServer = https://universe.artixlinux.org/$arch\nServer = https://mirror1.artixlinux.org/universe/$arch\nServer = https://mirror.pascalpuffke.de/artix-universe/$arch\nServer = https://artixlinux.qontinuum.space/artixlinux/universe/os/$arch\nServer = https://mirror1.cl.netactuate.com/artix/universe/$arch\nServer = https://ftp.crifo.org/artix-universe/\n' >> /etc/pacman.conf
 
-pacman $PACMAN_ARGUMENTS -Sy artix-archlinux-support lib32-artix-archlinux-support
+PACKAGES_LIST='artix-archlinux-support '
+if [ $LIB32 -eq 1 ]; then
+    PACKAGES_LIST="$PACKAGES_LIST lib32-artix-archlinux-support"
+fi
+pacman $PACMAN_ARGUMENTS -Sy $PACKAGES_LIST
 pacman-key --init
 pacman-key --populate
+
 pri "Copying pacman configuration"
-cp $CONFIGD_DIR/pacman.conf /etc/pacman.conf
-chown root:root /etc/pacman.conf
-cp -r $CONFIGD_DIR/pacman.d /etc/
-chown -R root:root /etc/pacman.d
+cp $CONFIGD_DIR/root/etc/pacman.conf /etc/pacman.conf
+cp -r $CONFIGD_DIR/root/etc/pacman.d /etc/
 pacman -Sy 
 
 
@@ -66,6 +66,10 @@ pri "Adding user $USER1"
 useradd -s /bin/bash -G tty,ftp,games,network,scanner,users,video,audio,wheel $USER1
 chown -R $USER1:$USER1 $USER_HOME/
 chown -R $USER1:$USER1 $ARTIXD_DIR
+
+pri "Creating temporary doas config"
+echo "permit nopass setenv { YOLO USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
+echo "permit nopass setenv { YOLO USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } $USER1" >> /etc/doas.conf
 
 sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 
