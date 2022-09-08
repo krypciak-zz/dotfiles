@@ -36,7 +36,12 @@ mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.ho
 
 
 confirm "Install base packages?"
-pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget tar fish linux-firmware $KERNEL $KERNEL-headers opendoas mkinitcpio world/rust btrfs-progs 
+n=0
+until [ "$n" -ge 5 ]; do
+    pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup glibc mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget tar fish linux-firmware $KERNEL $KERNEL-headers opendoas mkinitcpio world/rust btrfs-progs && break
+    n=$((n+1))
+done
+if [ "$n" -eq 5 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
 
 pri "Updating keyring"
@@ -94,7 +99,12 @@ for group in "${PACKAGE_GROUPS[@]}"; do
     PACKAGE_LIST="$PACKAGE_LIST $(install_${group}) "
 done
 
-doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
+n=0
+until [ "$n" -ge 5 ]; do
+    doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST
+    n=$((n+1))
+done
+if [ "$n" -eq 5 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
 for group in "${PACKAGE_GROUPS[@]}"; do
     CONFIG_FUNC="configure-${group}"
