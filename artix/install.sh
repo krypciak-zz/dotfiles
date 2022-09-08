@@ -22,6 +22,8 @@ pri "Unmouting"
 unmount 
 vgremove -f $LVM_GROUP_NAME > /dev/null 2>&1
 unmount
+confirm "" "ignore"
+
 mkdir -p $INSTALL_DIR
 echo bul
 (
