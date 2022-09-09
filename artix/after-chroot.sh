@@ -178,7 +178,6 @@ else
     done
 fi
 chown -R $USER1:$USER1 $USER_HOME
-#END_COMMENT
 
 pri "Set password for root"
 if [ "$ROOT_PASSWORD" != "" ]; then
