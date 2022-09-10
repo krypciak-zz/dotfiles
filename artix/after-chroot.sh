@@ -163,6 +163,7 @@ rc-update del agetty.tty5 default
 rc-update del agetty.tty6 default
 
 
+sed -i "s/USER1/${USER1}/g" /etc/security/limits.conf
 
 pri "Set password for user $USER1"
 
