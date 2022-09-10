@@ -1,4 +1,4 @@
-userdir	     = "/home/krypek"
+userdir	     = os.getenv('HOME')
 awesomedir   = userdir.."/.config/awesome"
 themefile    = awesomedir.."/theme.lua"
 
@@ -41,8 +41,10 @@ default_useless_gap = 6
 
 --screens = {"DisplayPort-0"}
 
-screenshots_folder = os.getenv("HOME") .. '/Pictures/Screenshots/'
+screenshots_folder = userdir .. '/Pictures/Screenshots/'
 screenshots_date_format = '%x_%X'
 screenshot_editor = 'kolourpaint'
+
+lock_command = 'alock -b image:file=' .. userdir .. '/.config/awesome/theme/' .. wallpaper .. ' -i none'
 
 awful.util.terminal = terminal
