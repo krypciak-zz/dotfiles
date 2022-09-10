@@ -5,8 +5,8 @@ dotfiles/private
 dotfiles/private.old
 
 *.log
-dotfiles/chromium/Default/Extension State/LOG
-dotfiles/chromium/Default/Extension State/LOG.old
+*/**/LOG
+*/**/LOG.old
 dotfiles/copyq/copyq-bak.conf
 dotfiles/copyq/copyq-commands.ini.bak
 dotfiles/copyq/copyq_geometry.ini

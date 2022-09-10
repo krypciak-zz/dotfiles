@@ -13,8 +13,6 @@ SYMLINKS_DIRS=(
 	"qt5ct"
 	"ttyper"
 	"X11"
-	"chromium/Default/Extensions"
-	"chromium/Default/Extension State"
 	"gtk-2.0"
 	"gtk-3.0"
 	"gtk-4.0"
@@ -30,10 +28,20 @@ SYMLINKS_DIRS=(
     "tutanota-desktop/conf.json"
     "topgrade.toml"
     "neofetch"
+    "chromium/Default/Extensions"
+	"chromium/Default/Extension State"
+    "chromium/Default/Sync Extension Settings"
+    "chromium/Default/Managed Extension Settings"
+    "chromium/Default/Local Extension Settings"
 )
 
 REAL_HOME_DIRS=(
     ".bashrc"
+)
+
+COPY_DIRS=(
+	"chromium/Default/Preferences"
+    "chromium/Local State"
 )
 
 LINK_HOME_DIRS=(
@@ -56,17 +64,17 @@ LBLUE='\033[1;34m'
 NC='\033[0m' 
 
 function confirm() {
-    echo -en "$LBLUE |||$GREEN Do you want to override ${LGREEN}$1 $LBLUE(Y/n)? >> $NC"
+    echo -en "$LBLUE |||$GREEN Do you want to override ${LGREEN}$1 $2 $3 $LBLUE(Y/n)? >> $NC"
     if [ ! -z $YOLO ] && [ $YOLO -eq 1 ]; then
         echo y
-        rm -rf "$1"
+        rm -rf "$1 $2 $3"
         return
     fi
     read choice
     case "$choice" in 
-    y|Y|"" ) rm -rf "$1";;
+    y|Y|"" ) rm -rf "$1 $2 $3";;
     n|N ) return;;
-    * ) confirm "$1"; return;;
+    * ) confirm "$1 $2 $3"; return;;
     esac
 }
 
@@ -103,6 +111,16 @@ for dir in "${SYMLINKS_DIRS[@]}"; do
         confirm $DEST
     fi
 	ln -sfT "$FROM" "$DEST"
+	chown -R $USER1:$USER1 "$DEST"
+done
+
+for dir in "${COPY_DIRS[@]}"; do
+	FROM="$DOTFILES_DIR/dotfiles/$dir"
+	DEST="$HOMEDIR/.config/$dir"
+    if [ -d "$DEST" ]; then
+        confirm $DEST
+    fi
+	cp -rf "$FROM" "$DEST"
 	chown -R $USER1:$USER1 "$DEST"
 done
 
