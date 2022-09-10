@@ -1,5 +1,5 @@
 #!/bin/bash
 function install_browsers() {
-    echo 'ungoogled-chromium'
+    echo 'ungoogled-chromium dialect'
 }
 # icecat
