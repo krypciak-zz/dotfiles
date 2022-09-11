@@ -85,9 +85,8 @@ mkdir -p $HOMEDIR
 
 for dir in "${LINK_HOME_DIRS[@]}"; do
     DEST="$REAL_HOMEDIR/$dir"
-    if [ -e "$DEST" ]; then
-        confirm $DEST
-    fi
+    if [ -h "$DEST" ]; then unlink "$DEST"; fi
+    if [ -e "$DEST" ]; then confirm $DEST; fi
     mkdir -p $HOMEDIR/$dir
     ln -sfT $HOMEDIR/$dir $DEST
 done
@@ -96,9 +95,8 @@ done
 for dir in "${REAL_HOME_DIRS[@]}"; do
     FROM="$DOTFILES_DIR/dotfiles/$dir"
     DEST="$REAL_HOMEDIR/$dir"
-    if [ -e "$DEST" ]; then
-        confirm $DEST
-    fi
+    if [ -h "$DEST" ]; then unlink "$DEST"; fi
+    if [ -e "$DEST" ]; then confirm $DEST; fi
     mkdir -p "$(dirname $DEST)"
 	ln -sfT "$FROM" "$DEST"
 	chown -R $USER1:$USER1 "$DEST"
@@ -107,9 +105,8 @@ done
 for dir in "${SYMLINKS_DIRS[@]}"; do
 	FROM="$DOTFILES_DIR/dotfiles/$dir"
 	DEST="$HOMEDIR/.config/$dir"
-    if [ -e "$DEST" ]; then
-        confirm $DEST
-    fi
+    if [ -h "$DEST" ]; then unlink "$DEST"; fi
+    if [ -e "$DEST" ]; then confirm $DEST; fi
     mkdir -p "$(dirname $DEST)"
 	ln -sfT "$FROM" "$DEST"
 	chown -R $USER1:$USER1 "$DEST"
@@ -118,9 +115,8 @@ done
 for dir in "${COPY_DIRS[@]}"; do
 	FROM="$DOTFILES_DIR/dotfiles/$dir"
 	DEST="$HOMEDIR/.config/$dir"
-    if [ -e "$DEST" ]; then
-        confirm $DEST
-    fi
+    if [ -h "$DEST" ]; then unlink "$DEST"; fi
+    if [ -e "$DEST" ]; then confirm $DEST; fi
     mkdir -p "$(dirname $DEST)"
 	cp -rf "$FROM" "$DEST"
 	chown -R $USER1:$USER1 "$DEST"
