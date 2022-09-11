@@ -25,7 +25,6 @@ SYMLINKS_DIRS=(
     "cmus/autosave"
     "cmus/red_theme.theme"
     "cmus/notify.sh"
-    "tutanota-desktop/conf.json"
     "topgrade.toml"
     "neofetch"
     "chromium/Default/Extensions"
@@ -41,7 +40,9 @@ REAL_HOME_DIRS=(
 
 COPY_DIRS=(
 	"chromium/Default/Preferences"
+    "chromium/Default/Cookies"
     "chromium/Local State"
+    "tutanota-desktop/conf.json"
 )
 
 LINK_HOME_DIRS=(
