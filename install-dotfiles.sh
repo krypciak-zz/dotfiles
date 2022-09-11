@@ -43,6 +43,7 @@ COPY_DIRS=(
     "chromium/Default/Cookies"
     "chromium/Local State"
     "tutanota-desktop/conf.json"
+    "discord/settings.json"
 )
 
 LINK_HOME_DIRS=(
