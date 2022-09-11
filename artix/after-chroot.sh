@@ -117,6 +117,7 @@ done
 
 pri "Enabling services"
 rc-update add NetworkManager default
+rc-update add alsasound default
 #rc-update add device-mapper boot
 #rc-update add lvm boot
 #rc-update add dmcrypt boot
