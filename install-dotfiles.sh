@@ -16,7 +16,6 @@ SYMLINKS_DIRS=(
 	"gtk-2.0"
 	"gtk-3.0"
 	"gtk-4.0"
-	#"Notepadqq/Notepadqq.ini"
 	"redshift"
     "copyq"
     "keepassxc"
@@ -39,11 +38,12 @@ REAL_HOME_DIRS=(
 )
 
 COPY_DIRS=(
-	"chromium/Default/Preferences"
+    "chromium/Default/Preferences"
     "chromium/Default/Cookies"
     "chromium/Local State"
     "tutanota-desktop/conf.json"
     "discord/settings.json"
+    "FreeTube/settings.db"
 )
 
 LINK_HOME_DIRS=(
@@ -68,40 +68,38 @@ NC='\033[0m'
 function confirm() {
     echo -en "$LBLUE |||$GREEN Do you want to override ${LGREEN}$1 $2 $3 $LBLUE(Y/n)? >> $NC"
     if [ ! -z $YOLO ] && [ $YOLO -eq 1 ]; then
-        echo y
-        rm -rf "$1 $2 $3"
+        echo "y"
+        rm -rf $1 $2 $3
         return
     fi
     read choice
     case "$choice" in 
-    y|Y|"" ) rm -rf "$1 $2 $3";;
+    y|Y|"" ) rm -rf $1 $2 $3;;
     n|N ) return;;
-    * ) confirm "$1 $2 $3"; return;;
+    * ) confirm $1 $2 $3; return;;
     esac
 }
 
 mkdir -p $REAL_HOMEDIR
 mkdir -p $HOMEDIR
 
-
 for dir in "${LINK_HOME_DIRS[@]}"; do
+    DEST="$REAL_HOMEDIR/$dir"
+    if [ -e "$DEST" ]; then
+        confirm $DEST
+    fi
     mkdir -p $HOMEDIR/$dir
-    ln -sf $HOMEDIR/$dir $REAL_HOMEDIR/
+    ln -sfT $HOMEDIR/$dir $DEST
 done
 
-
-mkdir -p $HOMEDIR/.config/chromium/Default
-mkdir -p $HOMEDIR/.config/FreeTube
-mkdir -p $HOMEDIR/.config/cmus
-mkdir -p $HOMEDIR/.config/tutanota-desktop
-#mkdir -p $REAL_HOMEDIR/.config/Notepadqq
 
 for dir in "${REAL_HOME_DIRS[@]}"; do
     FROM="$DOTFILES_DIR/dotfiles/$dir"
     DEST="$REAL_HOMEDIR/$dir"
-    if [ -d "$DEST" ]; then
+    if [ -e "$DEST" ]; then
         confirm $DEST
     fi
+    mkdir -p "$(dirname $DEST)"
 	ln -sfT "$FROM" "$DEST"
 	chown -R $USER1:$USER1 "$DEST"
 done
@@ -109,9 +107,10 @@ done
 for dir in "${SYMLINKS_DIRS[@]}"; do
 	FROM="$DOTFILES_DIR/dotfiles/$dir"
 	DEST="$HOMEDIR/.config/$dir"
-    if [ -d "$DEST" ]; then
+    if [ -e "$DEST" ]; then
         confirm $DEST
     fi
+    mkdir -p "$(dirname $DEST)"
 	ln -sfT "$FROM" "$DEST"
 	chown -R $USER1:$USER1 "$DEST"
 done
@@ -119,9 +118,10 @@ done
 for dir in "${COPY_DIRS[@]}"; do
 	FROM="$DOTFILES_DIR/dotfiles/$dir"
 	DEST="$HOMEDIR/.config/$dir"
-    if [ -d "$DEST" ]; then
+    if [ -e "$DEST" ]; then
         confirm $DEST
     fi
+    mkdir -p "$(dirname $DEST)"
 	cp -rf "$FROM" "$DEST"
 	chown -R $USER1:$USER1 "$DEST"
 done
