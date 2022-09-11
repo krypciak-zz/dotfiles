@@ -15,4 +15,3 @@ function configure_virt() {
     usermod -aG libvirt $USER1
 }
 
-printf 'bul\nbul\nbul\nbul'

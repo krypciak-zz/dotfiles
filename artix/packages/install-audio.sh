@@ -4,5 +4,6 @@ function install_audio() {
 }
 function configure_audio() {
     pip install cmus-notify
+    rc-update add alsasound default
 }
 # world/webrtc-audio-processing media-player-info pulseaudio world/pipewire-jack 

@@ -106,10 +106,10 @@ done
 if [ "$n" -eq 5 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
 for group in "${PACKAGE_GROUPS[@]}"; do
-    CONFIG_FUNC="configure-${group}"
+    CONFIG_FUNC="configure_$group"
     if command -v "$CONFIG_FUNC" &> /dev/null; then
         pri "Configuring $group"
-        configure_${group}
+        eval "$CONFIG_FUNC"
     fi
 done
 
@@ -117,7 +117,6 @@ done
 
 pri "Enabling services"
 rc-update add NetworkManager default
-rc-update add alsasound default
 #rc-update add device-mapper boot
 #rc-update add lvm boot
 #rc-update add dmcrypt boot
