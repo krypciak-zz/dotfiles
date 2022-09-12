@@ -79,7 +79,7 @@ sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 pri "Installing paru (AUR manager)"
 if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
 # If paru is already installed, skip this step
-if command -v "paru" &> /dev/null; then
+if command -v "paru"; then
     pacman $PACMAN_ARGUMENTS -S git
     git clone https://aur.archlinux.org/paru-bin.git /tmp/paru
     chown -R $USER1:$USER1 /tmp/paru
