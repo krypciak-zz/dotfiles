@@ -30,6 +30,10 @@ fi
 # Decrypt
 n=0
 until [ "$n" -ge 5 ]; do
+    if [ ! -z $PRIVATE_DOTFILES_PASSWORD ] && [ $PRIVATE_DOTFILES_PASSWORD != '' ]; then
+        ( echo $PRIVATE_DOTFILES_PASSWORD; ) | gpg --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
+        PRIVATE_DOTFILES_PASSWORD=''
+    fi
     gpg --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
     n=$((n+1)) 
     sleep 3
