@@ -31,6 +31,7 @@ SYMLINKS_DIRS=(
     "chromium/Default/Sync Extension Settings"
     "chromium/Default/Managed Extension Settings"
     "chromium/Default/Local Extension Settings"
+    "BetterDiscord/plugins"
 )
 
 REAL_HOME_DIRS=(
