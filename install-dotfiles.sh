@@ -115,7 +115,7 @@ for dir in "${SYMLINKS_DIRS[@]}"; do
 done
 
 for dir in "${COPY_DIRS[@]}"; do
-    if [[ $input = %* ]]; then
+    if [[ $dir = %* ]]; then
         dir="${dir:1}"
         FROM="$DOTFILES_DIR/dotfiles/$dir"
         DEST="$HOMEDIR/.config/$dir"
@@ -136,4 +136,5 @@ done
 # Update nvim plugins
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1
 
-chmod +x $REAL_HOMEDIR/.config/awesome/run.sh
+chmod +x $REAL_HOMEDIR/.config/awesome/run/run.sh
+chmod +x $REAL_HOMEDIR/.config/at_login.sh
