@@ -77,7 +77,7 @@ add_tag({
     c_key = "b",
     c_defactivated = false,
     c_switchaction = function(tag)
-        run_if_not_running_pgrep(dc_grep, function() awful.spawn("apulse discord", { tag = tag.name }) end )
+        run_if_not_running_pgrep(dc_grep, function() awful.spawn("discord", { tag = tag.name }) end )
     end,
     -- All actions will be redirected to discord, expect switchaction
     c_redirect = "discord"
