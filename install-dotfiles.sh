@@ -6,7 +6,7 @@ HOMEDIR="$REAL_HOMEDIR/home"
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 SYMLINKS_DIRS=( 
-	"awesome"
+    "at_login.sh"
 	"nvim"
 	"zsh"
 	"alacritty"
@@ -37,15 +37,16 @@ SYMLINKS_DIRS=(
 REAL_HOME_DIRS=(
     ".bashrc"
 )
-
+# If path starts with %, will not override
 COPY_DIRS=(
     "chromium/Default/Preferences"
-    "chromium/Default/Cookies"
+    "%chromium/Default/Cookies"
     "chromium/Local State"
     "tutanota-desktop/conf.json"
     "discord/settings.json"
     "FreeTube/settings.db"
 )
+
 
 LINK_HOME_DIRS=(
     ".config"
@@ -114,6 +115,15 @@ for dir in "${SYMLINKS_DIRS[@]}"; do
 done
 
 for dir in "${COPY_DIRS[@]}"; do
+    if [[ $input = %* ]]; then
+        dir="${dir:1}"
+        FROM="$DOTFILES_DIR/dotfiles/$dir"
+        DEST="$HOMEDIR/.config/$dir"
+        if [ ! -e "$DEST" ]; then
+            cp -rf "$FROM" "$DEST"
+        fi
+        continue
+    fi
 	FROM="$DOTFILES_DIR/dotfiles/$dir"
 	DEST="$HOMEDIR/.config/$dir"
     if [ -h "$DEST" ]; then unlink "$DEST"; fi
