@@ -34,7 +34,7 @@ sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 confirm "Install base packages?"
 n=0
 until [ "$n" -ge 5 ]; do
-    pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget fish linux-firmware $KERNEL $KERNEL-headers opendoas mkinitcpio world/rust btrfs-progs tree ttf-nerd-fonts-symbols && break
+    pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget fish linux-firmware $KERNEL $KERNEL-headers opendoas mkinitcpio world/rust btrfs-progs tree galaxy/ttf-nerd-fonts-symbols-2048-em && break
     n=$((n+1))
 done
 if [ "$n" -eq 5 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
@@ -64,9 +64,11 @@ pacman -Sy
 
 
 pri "Adding user $USER1"
-useradd -s /bin/bash -G tty,ftp,games,network,scanner,users,video,audio,wheel $USER1
-chown -R $USER1:$USER1 $USER_HOME/
-chown -R $USER1:$USER1 $ARTIXD_DIR
+if ! id "$USER1" &>/dev/null; then
+    useradd -s /bin/bash -G tty,ftp,games,network,scanner,users,video,audio,wheel $USER1
+    chown -R $USER1:$USER1 $USER_HOME/
+    chown -R $USER1:$USER1 $ARTIXD_DIR
+fi
 
 pri "Creating temporary doas config"
 echo "permit nopass setenv { YOLO USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
@@ -76,13 +78,15 @@ sed -i 's/#PACMAN_AUTH=()/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
 
 pri "Installing paru (AUR manager)"
 if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
-pacman $PACMAN_ARGUMENTS -S git
-git clone https://aur.archlinux.org/paru-bin.git /tmp/paru
-chown -R $USER1:$USER1 /tmp/paru
-chmod +wrx /tmp/paru
-cd /tmp/paru
-doas -u $USER1 makepkg -si --noconfirm --needed
-
+# If paru is already installed, skip this step
+if command -v "$CONFIG_FUNC" &> /dev/null; then
+    pacman $PACMAN_ARGUMENTS -S git
+    git clone https://aur.archlinux.org/paru-bin.git /tmp/paru
+    chown -R $USER1:$USER1 /tmp/paru
+    chmod +wrx /tmp/paru
+    cd /tmp/paru
+    doas -u $USER1 makepkg -si --noconfirm --needed
+fi
 cp $CONFIGD_DIR/root/etc/paru.conf /etc/paru.conf
 
 pri "Disabling mkinitcpio"
@@ -144,7 +148,9 @@ rm -rf $USER_HOME/.cargo
 paru --noconfirm -Scc > /dev/null 2>&1
 
 pri "Copying configs"
+printf "$LBLUE"
 cp -rv $CONFIGD_DIR/root/* /
+printf "$NC"
 
 chmod -rw /etc/doas.conf
 
@@ -168,7 +174,7 @@ sed -i "s/USER1/${USER1}/g" /etc/security/limits.conf
 pri "Set password for user $USER1"
 
 if [ "$USER_PASSWORD" != "" ]; then
-    pri "${NC}Automaticly filling password..."
+    pri "${LBLUE}Automaticly filling password..."
     ( echo $USER_PASSWORD; echo $USER_PASSWORD; ) | passwd $USER1
 else
     n=0
@@ -182,7 +188,7 @@ chown -R $USER1:$USER1 $USER_HOME
 
 pri "Set password for root"
 if [ "$ROOT_PASSWORD" != "" ]; then
-    pri "${NC}Automaticly filling password..."
+    pri "${LBLUE}Automaticly filling password..."
     ( echo $ROOT_PASSWORD; echo $ROOT_PASSWORD; ) | passwd root
 else
     n=0
