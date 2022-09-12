@@ -16,6 +16,9 @@ export WINEPREFIX="$XDG_DATA_HOME/wine"
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 export XAUTHORITY="$HOME/.config/X11/Xauthority"
 
+export $(dbus-launch)
+export QT_QPA_PLATFORMTHEME=qt5ct
+
 export PATH="/home/$USER1/.local/bin:$PATH"
 
 export EDITOR='nvim'
