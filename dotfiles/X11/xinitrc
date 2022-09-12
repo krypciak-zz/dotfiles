@@ -1,6 +1,0 @@
-#!/bin/sh
-export $(dbus-launch)
-export QT_QPA_PLATFORMTHEME=qt5ct
-#sh ~/.config/awesome/autorun.sh
-killall strawberry
-awesome
