@@ -7,6 +7,7 @@ DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd 
 
 SYMLINKS_DIRS=( 
     "at_login.sh"
+    "awesome"
 	"nvim"
 	"zsh"
 	"alacritty"
