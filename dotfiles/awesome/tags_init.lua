@@ -50,8 +50,8 @@ add_tag({
 
 local run_discordwebapp = "sh -c 'XAPP_FORCE_GTKWINDOW_ICON=webapp-manager firefox --class WebApp-discord7290 --profile /home/krypek/.local/share/ice/firefox/discord7290 --no-remote https://discord.com/channels/@me'"
 
-local dc_classes = { "discord", "WebApp-discord7290" }
-local dc_grep = { "Discord", "@/usr/lib/firefox/firefox --class WebApp-discord7290" }
+-- local dc_classes = { "discord", "WebApp-discord7290" }
+-- local dc_grep = { "Discord", "@/usr/lib/firefox/firefox --class WebApp-discord7290" }
 add_tag({
     name = "discord",
     layout = default_layout,
@@ -63,14 +63,13 @@ add_tag({
     -- Custom variables
     c_key = "d",
     c_defactivated = false,
-    c_apps = { class = dc_classes }, 
+    c_apps = { class = { "discord" }}, 
     c_switchaction = function(tag)
-        run_if_not_running_pgrep(dc_grep, function() awful.spawn(run_discordwebapp, { tag = tag.name }) end )
+        run_if_not_running_pgrep("discord")
     end,
-    c_killme = { class = { "discord", "WebApp-discord7290" } },
     c_autogenrules = true,
 })
--- This isn't acially a diffrent workspace than discord
+--[[ This isn't acially a diffrent workspace than discord
 add_tag({
     name = "badcord",
     -- Custom variables
@@ -82,7 +81,7 @@ add_tag({
     -- All actions will be redirected to discord, expect switchaction
     c_redirect = "discord"
 })
-
+--]]
 add_tag({
     name = "icecat",
     layout = default_layout,
