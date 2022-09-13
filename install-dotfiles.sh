@@ -118,7 +118,6 @@ done
 for DIR in "${COPY_DIRS[@]}"; do
 	if [[ $DIR = %* ]]; then
 		DIR="${DIR:1}"
-		echo $DIR
 		FROM="$DOTFILES_DIR/dotfiles/$DIR"
 		DEST="$HOMEDIR/.config/$DIR"
 		if [ ! -e "$DEST" ]; then
