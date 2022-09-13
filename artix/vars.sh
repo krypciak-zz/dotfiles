@@ -60,8 +60,6 @@ PACMAN_ARGUMENTS='--noconfirm --needed'
 PARU_ARGUMENTS='--noremovemake --skipreview --noupgrademenu'
 
 KERNEL='linux-zen'
-# drivers basic audio bluetooth browsers coding fstools 
-# gaming media security social virt android awesome
 PACKAGE_GROUPS=(
     #'drivers'
     'basic'
@@ -73,6 +71,7 @@ PACKAGE_GROUPS=(
     'gaming'
     'security'
     'social'
+    #'misc'
     'virt'
     'awesome'
 )
