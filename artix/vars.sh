@@ -1,14 +1,31 @@
 #!/bin/sh
 
+# User configuration
+USER1="krypek"
+USER_HOME="/home/$USER1"
+
+USER_PASSWORD=123
+ROOT_PASSWORD=123
+
+REGION="Europe"
+CITY="Warsaw"
+HOSTNAME="krypekartix"
+LANG="en_US.UTF-8"
+
+
+INSTALL_DOTFILES=1
+INSTALL_PRIVATE_DOTFILES=1
+
+BOOTLOADER_ID='Artix'
 INSTALL_DIR="/mnt"
 # Disk managment
 DISK="/dev/vda"
-EFI_PART="${DISK}1"
-EFI_SIZE='200M'
+BOOT_PART="${DISK}1"
+BOOT_SIZE='200M'
 CRYPT_PART="${DISK}2"
 
-EFI_DIR_ALONE='/boot'
-EFI_DIR=${INSTALL_DIR}${EFI_DIR_ALONE}
+BOOT_DIR_ALONE='/boot'
+BOOT_DIR=${INSTALL_DIR}${BOOT_DIR_ALONE}
 
 # LUKS
 CRYPT_NAME='lvmcrypt'
@@ -28,12 +45,14 @@ LVM_GROUP_NAME='Artix'
 LVM_DIR="/dev/$LVM_GROUP_NAME"
 
 # File systems
-EFI_FORMAT_COMMAND="mkfs.fat -n EFI $EFI_PART"
+BOOT_FORMAT_COMMAND="mkfs.fat -n boot $BOOT_PART"
+BOOT_FSTAB_ARGS="$BOOT_DIR_ALONE    vfat       rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2"
 ROOT_FORMAT_COMMAND="mkfs.btrfs -f -L root $LVM_DIR/root"
+ROOT_FSTAB_ARGS="/  btrfs     	rw,noatime,ssd,space_cache=v2,subvolid=5,subvol=/	0 0"
 HOME_FORMAT_COMMAND="mkfs.btrfs -f -L home $LVM_DIR/home"
-#ROOT_FORMAT_COMMAND="mkfs.ext4 -L root $LVM_DIR/root"
-#HOME_FORMAT_COMMAND="mkfs.ext4 -L home $LVM_DIR/home"
+HOME_FILESYSTEM="$USER_HOME     btrfs      rw,noatime,ssd,space_cache=v2,subvolid=5,subvol=/"
 
+FSTAB_ENTRIES=""
 
 # Packages
 LIB32=1
@@ -71,27 +90,6 @@ CPU='amd'
 YOLO=1
 AUTO_REBOOT=1
 PAUSE_AFTER_DONE=0
-
-
-
-# User configuration
-USER1="krypek"
-USER_HOME="/home/$USER1"
-
-USER_PASSWORD=123
-ROOT_PASSWORD=123
-
-REGION="Europe"
-CITY="Warsaw"
-HOSTNAME="krypekartix"
-LANG="en_US.UTF-8"
-
-INSTALL_DOTFILES=1
-INSTALL_PRIVATE_DOTFILES=1
-
-BOOTLOADER_ID='Artix'
-
-
 
 
 LGREEN='\033[1;32m'

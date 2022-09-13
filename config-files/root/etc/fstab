@@ -1,0 +1,14 @@
+UUID=ROOT_UUID ROOT_FSTAB_ARGS
+
+# $BOOT_PART
+UUID=BOOT_UUID BOOT_FSTAB_ARGS
+
+# /dev/LVM_GROUP_NAME/home
+UUID=HOME_UUID HOME_FSTAB_ARGS
+
+# /dev/LVM_GROUP_NAME/swap
+UUID=SWAP_UUID none swap defaults 0 0
+
+tmpfs /var/run  tmpfs defaults,rw,nosuid,mode=0755 0 0
+tmpfs /var/lock tmpfs defaults,rw,noexec,nosuid,nodev,mode=1777 0 0
+tmpfs /tmp      tmpfs rw,nodev,nosuid          0  0

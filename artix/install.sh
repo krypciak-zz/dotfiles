@@ -7,7 +7,7 @@ export OUTPUT_REDIRECT
 function unmount() {
     sync
     swapoff -a > /dev/null 2>&1
-    umount -q $EFI_PART > /dev/null 2>&1
+    umount -q $BOOT_PART > /dev/null 2>&1
     umount -Rq $INSTALL_DIR > /dev/null 2>&1
     swapoff $LVM_DIR/swap > /dev/null 2>&1
     lvchange -an $LVM_GROUP_NAME > /dev/null 2>&1
@@ -27,13 +27,13 @@ unmount
 mkdir -p $INSTALL_DIR
 (
 echo g # set partitioning scheme to GPT
-echo n # Create EFI partition
+echo n # Create BOOT partition
 echo p # primary partition
 echo 1 # partition number 1
 echo   # default - start at beginning of disk 
-echo +${EFI_SIZE} # your size
+echo +${BOOT_SIZE} # your size
 echo t # set partition type
-echo 1 # to EFI system
+echo 1 # to BOOT system
 echo n # Create LVM partition
 echo p # primary partition
 echo 2 # partion number 2
@@ -110,8 +110,8 @@ if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 pri "HOME"
 $HOME_FORMAT_COMMAND > /dev/null 2>&1
 if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
-pri "EFI"
-$EFI_FORMAT_COMMAND 
+pri "BOOT"
+$BOOT_FORMAT_COMMAND 
 if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
 pri "Mounting ${LBLUE}$LVM_DIR/root ${LGREEN}to ${LBLUE}$INSTALL_DIR/"
@@ -123,9 +123,9 @@ mkdir -p $INSTALL_DIR/home/$USER1
 mount $LVM_DIR/home $INSTALL_DIR/home/$USER1/
 if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
-pri "Mounting ${LBLUE}${EFI_PART}${LGREEN} to ${LBLUE}$EFI_DIR"
-mkdir -p $EFI_DIR
-mount $EFI_PART $EFI_DIR
+pri "Mounting ${LBLUE}${BOOT_PART}${LGREEN} to ${LBLUE}$BOOT_DIR"
+mkdir -p $BOOT_DIR
+mount $BOOT_PART $BOOT_DIR
 if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
 pri "Turning swap on"
@@ -136,9 +136,6 @@ if [ $? -ne 0 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 confirm "Basestrap basic packages?"
 export LANG
 basestrap -C $ARTIXD_DIR/../config-files/pacman.conf.install $INSTALL_DIR base openrc elogind-openrc artix-keyring artix-mirrorlist autoconf automake bison fakeroot flex gcc groff libtool m4 make patch pkgconf texinfo which iptables-nft
-
-pri "Generating fstab"
-fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
 
 
 DOTFILES_DIR=$INSTALL_DIR$USER_HOME/home/.config/dotfiles

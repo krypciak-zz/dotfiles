@@ -201,6 +201,38 @@ fi
 
 chsh -s /bin/bash root > /dev/null 2>&1
 
+
+pri "Configuring fstab"
+CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
+ESCAPED_CRYPT_UUID=$(printf '%s\n' "$CRYPT_UUID" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/CRYPT_UUID/$ESCAPED_CRYPT_UUID/g" /etc/fstab
+
+SWAP_UUID=$(blkid $LVM_DIR/swap -s UUID -o value)
+ESCAPED_SWAP_UUID=$(printf '%s\n' "$SWAP_UUID" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/SWAP_UUID/$ESCAPED_SWAP_UUID/g" /etc/fstab
+
+HOME_UUID=$(blkid $LVM_DIR/home -s UUID -o value)
+ESCAPED_HOME_UUID=$(printf '%s\n' "$HOME_UUID" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/HOME_UUID/$ESCAPED_HOME_UUID/g" /etc/fstab
+
+ESCAPED_BOOT_PART=$(printf '%s\n' "$BOOT_PART" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/BOOT_PART/$ESCAPED_BOOT_PART/g" /etc/fstab
+
+
+ESCAPED_LVM_GROUP_NAME=$(printf '%s\n' "$LVM_GROUP_NAME" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/LVM_GROUP_NAME/$ESCAPED_LVM_GROUP_NAME/g" /etc/fstab
+
+
+ESCAPED_ROOT_FSTAB_ARGS=$(printf '%s\n' "$ROOT_FSTAB_ARGS" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/BOOT_PART/$ESCAPED_ROOT_FSTAB_ARGS/g" /etc/fstab
+
+ESCAPED_HOME_FSTAB_ARGS=$(printf '%s\n' "$HOME_FSTAB_ARGS" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/HOME_PART/$ESCAPED_HOME_FSTAB_ARGS/g" /etc/fstab
+
+ESCAPED_BOOT_FSTAB_ARGS=$(printf '%s\n' "$BOOT_FSTAB_ARGS" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/BOOT_PART/$ESCAPED_BOOT_FSTAB_ARGS/g" /etc/fstab
+
+
 pri "Enabling mkinitpckio"
 mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
 #sed -i '1d' /bin/mkinitcpio
@@ -209,24 +241,18 @@ pri "Generating mkinitcpio"
 mkinitcpio -p $KERNEL
 
 
-CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
-ESCAPED_CRYPT_UUID=$(printf '%s\n' "$CRYPT_UUID" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/CRYPT_UUID/$ESCAPED_CRYPT_UUID/g" /etc/default/grub
 
-SWAP_UUID=$(blkid $LVM_DIR/swap -s UUID -o value)
-ESCAPED_SWAP_UUID=$(printf '%s\n' "$SWAP_UUID" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/SWAP_UUID/$ESCAPED_SWAP_UUID/g" /etc/default/grub
 
 ESCAPED_CRYPT_NAME=$(printf '%s\n' "$CRYPT_NAME" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/CRYPT_NAME/$ESCAPED_CRYPT_NAME/g" /etc/default/grub
 
-ESCAPED_LVM_GROUP_NAME=$(printf '%s\n' "$LVM_GROUP_NAME" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/LVM_GROUP_NAME/$ESCAPED_LVM_GROUP_NAME/g" /etc/default/grub
-#ESCAPED_LVM_DIR=$(printf '%s\n' "$LVM_DIR" | sed -e 's/[\/&]/\\&/g')
-#sed -i "s/LVM_DIR/$ESCAPED_LVM_DIR/g" /etc/default/grub
 
-pri "Installing grub to $EFI_DIR_ALONE"
-grub-install --target=x86_64-efi --efi-directory=$EFI_DIR_ALONE --bootloader-id=$BOOTLOADER_ID
+
+pri "Installing grub to $BOOT_DIR_ALONE"
+grub-install --target=x86_64-efi --efi-directory=$BOOT_DIR_ALONE --bootloader-id=$BOOTLOADER_ID
 
 pri "Generating grub config"
 grub-mkconfig -o /boot/grub/grub.cfg
