@@ -72,6 +72,7 @@ PACKAGE_GROUPS=(
     'security'
     'social'
     #'misc'
+    #'bluetooth'
     'virt'
     'awesome'
 )
