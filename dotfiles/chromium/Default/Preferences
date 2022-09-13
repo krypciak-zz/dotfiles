@@ -16,7 +16,6 @@
       "created_by_policy": false,
       "created_from_play_api": false,
       "date_created": "13307286081941927",
-      "doodle_url": "",
       "favicon_url": "https://www.startpage.com/sp/cdn/favicons/favicon-32x32.png?v=bf480823",
       "id": "10",
       "image_url": "",
@@ -391,6 +390,97 @@
         "regular_only_preferences": {},
         "state": 1,
         "uninstall_url": "https://darkreader.org/goodluck/",
+        "was_installed_by_default": false,
+        "was_installed_by_oem": false,
+        "withholding_permissions": false
+      },
+      "fihnjjcciajhdojfnbdddfaoknhalnja": {
+        "active_permissions": {
+          "api": [
+            "notifications",
+            "storage",
+            "tabs",
+            "webNavigation",
+            "webRequest",
+            "webRequestBlocking"
+          ],
+          "explicit_host": [
+            "http://*/*",
+            "https://*/*"
+          ],
+          "manifest_permissions": []
+        },
+        "commands": {},
+        "content_settings": [],
+        "creation_flags": 1,
+        "events": [],
+        "from_webstore": false,
+        "granted_permissions": {
+          "api": [
+            "notifications",
+            "storage",
+            "tabs",
+            "webNavigation",
+            "webRequest",
+            "webRequestBlocking"
+          ],
+          "explicit_host": [
+            "http://*/*",
+            "https://*/*"
+          ],
+          "manifest_permissions": []
+        },
+        "incognito_content_settings": [],
+        "incognito_preferences": {},
+        "install_time": "13307553046469388",
+        "location": 1,
+        "manifest": {
+          "author": "Daniel Kladnik @ kiboke studio",
+          "background": {
+            "scripts": [
+              "data/rules.js",
+              "data/context-menu.js"
+            ]
+          },
+          "browser_action": {
+            "default_icon": {
+              "16": "icons/16.png",
+              "32": "icons/32.png"
+            },
+            "default_popup": "data/menu/index.html"
+          },
+          "current_locale": "en_US",
+          "default_locale": "en",
+          "icons": {
+            "16": "icons/16.png",
+            "48": "icons/48.png",
+            "128": "icons/128.png"
+          },
+          "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoBApfDcdUA61xVsZ7KYlTTFdqeX63/oJfIYnm8nCPCDFTRucaTHZCmMwEcIjOs8AeLycTpIe/oaArfJ9mwCmN4k9GGAek2Vs+cKQsLqXUUzJLTX1EAaPMvU8n0p6J9WyJAYkPCEwGaxCbvIbbZYf1awl94nGhdXmjvoZAMfN1biRVPJU/sS7BudKb15tmeXDYpetW8Em2Nn+LKTlu9iDggeEmOGkkNwPQ4kMbiOmbi/CS6zjv1zV8wvBTHzyEeFk0Odtuke9GuP2uXxmPIYkZFDBIFTvWMqovc62Y7BGuCRgHDz2EHttv5IkEvuoz336RPPRyHnk+7J2lzFgM9hyZwIDAQAB",
+          "manifest_version": 2,
+          "name": "I don't care about cookies",
+          "options_ui": {
+            "chrome_style": true,
+            "page": "data/options.html"
+          },
+          "permissions": [
+            "tabs",
+            "storage",
+            "http://*/*",
+            "https://*/*",
+            "notifications",
+            "webRequest",
+            "webRequestBlocking",
+            "webNavigation"
+          ],
+          "short_name": "Bye-bye to warnings.",
+          "update_url": "https://clients2.google.com/service/update2/crx",
+          "version": "3.4.2"
+        },
+        "path": "fihnjjcciajhdojfnbdddfaoknhalnja/3.4.2_0",
+        "preferences": {},
+        "regular_only_preferences": {},
+        "state": 1,
         "was_installed_by_default": false,
         "was_installed_by_oem": false,
         "withholding_permissions": false
@@ -1728,465 +1818,18 @@
     "accept_languages": "en-US,en,pl",
     "selected_languages": "en-US,en,pl"
   },
-  "omnibox": {
-    "keyword_space_triggering_enabled": true
-  },
-  "profile": {
-    "avatar_bubble_tutorial_shown": 2,
-    "avatar_index": 26,
-    "content_settings": {
-      "enable_quiet_permission_ui_enabling_method": {
-        "notifications": 1
-      },
-      "exceptions": {
-        "accessibility_events": {},
-        "app_banner": {
-          "https://jsoneditoronline.org:443,*": {
-            "expiration": "0",
-            "last_modified": "13307286023190626",
-            "model": 0,
-            "setting": {
-              "https://jsoneditoronline.org/": {
-                "couldShowBannerEvents": 13307286023190608,
-                "next_install_text_animation": {
-                  "delay": "86400000000",
-                  "last_shown": "13307286014245358"
-                }
-              }
-            }
-          },
-          "https://www.reddit.com:443,*": {
-            "expiration": "0",
-            "last_modified": "13307285794777332",
-            "model": 0,
-            "setting": {
-              "https://www.reddit.com/": {
-                "couldShowBannerEvents": 13307285794777326,
-                "next_install_text_animation": {
-                  "delay": "86400000000",
-                  "last_shown": "13307285780291760"
-                }
-              }
-            }
-          }
-        },
-        "ar": {},
-        "auto_select_certificate": {},
-        "automatic_downloads": {},
-        "autoplay": {},
-        "background_sync": {},
-        "bluetooth_chooser_data": {},
-        "bluetooth_guard": {},
-        "bluetooth_scanning": {},
-        "camera_pan_tilt_zoom": {},
-        "client_hints": {
-          "https://www.ecosia.org:443,*": {
-            "expiration": "0",
-            "last_modified": "13307286103436628",
-            "model": 0,
-            "setting": {
-              "client_hints": [
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                16
-              ]
-            }
-          }
-        },
-        "clipboard": {},
-        "cookies": {},
-        "durable_storage": {},
-        "fedcm_active_session": {},
-        "fedcm_share": {},
-        "file_system_access_chooser_data": {},
-        "file_system_last_picked_directory": {},
-        "file_system_read_guard": {},
-        "file_system_write_guard": {},
-        "formfill_metadata": {},
-        "geolocation": {},
-        "get_display_media_set_select_all_screens": {},
-        "hid_chooser_data": {},
-        "hid_guard": {},
-        "http_allowed": {},
-        "idle_detection": {},
-        "images": {},
-        "important_site_info": {},
-        "insecure_private_network": {},
-        "installed_web_app_metadata": {},
-        "intent_picker_auto_display": {},
-        "javascript": {},
-        "javascript_jit": {},
-        "legacy_cookie_access": {},
-        "local_fonts": {},
-        "media_engagement": {
-          "https://add.startpage.com:443,*": {
-            "expiration": "13315062228239459",
-            "last_modified": "13307286228239471",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 3
-            }
-          },
-          "https://addons.mozilla.org:443,*": {
-            "expiration": "13315062306020593",
-            "last_modified": "13307286306020600",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 1
-            }
-          },
-          "https://chrome.google.com:443,*": {
-            "expiration": "13315062368078188",
-            "last_modified": "13307286368078195",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 6
-            }
-          },
-          "https://darkreader.org:443,*": {
-            "expiration": "13315062367304141",
-            "last_modified": "13307286367304149",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 1
-            }
-          },
-          "https://github.com:443,*": {
-            "expiration": "13315062137317932",
-            "last_modified": "13307286137317940",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 1
-            }
-          },
-          "https://itsfoss.com:443,*": {
-            "expiration": "13315062137356387",
-            "last_modified": "13307286137356394",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 1
-            }
-          },
-          "https://jsoneditoronline.org:443,*": {
-            "expiration": "13315062137332297",
-            "last_modified": "13307286137332304",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 1
-            }
-          },
-          "https://marketplace.visualstudio.com:443,*": {
-            "expiration": "13315061774681515",
-            "last_modified": "13307285774681521",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 1
-            }
-          },
-          "https://stackoverflow.com:443,*": {
-            "expiration": "13315061810430554",
-            "last_modified": "13307285810430560",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 1
-            }
-          },
-          "https://urlclean.com:443,*": {
-            "expiration": "13315062354526204",
-            "last_modified": "13307286354526211",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 1
-            }
-          },
-          "https://wiki.archlinux.org:443,*": {
-            "expiration": "13315061859071965",
-            "last_modified": "13307285859072002",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 1
-            }
-          },
-          "https://www.chromium.org:443,*": {
-            "expiration": "13315062137357324",
-            "last_modified": "13307286137357328",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 1
-            }
-          },
-          "https://www.ecosia.org:443,*": {
-            "expiration": "13315062137358076",
-            "last_modified": "13307286137358079",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 8
-            }
-          },
-          "https://www.localcdn.org:443,*": {
-            "expiration": "13315062330924039",
-            "last_modified": "13307286330924046",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 1
-            }
-          },
-          "https://www.reddit.com:443,*": {
-            "expiration": "13315061794776721",
-            "last_modified": "13307285794776725",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 1
-            }
-          },
-          "https://www.startpage.com:443,*": {
-            "expiration": "13315062396571259",
-            "last_modified": "13307286396571269",
-            "model": 0,
-            "setting": {
-              "hasHighScore": false,
-              "lastMediaPlaybackTime": 0,
-              "mediaPlaybacks": 0,
-              "visits": 7
-            }
-          }
-        },
-        "media_stream_camera": {},
-        "media_stream_mic": {},
-        "midi_sysex": {},
-        "mixed_script": {},
-        "nfc_devices": {},
-        "notification_interactions": {},
-        "notifications": {
-          "https://www.reddit.com:443,*": {
-            "expiration": "0",
-            "last_modified": "13307285783638356",
-            "model": 0,
-            "setting": 2
-          }
-        },
-        "password_protection": {},
-        "payment_handler": {},
-        "permission_autoblocking_data": {},
-        "permission_autorevocation_data": {},
-        "popups": {},
-        "ppapi_broker": {},
-        "protocol_handler": {},
-        "safe_browsing_url_check_data": {},
-        "sensors": {},
-        "serial_chooser_data": {},
-        "serial_guard": {},
-        "site_engagement": {
-          "https://chrome.google.com:443,*": {
-            "expiration": "0",
-            "last_modified": "13307286364391370",
-            "model": 0,
-            "setting": {
-              "lastEngagementTime": 13307286364391352,
-              "lastShortcutLaunchTime": 0,
-              "pointsAddedToday": 2.1,
-              "rawScore": 2.1
-            }
-          },
-          "https://github.com:443,*": {
-            "expiration": "0",
-            "last_modified": "13307286153835946",
-            "model": 0,
-            "setting": {
-              "lastEngagementTime": 13307286153835900,
-              "lastShortcutLaunchTime": 0,
-              "pointsAddedToday": 2.7,
-              "rawScore": 2.7
-            }
-          },
-          "https://itsfoss.com:443,*": {
-            "expiration": "0",
-            "last_modified": "13307286003413949",
-            "model": 0,
-            "setting": {
-              "lastEngagementTime": 13307286003413872,
-              "lastShortcutLaunchTime": 0,
-              "pointsAddedToday": 2.7,
-              "rawScore": 2.7
-            }
-          },
-          "https://jsoneditoronline.org:443,*": {
-            "expiration": "0",
-            "last_modified": "13307286069374330",
-            "model": 0,
-            "setting": {
-              "lastEngagementTime": 13307286069374292,
-              "lastShortcutLaunchTime": 0,
-              "pointsAddedToday": 4.5,
-              "rawScore": 4.5
-            }
-          },
-          "https://wiki.archlinux.org:443,*": {
-            "expiration": "0",
-            "last_modified": "13307285847420648",
-            "model": 0,
-            "setting": {
-              "lastEngagementTime": 13307285847420600,
-              "lastShortcutLaunchTime": 0,
-              "pointsAddedToday": 2.7,
-              "rawScore": 2.7
-            }
-          },
-          "https://www.chromium.org:443,*": {
-            "expiration": "0",
-            "last_modified": "13307285961453892",
-            "model": 0,
-            "setting": {
-              "lastEngagementTime": 13307285961453862,
-              "lastShortcutLaunchTime": 0,
-              "pointsAddedToday": 2.7,
-              "rawScore": 2.7
-            }
-          },
-          "https://www.ecosia.org:443,*": {
-            "expiration": "0",
-            "last_modified": "13307286103441599",
-            "model": 0,
-            "setting": {
-              "lastEngagementTime": 13307286103441580,
-              "lastShortcutLaunchTime": 0,
-              "pointsAddedToday": 14.1,
-              "rawScore": 14.1
-            }
-          },
-          "https://www.startpage.com:443,*": {
-            "expiration": "0",
-            "last_modified": "13307286392785003",
-            "model": 0,
-            "setting": {
-              "lastEngagementTime": 13307286392784956,
-              "lastShortcutLaunchTime": 0,
-              "pointsAddedToday": 15,
-              "rawScore": 15
-            }
-          }
-        },
-        "sound": {},
-        "ssl_cert_decisions": {},
-        "storage_access": {},
-        "subresource_filter": {},
-        "subresource_filter_data": {},
-        "usb_chooser_data": {},
-        "usb_guard": {},
-        "vr": {},
-        "webid_api": {},
-        "window_placement": {}
-      },
-      "permission_actions": {
-        "notifications": [
-          {
-            "action": 1,
-            "prompt_disposition": 1,
-            "time": "13307285783638627"
-          }
-        ]
-      },
-      "pref_version": 1
+  "optimization_guide": {
+    "hintsfetcher": {
+      "hosts_successfully_fetched": {}
     },
-    "default_content_setting_values": {
-      "cookies": 1
+    "previously_registered_optimization_types": {
+      "ABOUT_THIS_SITE": true,
+      "HISTORY_CLUSTERS": true
     },
-    "exit_type": "Crashed",
-    "managed_user_id": "",
-    "name": "Person 1",
-    "were_old_google_logins_removed": true
-  },
-  "protection": {
-    "macs": {
-      "browser": {
-        "show_home_button": "7E99030D80842F6B31CFF7A701F51FDDE0C2D401D249ABEA6B2AE80DCC1EA5BA"
-      },
-      "default_search_provider_data": {
-        "template_url_data": "8DBB68AD72B845A15227C0B8466AD2215B42A30195B31649CE6F971F2FD24399"
-      },
-      "extensions": {
-        "settings": {
-          "cjpalhdlnbpafiamejdnhcphjbkeiagm": "9326368CE380355721852D978D645044663ACDED472A6E29974F3C5A0659E16F",
-          "eimadpbcbfnmbkopoojfekhnkhdbieeh": "E8C2967DC01730E50118BAA722BF91B35F65A68759BB2DB86EA4334E02189315",
-          "kmendfapggjehodndflmmgagdbamhnfd": "09945C49AD4A7985E16E4B8321B4F2CFD5A6E0529BAA5FCE4BC35347A2FB0C84",
-          "lckanjgmijmafbedllaakclkaicjfmnk": "B0B3EC6332A4DF35E27D32DAA15A2396BE1B6FCF2D885E991AE79DCBBBD6B92D",
-          "mhjfbmdgcfjbbpaeojofohoefgiehjai": "9BD62C92AF3A06EE6D4CDF2770880CFF82260BAAE33758C5713D2E13014B1B2A",
-          "njdfdhgcmkocbgbhcioffdbicglldapd": "C94ECA8E4E18980E88507FD91985F3E61132A95F9F60292D7256017BC6EC8157",
-          "ocaahdebbfolfmndjeplogmgcagdmblk": "B634749F159807FC14EFB857F9B133D39A6929E13CBE9F0BE273A045BC07DD93",
-          "pmcmeagblkinmogikoikkdjiligflglb": "744CB362665C7DDE0C198590D260C61717F646DC0F37C092FDC3E16D916A2E7B"
-        }
-      },
-      "homepage": "B1E9FE8108A84F532486D13AAC43C0AFDA16D3DFC9EB2F743AEE11F89F2F163E",
-      "homepage_is_newtabpage": "3680F776D17E3C099431BAF5381FAB9BCC0C2C70FEA4C74D12324BC94A207119",
-      "media": {
-        "storage_id_salt": "E1848263E6199A89D48A7FDF168364BF0F31246A18227F3D149D4088C7F4D667"
-      },
-      "pinned_tabs": "699F1AC92729A024B80605AFC3C63BFB2A35B70C4214581BBE108F851528E9E8",
-      "prefs": {
-        "preference_reset_time": "95C909F3D0669D5931907B455F099C510E7770D9F0BA6FF13E4C76101B44F757"
-      },
-      "search_provider_overrides": "1E1EBA3A4DC28A23BEFCF6ED5D71CE71E9814DD587A305F6B14F72E834AF75DD",
-      "session": {
-        "restore_on_startup": "FF7E6D4A0C00443182E8326EE564F803943764462F88443412193C73C8E5046B",
-        "startup_urls": "8BB8DBC1D7CA5C58F821C38254FB2B9C874F8EE9B9905B57DE48C731C6C91837"
-      }
-    }
+    "store_file_paths_to_delete": {}
   },
   "session": {
     "restore_on_startup": 1
-  },
-  "sessions": {
-    "session_data_status": 1
   },
   "spellcheck": {
     "dictionaries": [
