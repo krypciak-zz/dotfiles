@@ -224,13 +224,13 @@ sed -i "s/LVM_GROUP_NAME/$ESCAPED_LVM_GROUP_NAME/g" /etc/fstab
 
 
 ESCAPED_ROOT_FSTAB_ARGS=$(printf '%s\n' "$ROOT_FSTAB_ARGS" | sed -e 's/[\/&]/\\&/g')
-sed -i "s/BOOT_PART/$ESCAPED_ROOT_FSTAB_ARGS/g" /etc/fstab
+sed -i "s/BOOT_FSTAB_ARGS/$ESCAPED_ROOT_FSTAB_ARGS/g" /etc/fstab
 
 ESCAPED_HOME_FSTAB_ARGS=$(printf '%s\n' "$HOME_FSTAB_ARGS" | sed -e 's/[\/&]/\\&/g')
-sed -i "s/HOME_PART/$ESCAPED_HOME_FSTAB_ARGS/g" /etc/fstab
+sed -i "s/HOME_FSTAB_ARGS/$ESCAPED_HOME_FSTAB_ARGS/g" /etc/fstab
 
 ESCAPED_BOOT_FSTAB_ARGS=$(printf '%s\n' "$BOOT_FSTAB_ARGS" | sed -e 's/[\/&]/\\&/g')
-sed -i "s/BOOT_PART/$ESCAPED_BOOT_FSTAB_ARGS/g" /etc/fstab
+sed -i "s/BOOT_FSTAB_ARGS/$ESCAPED_BOOT_FSTAB_ARGS/g" /etc/fstab
 
 
 pri "Enabling mkinitpckio"
