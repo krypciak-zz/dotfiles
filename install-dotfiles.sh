@@ -40,8 +40,8 @@ REAL_HOME_DIRS=(
 )
 # If path starts with %, will not override
 COPY_DIRS=(
-	#"chromium/Default/Preferences"
-	#"%chromium/Default/Cookies"
+    "chromium/Default/Preferences"
+	"%chromium/Default/Cookies"
     "chromium/Local State"
 	"tutanota-desktop/conf.json"
 	"discord/settings.json"
