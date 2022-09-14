@@ -39,6 +39,7 @@ REAL_HOME_DIRS=(
 	".bashrc"
 )
 # If path starts with %, will not override
+# If path starts with #, dest path will be in .local/share
 COPY_DIRS=(
     "chromium/Default/Preferences"
 	"%chromium/Default/Cookies"
@@ -46,6 +47,7 @@ COPY_DIRS=(
 	"tutanota-desktop/conf.json"
 	"discord/settings.json"
 	"FreeTube/settings.db"
+    "#multimc/multimc.cfg"
 )
 
 
@@ -115,17 +117,22 @@ for dir in "${SYMLINKS_DIRS[@]}"; do
 	chown -R $USER1:$USER1 "$DEST"
 done
 
-for DIR in "${COPY_DIRS[@]}"; do
-	if [[ $DIR = %* ]]; then
-		DIR="${DIR:1}"
-		FROM="$DOTFILES_DIR/dotfiles/$DIR"
-		DEST="$HOMEDIR/.config/$DIR"
+for dir in "${COPY_DIRS[@]}"; do
+    if [[ $dir = %* ]]; then
+		dir="${dir:1}"
+		FROM="$DOTFILES_DIR/dotfiles/$dir"
+		DEST="$HOMEDIR/.config/$dir"
 		if [ ! -e "$DEST" ]; then
 			cp -rf "$FROM" "$DEST"
 		fi
 	else
-		FROM="$DOTFILES_DIR/dotfiles/$DIR"
-		DEST="$HOMEDIR/.config/$DIR"
+		FROM="$DOTFILES_DIR/dotfiles/$dir"
+		DEST="$HOMEDIR/.config/$dir"
+        if [[ $dir = \#* ]]; then
+            dir="${dir:1}"
+		    FROM="$DOTFILES_DIR/dotfiles/$dir"
+            DEST="$HOMEDIR/.local/share/$dir"
+        fi
 		if [ -h "$DEST" ]; then unlink "$DEST"; fi
 		if [ -e "$DEST" ]; then confirm $DEST; fi
 		mkdir -p "$(dirname $DEST | head --lines 1)"
@@ -134,8 +141,16 @@ for DIR in "${COPY_DIRS[@]}"; do
 	fi
 done
 
-# Update nvim plugins
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1
+
+
+ESCAPED_USER_HOME=$(printf '%s\n' "$REAL_HOMEDIR" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/USER_HOME/$ESCAPED_USER_HOME/g" $REAL_HOMEDIR/.local/share/multimc/multimc.cfg
+ESCAPED_HOSTNAME=$(printf '%s\n' "$(hostname)" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/HOSTNAME/$ESCAPED_HOSTNAME/g" $REAL_HOMEDIR/.local/share/multimc/multimc.cfg
 
 chmod +x $REAL_HOMEDIR/.config/awesome/run/run.sh
 chmod +x $REAL_HOMEDIR/.config/at_login.sh
+
+
+# Update nvim plugins
+#nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1
