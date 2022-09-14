@@ -7,5 +7,5 @@ command = "tuigreet -s USER_HOME/.config/xsessions -t -r --asterisks-char A --po
 user = "greeter"
 
 [initial_session]
-command = "USER_HOME/.config/awesome/run/run.sh"
+command = "USER_HOME/.config/awesome/ru/run.sh"
 user = "USER1"
