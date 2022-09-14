@@ -216,8 +216,8 @@ HOME_UUID=$(blkid $LVM_DIR/home -s UUID -o value)
 ESCAPED_HOME_UUID=$(printf '%s\n' "$HOME_UUID" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/HOME_UUID/$ESCAPED_HOME_UUID/g" /etc/fstab
 
-ESCAPED_BOOT_PART=$(printf '%s\n' "$BOOT_PART" | sed -e 's/[\/&]/\\&/g')
-sed -i "s/BOOT_PART/$ESCAPED_BOOT_PART/g" /etc/fstab
+ESCAPED_BOOT_UUID=$(printf '%s\n' "$BOOT_UUID" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/BOOT_UUID/$ESCAPED_BOOT_UUID/g" /etc/fstab
 
 
 ESCAPED_LVM_GROUP_NAME=$(printf '%s\n' "$LVM_GROUP_NAME" | sed -e 's/[\/&]/\\&/g')
