@@ -203,9 +203,9 @@ chsh -s /bin/bash root > /dev/null 2>&1
 
 
 pri "Configuring fstab"
-CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
-ESCAPED_CRYPT_UUID=$(printf '%s\n' "$CRYPT_UUID" | sed -e 's/[\/&]/\\&/g')
-sed -i "s/CRYPT_UUID/$ESCAPED_CRYPT_UUID/g" /etc/fstab
+ROOT_UUID=$(blkid $LVM_DIR/root -s UUID -o value)
+ESCAPED_ROOT_UUID=$(printf '%s\n' "$ROOT_UUID" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/ROOT_UUID/$ESCAPED_ROOT_UUID/g" /etc/fstab
 
 SWAP_UUID=$(blkid $LVM_DIR/swap -s UUID -o value)
 ESCAPED_SWAP_UUID=$(printf '%s\n' "$SWAP_UUID" | sed -e 's/[\/&]/\\&/g')
@@ -224,7 +224,7 @@ sed -i "s/LVM_GROUP_NAME/$ESCAPED_LVM_GROUP_NAME/g" /etc/fstab
 
 
 ESCAPED_ROOT_FSTAB_ARGS=$(printf '%s\n' "$ROOT_FSTAB_ARGS" | sed -e 's/[\/&]/\\&/g')
-sed -i "s/BOOT_FSTAB_ARGS/$ESCAPED_ROOT_FSTAB_ARGS/g" /etc/fstab
+sed -i "s/ROOT_FSTAB_ARGS/$ESCAPED_ROOT_FSTAB_ARGS/g" /etc/fstab
 
 ESCAPED_HOME_FSTAB_ARGS=$(printf '%s\n' "$HOME_FSTAB_ARGS" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/HOME_FSTAB_ARGS/$ESCAPED_HOME_FSTAB_ARGS/g" /etc/fstab
@@ -241,6 +241,8 @@ pri "Generating mkinitcpio"
 mkinitcpio -p $KERNEL
 
 
+CRYPT_UUID=$(blkid $CRYPT_PART -s UUID -o value)
+ESCAPED_CRYPT_UUID=$(printf '%s\n' "$CRYPT_UUID" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/CRYPT_UUID/$ESCAPED_CRYPT_UUID/g" /etc/default/grub
 
 sed -i "s/SWAP_UUID/$ESCAPED_SWAP_UUID/g" /etc/default/grub

@@ -50,7 +50,7 @@ BOOT_FSTAB_ARGS="$BOOT_DIR_ALONE    vfat       rw,relatime,fmask=0022,dmask=0022
 ROOT_FORMAT_COMMAND="mkfs.btrfs -f -L root $LVM_DIR/root"
 ROOT_FSTAB_ARGS="/  btrfs     	rw,noatime,ssd,space_cache=v2,subvolid=5,subvol=/	0 0"
 HOME_FORMAT_COMMAND="mkfs.btrfs -f -L home $LVM_DIR/home"
-HOME_FILESYSTEM="$USER_HOME     btrfs      rw,noatime,ssd,space_cache=v2,subvolid=5,subvol=/"
+HOME_FSTAB_ARGS="$USER_HOME     btrfs      rw,noatime,ssd,space_cache=v2,subvolid=5,subvol=/"
 
 FSTAB_ENTRIES=""
 
