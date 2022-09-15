@@ -1,7 +1,7 @@
 #~/bin/sh
 
-REAL_HOMEDIR="/home/$USER1"
-HOMEDIR="$REAL_HOMEDIR/home"
+USER_HOME="/home/$USER1"
+FAKE_USER_HOME="$USER_HOME/home"
 
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
@@ -85,21 +85,21 @@ function confirm() {
 	esac
 }
 
-mkdir -p $REAL_HOMEDIR
-mkdir -p $HOMEDIR
+mkdir -p $USER_HOME
+mkdir -p $FAKE_USER_HOME
 
 for dir in "${LINK_HOME_DIRS[@]}"; do
-	DEST="$REAL_HOMEDIR/$dir"
+	DEST="$USER_HOME/$dir"
 	if [ -h "$DEST" ]; then unlink "$DEST"; fi
 	if [ -e "$DEST" ]; then confirm $DEST; fi
-	mkdir -p $HOMEDIR/$dir
-	ln -sfT $HOMEDIR/$dir $DEST
+	mkdir -p $FAKE_USER_HOME/$dir
+	ln -sfT $FAKE_USER_HOME/$dir $DEST
 done
 
 
 for dir in "${REAL_HOME_DIRS[@]}"; do
 	FROM="$DOTFILES_DIR/dotfiles/$dir"
-	DEST="$REAL_HOMEDIR/$dir"
+	DEST="$USER_HOME/$dir"
 	if [ -h "$DEST" ]; then unlink "$DEST"; fi
 	if [ -e "$DEST" ]; then confirm $DEST; fi
 	mkdir -p "$(dirname $DEST | head --lines 1)"
@@ -109,7 +109,7 @@ done
 
 for dir in "${SYMLINKS_DIRS[@]}"; do
 	FROM="$DOTFILES_DIR/dotfiles/$dir"
-	DEST="$HOMEDIR/.config/$dir"
+	DEST="$FAKE_USER_HOME/.config/$dir"
 	if [ -h "$DEST" ]; then unlink "$DEST"; fi
 	if [ -e "$DEST" ]; then confirm $DEST; fi
 	mkdir -p "$(dirname $DEST | head --lines 1)"
@@ -121,17 +121,17 @@ for dir in "${COPY_DIRS[@]}"; do
     if [[ $dir = %* ]]; then
 		dir="${dir:1}"
 		FROM="$DOTFILES_DIR/dotfiles/$dir"
-		DEST="$HOMEDIR/.config/$dir"
+		DEST="$FAKE_USER_HOME/.config/$dir"
 		if [ ! -e "$DEST" ]; then
 			cp -rf "$FROM" "$DEST"
 		fi
 	else
 		FROM="$DOTFILES_DIR/dotfiles/$dir"
-		DEST="$HOMEDIR/.config/$dir"
+		DEST="$FAKE_USER_HOME/.config/$dir"
         if [[ $dir = \#* ]]; then
             dir="${dir:1}"
 		    FROM="$DOTFILES_DIR/dotfiles/$dir"
-            DEST="$HOMEDIR/.local/share/$dir"
+            DEST="$FAKE_USER_HOME/.local/share/$dir"
         fi
 		if [ -h "$DEST" ]; then unlink "$DEST"; fi
 		if [ -e "$DEST" ]; then confirm $DEST; fi
@@ -143,13 +143,13 @@ done
 
 
 
-ESCAPED_USER_HOME=$(printf '%s\n' "$REAL_HOMEDIR" | sed -e 's/[\/&]/\\&/g')
-sed -i "s/USER_HOME/$ESCAPED_USER_HOME/g" $REAL_HOMEDIR/.local/share/multimc/multimc.cfg
+ESCAPED_USER_HOME=$(printf '%s\n' "$USER_HOME" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/USER_HOME/$ESCAPED_USER_HOME/g" $USER_HOME/.local/share/multimc/multimc.cfg
 ESCAPED_HOSTNAME=$(printf '%s\n' "$(hostname)" | sed -e 's/[\/&]/\\&/g')
-sed -i "s/HOSTNAME/$ESCAPED_HOSTNAME/g" $REAL_HOMEDIR/.local/share/multimc/multimc.cfg
+sed -i "s/HOSTNAME/$ESCAPED_HOSTNAME/g" $USER_HOME/.local/share/multimc/multimc.cfg
 
-chmod +x $REAL_HOMEDIR/.config/awesome/run/run.sh
-chmod +x $REAL_HOMEDIR/.config/at_login.sh
+chmod +x $USER_HOME/.config/awesome/run/run.sh
+chmod +x $USER_HOME/.config/at_login.sh
 
 
 # Update nvim plugins
