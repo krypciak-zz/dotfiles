@@ -233,6 +233,8 @@ sed -i "s/HOME_FSTAB_ARGS/$ESCAPED_HOME_FSTAB_ARGS/g" /etc/fstab
 ESCAPED_BOOT_FSTAB_ARGS=$(printf '%s\n' "$BOOT_FSTAB_ARGS" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/BOOT_FSTAB_ARGS/$ESCAPED_BOOT_FSTAB_ARGS/g" /etc/fstab
 
+ESCAPED_FAKE_USER_HOME=$(printf '%s\n' "$FAKE_USER_HOME" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/FAKE_USER_HOME/$ESCAPED_FAKE_USER_HOME/g" /etc/fstab
 
 pri "Enabling mkinitpckio"
 mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
