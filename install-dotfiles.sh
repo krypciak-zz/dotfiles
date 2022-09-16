@@ -44,6 +44,7 @@ COPY_DIRS=(
     "chromium/Default/Preferences"
 	"%chromium/Default/Cookies"
     "chromium/Local State"
+    "chromium-flags.conf"
 	"tutanota-desktop/conf.json"
 	"discord/settings.json"
 	"FreeTube/settings.db"
