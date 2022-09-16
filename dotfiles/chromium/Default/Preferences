@@ -1818,6 +1818,16 @@
     "accept_languages": "en-US,en,pl",
     "selected_languages": "en-US,en,pl"
   },
+  "profile": {
+    "avatar_bubble_tutorial_shown": 2,
+    "avatar_index": 26,
+    "default_content_setting_values": {
+      "cookies": 1
+    },
+    "exit_type": "Normal",
+    "name": "Person 1",
+    "were_old_google_logins_removed": true
+  },
   "optimization_guide": {
     "hintsfetcher": {
       "hosts_successfully_fetched": {}
