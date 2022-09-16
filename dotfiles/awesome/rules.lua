@@ -33,7 +33,7 @@ awful.rules.rules = {
                 "Minecraft*"
             }
         },
-        properties = { maximized = true }
+        properties = { maximized = true, focus = true }
     }, 
     -- Fullscreen clients
     {
