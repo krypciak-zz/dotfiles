@@ -5,52 +5,48 @@ FAKE_USER_HOME="$USER_HOME/home"
 
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-SYMLINKS_DIRS=( 
-	"at_login.sh"
-	"awesome"
-	"nvim"
-	"zsh"
-	"alacritty"
-	"qt5ct"
-	"ttyper"
-	"X11"
-	"gtk-2.0"
-	"gtk-3.0"
-	"gtk-4.0"
-	"redshift"
-	"copyq"
-	"keepassxc"
-	"fish"
-	"xsessions"
-	"cmus/autosave"
-	"cmus/red_theme.theme"
-	"cmus/notify.sh"
-	"topgrade.toml"
-	"neofetch"
-	"chromium/Default/Extensions"
-	"chromium/Default/Extension State"
-	"chromium/Default/Sync Extension Settings"
-	"chromium/Default/Managed Extension Settings"
-	"chromium/Default/Local Extension Settings"
-	"BetterDiscord/plugins"
+SYMLINK_FROM_TO=( 
+	"at_login.sh"           ".config"
+	"awesome"               ".config"
+	"nvim"                  ".config"
+	#"zsh"                   ".config"
+	"alacritty"             ".config"
+	"qt5ct"                 ".config"
+	"ttyper"                ".config"
+	"gtk-2.0"               ".config"
+	"gtk-3.0"               ".config"
+	"gtk-4.0"               ".config"
+	"redshift"              ".config"
+	"copyq"                 ".config"
+	"keepassxc"             ".config"
+	"fish"                  ".config"
+	"xsessions"             ".config"
+	"cmus/autosave"         ".config"
+	"cmus/red_theme.theme"  ".config"
+	"cmus/notify.sh"        ".config"
+	"topgrade.toml"         ".config"
+	"neofetch"              ".config"
+	"chromium/Default/Extensions"                   ".config"
+	"chromium/Default/Extension State"              ".config"
+	"chromium/Default/Sync Extension Settings"      ".config"
+	"chromium/Default/Managed Extension Settings"   ".config"
+	"chromium/Default/Local Extension Settings"     ".config"
+	"BetterDiscord/plugins" ".config"
+    ".bashrc"               ""
 )
 
-REAL_HOME_DIRS=(
-	".bashrc"
-)
+
 # If path starts with %, will not override
-# If path starts with #, dest path will be in .local/share
-COPY_DIRS=(
-    "chromium/Default/Preferences"
-	"%chromium/Default/Cookies"
-    "chromium/Local State"
-    "chromium-flags.conf"
-	"tutanota-desktop/conf.json"
-	"discord/settings.json"
-	"FreeTube/settings.db"
-    "#multimc/multimc.cfg"
+COPY_FROM_TO=(
+    "chromium/Default/Preferences"  ".config"
+	"chromium/Default/Cookies"      "%.config"
+    "chromium/Local State"          ".config"
+    "chromium-flags.conf"           ".config"
+	"tutanota-desktop/conf.json"    ".config"
+	"discord/settings.json"         ".config"
+	"FreeTube/settings.db"          ".config"
+    "multimc/multimc.cfg"           ".local/share"
 )
-
 
 LINK_HOME_DIRS=(
 	".config"
@@ -75,12 +71,12 @@ function confirm() {
 	echo -en "$LBLUE |||$GREEN Do you want to override ${LGREEN}$1 $2 $3 $LBLUE(Y/n)? >> $NC"
 	if [ ! -z $YOLO ] && [ $YOLO -eq 1 ]; then
 		echo "y"
-		rm -rf $1 $2 $3
+		rm -r "$1"
 		return
 	fi
 	read choice
 	case "$choice" in 
-	y|Y|"" ) rm -rf $1 $2 $3;;
+	y|Y|"" ) rm -r "$1";;
 	n|N ) return;;
 	* ) confirm $1 $2 $3; return;;
 	esac
@@ -98,50 +94,48 @@ for dir in "${LINK_HOME_DIRS[@]}"; do
 done
 
 
-for dir in "${REAL_HOME_DIRS[@]}"; do
-	FROM="$DOTFILES_DIR/dotfiles/$dir"
-	DEST="$USER_HOME/$dir"
-	if [ -h "$DEST" ]; then unlink "$DEST"; fi
-	if [ -e "$DEST" ]; then confirm $DEST; fi
-	mkdir -p "$(dirname $DEST | head --lines 1)"
-	ln -sfT "$FROM" "$DEST"
-	chown -R $USER1:$USER1 "$DEST"
+for (( i=0; i<${#SYMLINK_FROM_TO[@]}; i+=2 )); do
+    FROM=${SYMLINK_FROM_TO[i]}
+    DEST1=${SYMLINK_FROM_TO[$(expr $i + 1)]}
+
+    OVERRIDE=1
+    if [[ $DEST1 = %* ]]; then OVERRIDE=0; DEST1="${DEST1:1}"; fi
+    
+    DEST="$USER_HOME/$DEST1/$FROM"
+
+    FROM="$DOTFILES_DIR/dotfiles/$FROM"
+
+	if [ $OVERRIDE -eq 1 ] || [ ! -e "$DEST" ]; then
+        if [ -h "$DEST" ]; then unlink "$DEST"; fi
+        if [ -e "$DEST" ]; then confirm "$DEST"; fi
+
+        mkdir -p "$(dirname $DEST | head --lines 1)"
+        ln -sfT "$FROM" "$DEST"
+	    chown -R $USER1:$USER1 "$DEST"
+    fi
 done
 
-for dir in "${SYMLINKS_DIRS[@]}"; do
-	FROM="$DOTFILES_DIR/dotfiles/$dir"
-	DEST="$FAKE_USER_HOME/.config/$dir"
-	if [ -h "$DEST" ]; then unlink "$DEST"; fi
-	if [ -e "$DEST" ]; then confirm $DEST; fi
-	mkdir -p "$(dirname $DEST | head --lines 1)"
-	ln -sfT "$FROM" "$DEST"
-	chown -R $USER1:$USER1 "$DEST"
-done
+for (( i=0; i<${#COPY_FROM_TO[@]}; i+=2 )); do
+    FROM=${COPY_FROM_TO[i]}
+    DEST1=${COPY_FROM_TO[$(expr $i + 1)]}
 
-for dir in "${COPY_DIRS[@]}"; do
-    if [[ $dir = %* ]]; then
-		dir="${dir:1}"
-		FROM="$DOTFILES_DIR/dotfiles/$dir"
-		DEST="$FAKE_USER_HOME/.config/$dir"
-		if [ ! -e "$DEST" ]; then
-			cp -rf "$FROM" "$DEST"
-		fi
-	else
-		FROM="$DOTFILES_DIR/dotfiles/$dir"
-		DEST="$FAKE_USER_HOME/.config/$dir"
-        if [[ $dir = \#* ]]; then
-            dir="${dir:1}"
-		    FROM="$DOTFILES_DIR/dotfiles/$dir"
-            DEST="$FAKE_USER_HOME/.local/share/$dir"
-        fi
-		if [ -h "$DEST" ]; then unlink "$DEST"; fi
-		if [ -e "$DEST" ]; then confirm $DEST; fi
-		mkdir -p "$(dirname $DEST | head --lines 1)"
+    OVERRIDE=1
+    if [[ $DEST1 = %* ]]; then OVERRIDE=0; DEST1="${DEST1:1}"; fi
+
+    DEST="$USER_HOME/$DEST1/$FROM"
+
+    FROM="$DOTFILES_DIR/dotfiles/$FROM"
+
+    #printf "$FROM -> $DEST\n$OVERRIDE\n"
+	if [ $OVERRIDE -eq 1 ] || [ ! -e "$DEST" ]; then
+        if [ -h "$DEST" ]; then unlink "$DEST"; fi
+        if [ -e "$DEST" ]; then confirm "$DEST"; fi
+
+        mkdir -p "$(dirname $DEST | head --lines 1)"
 		cp -rf "$FROM" "$DEST"
-		chown -R $USER1:$USER1 "$DEST"
-	fi
+	    chown -R $USER1:$USER1 "$DEST"
+    fi
 done
-
 
 
 ESCAPED_USER_HOME=$(printf '%s\n' "$USER_HOME" | sed -e 's/[\/&]/\\&/g')
