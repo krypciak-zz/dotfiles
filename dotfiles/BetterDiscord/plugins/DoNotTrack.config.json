@@ -4,6 +4,6 @@
         "hasShownChangelog": true
     },
     "settings": {
-        "stopProcessMonitor": true
+        "stopProcessMonitor": false
     }
 }
