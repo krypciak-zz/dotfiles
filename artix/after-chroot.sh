@@ -155,6 +155,7 @@ printf "$NC"
 
 chmod -rw /etc/doas.conf
 
+mkdir -p $USER_HOME/home/.cache
 
 pri "Configuring greetd"
 ESCAPED_USER_HOME=$(printf '%s\n' "$USER_HOME" | sed -e 's/[\/&]/\\&/g')
@@ -268,4 +269,6 @@ neofetch
 if [ $PAUSE_AFTER_DONE -eq 1 ]; then
     confirm "" "ignore"
 fi
+
+rm -rf /var/lock
 
