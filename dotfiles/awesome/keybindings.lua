@@ -189,7 +189,7 @@ local globalkeys_launcher = awful.util.table.join(
 			
 			elseif key == "p" then awful.spawn("sh -c 'XAPP_FORCE_GTKWINDOW_ICON=webapp-manager firefox --class WebApp-messenger6151 --profile /home/krypek/.local/share/ice/firefox/messenger6151 --no-remote http://messenger.com'")
 
-			elseif key == "l" then run_if_not_running_pgrep("lutris")
+			elseif key == "l" then awful.spawn("lutris")
 			elseif key == "s" then run_if_not_running_pgrep("steam")
 
 			elseif key == "u" then run_if_not_running_pgrep("redshift") 
