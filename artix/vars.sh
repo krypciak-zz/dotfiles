@@ -63,7 +63,7 @@ PARU_ARGUMENTS='--noremovemake --skipreview --noupgrademenu'
 
 KERNEL='linux-zen'
 PACKAGE_GROUPS=(
-    #'drivers'
+    'drivers'
     'basic'
     'audio'
     #'media'
@@ -80,12 +80,14 @@ PACKAGE_GROUPS=(
 )
 
 # If ALL_DRIVERS is set to 1, GPU and CPU options are ignored
-ALL_DRIVERS=0
+ALL_DRIVERS=1
 # Options: [ 'amd', 'ati', 'intel', 'nvidia' ]
 # The nvidia driver is the open source one
-GPU='amd'
+#GPU='amd'
+GPU=''
 # Options: [ 'amd', 'intel' ]
-CPU='amd'
+#CPU='amd'
+CPU=''
 
 
 # Installer
