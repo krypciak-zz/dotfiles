@@ -143,6 +143,8 @@ pri "Copying the repo to $NEW_ARTIXD_DIR"
 mkdir -p $DOTFILES_DIR/..
 cp -rf $ARTIXD_DIR/../ $DOTFILES_DIR/
 
+fstabgen -U $INSTALL_DIR >> $INSTALL_DIR/etc/fstab
+
 pri "Chrooting..."
 artix-chroot $INSTALL_DIR sh $USER_HOME/home/.config/dotfiles/artix/after-chroot.sh
 
