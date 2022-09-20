@@ -11,13 +11,6 @@ export YOLO
 export USER1
 export PRIVATE_DOTFILES_PASSWORD
 
-if [ $INSTALL_PRIVATE_DOTFILES -eq 1 ]; then
-    confirm "Install private dotfiles?"
-    export GPG_AGENT_INFO=""
-    sh $DOTFILES_DIR/decrypt-private-data.sh
-fi
-confirm "" "ignore"
-
 pri "Setting time"
 ln -sf /usr/share/zoneinfo/$REGION/$CITY /etc/localtime
 hwclock --systohc
