@@ -54,8 +54,6 @@ ROOT_FSTAB_ARGS="/  btrfs     	rw,noatime,ssd,space_cache=v2,subvolid=5,subvol=/
 HOME_FORMAT_COMMAND="mkfs.btrfs -f -L home $LVM_DIR/home"
 HOME_FSTAB_ARGS="$USER_HOME     btrfs      rw,noatime,ssd,space_cache=v2,subvolid=5,subvol=/"
 
-FSTAB_ENTRIES=""
-
 # Packages
 LIB32=1
 PACMAN_ARGUMENTS='--noconfirm --needed'
