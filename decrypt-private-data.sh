@@ -63,7 +63,7 @@ until [ "$n" -ge 5 ]; do
     gpg --no-symkey-cache --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
     n=$((n+1)) 
     retry
-    if [ $RETRY -eq 0 ]; then return 0; fi
+    if [ $RETRY -eq 0 ]; then exit 0; fi
 done
 
 cd $DOTFILES_DIR/dotfiles/
