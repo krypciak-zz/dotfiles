@@ -33,7 +33,7 @@ until [ "$n" -ge 5 ]; do
     echo $PRIVATE_DOTFILES_PASSWORD bul
     if [ ! -z $PRIVATE_DOTFILES_PASSWORD ] && [ $PRIVATE_DOTFILES_PASSWORD != '' ]; then
         echo Trying auto-decryption...
-        ( echo $PRIVATE_DOTFILES_PASSWORD; ) | gpg --no-symkey-cache --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
+        ( echo $PRIVATE_DOTFILES_PASSWORD; ) | gpg --batch --yes --passphrase-fd 0 --no-symkey-cache --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
         PRIVATE_DOTFILES_PASSWORD=''
     fi
     gpg --no-symkey-cache --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
