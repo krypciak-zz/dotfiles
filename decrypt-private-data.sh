@@ -1,6 +1,29 @@
 #!/bin/sh
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+LGREEN='\033[1;32m'
+GREEN='\033[0;32m'
+LBLUE='\033[1;34m'
+RED='\033[0;31m'
+NC='\033[0m' 
+
+function pri() {
+    echo -e "$GREEN ||| $LGREEN$1$NC"
+}
+
+RETRY=1
+function retry() {
+    echo -en "$LBLUE |||$LGREEN Do you wanna retry? $LBLUE(Y/n)? >> $NC"
+    read choice
+    case "$choice" in 
+    y|Y|"" ) RETRY=1;;
+    n|N ) RETRY=0;;
+    * ) retry "$1" "ignore";;
+    esac
+    return 0;
+}
+
+
 # Prepare gnupg
 GNUPG_DIR=~/.local/share/gnupg
 mkdir -p ~/.local/share/gnupg
@@ -32,13 +55,15 @@ n=0
 until [ "$n" -ge 5 ]; do
     echo $PRIVATE_DOTFILES_PASSWORD bul
     if [ ! -z $PRIVATE_DOTFILES_PASSWORD ] && [ $PRIVATE_DOTFILES_PASSWORD != '' ]; then
-        echo Trying auto-decryption...
+        pri 'Trying auto-decryption...'
         ( echo $PRIVATE_DOTFILES_PASSWORD; ) | gpg --batch --yes --passphrase-fd 0 --no-symkey-cache --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
+        pri "${RED}Auto decryption failed with password: '$PRIVATE_DOTFILES_PASSWORD'"
         PRIVATE_DOTFILES_PASSWORD=''
     fi
     gpg --no-symkey-cache --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
     n=$((n+1)) 
-    sleep 3
+    retry
+    if [ $RETRY -eq 0 ]; then return 0; fi
 done
 
 cd $DOTFILES_DIR/dotfiles/
