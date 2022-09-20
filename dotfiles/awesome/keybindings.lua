@@ -19,7 +19,7 @@ local function screenshot(command, prefix, open_editor)
         ' --quality 100 --silent ' .. command
    
     if command == "--select" then
-        cmd = cmd .. ' -l mode=classic,style=solid,width=4,color="green"'
+        cmd = cmd .. ' -l mode=classic,style=solid,width=1,color="green"'
     end
 
     local exec = 
