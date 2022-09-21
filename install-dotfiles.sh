@@ -148,4 +148,4 @@ chmod +x $USER_HOME/.config/at_login.sh
 
 
 # Update nvim plugins
-#nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1
