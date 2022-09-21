@@ -432,7 +432,7 @@
         },
         "incognito_content_settings": [],
         "incognito_preferences": {},
-        "install_time": "13307553046469388",
+        "install_time": "13308232038505324",
         "location": 1,
         "manifest": {
           "author": "Daniel Kladnik @ kiboke studio",
@@ -475,9 +475,9 @@
           ],
           "short_name": "Bye-bye to warnings.",
           "update_url": "https://clients2.google.com/service/update2/crx",
-          "version": "3.4.2"
+          "version": "3.4.3"
         },
-        "path": "fihnjjcciajhdojfnbdddfaoknhalnja/3.4.2_0",
+        "path": "fihnjjcciajhdojfnbdddfaoknhalnja/3.4.3_0",
         "preferences": {},
         "regular_only_preferences": {},
         "state": 1,
