@@ -60,7 +60,7 @@ until [ "$n" -ge 5 ]; do
         pri "${RED}Auto decryption failed with password: '$PRIVATE_DOTFILES_PASSWORD'"
         PRIVATE_DOTFILES_PASSWORD=''
     fi
-    gpg --no-symkey-cache --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
+    gpg --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
     n=$((n+1)) 
     retry
     if [ $RETRY -eq 0 ]; then exit 0; fi
