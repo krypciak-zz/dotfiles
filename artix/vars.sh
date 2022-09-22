@@ -77,6 +77,8 @@ PACKAGE_GROUPS=(
     'awesome'
 )
 
+INSTALL_CRON=1
+
 # If ALL_DRIVERS is set to 1, GPU and CPU options are ignored
 ALL_DRIVERS=1
 # Options: [ 'amd', 'ati', 'intel', 'nvidia' ]
@@ -86,6 +88,7 @@ GPU=''
 # Options: [ 'amd', 'intel' ]
 #CPU='amd'
 CPU=''
+
 
 
 # Installer

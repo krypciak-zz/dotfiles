@@ -1,0 +1,2 @@
+@reboot env DISPLAY=:0 ~/.config/dotfiles/scripts/ttyper.sh
+*/30 * * * * env DISPLAY=:0 ~/.config/dotfiles/scripts/ttyper.sh
