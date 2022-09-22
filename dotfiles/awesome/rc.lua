@@ -68,6 +68,9 @@ require("signals")
 -- Rules
 require("rules")
 
+-- Window swallow
+require("window_swallow/window_swallow")
+
 -- Autostart
 require("autostart")
 

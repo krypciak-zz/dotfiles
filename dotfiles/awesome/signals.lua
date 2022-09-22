@@ -118,6 +118,8 @@ clientbuttons = awful.util.table.join(
 
 -- Unminimalize minimalized applications
 client.connect_signal("property::minimized", function(c)
-    c.minimized = false
+    if not c.force_minimalize then
+        c.minimized = false
+    end
 end)
 

@@ -6,12 +6,13 @@ function os.capture(cmd)
     return output
 end
 
-function noti(title, text) 
+function noti(title, text, timeout) 
+    if not timeout then timeout = 5 end
     	naughty.notify {
         		preset = naughty.config.presets.low,
         		title = title,
        			text = text,
-                --timeout = 0,
+                timeout = timeout,
             }
 end
 
