@@ -16,6 +16,7 @@ awful.rules.rules = {
             size_hints_honor = false,
         }
     }, 
+
     -- Always on top
     {
 	    rule_any = {
@@ -29,8 +30,11 @@ awful.rules.rules = {
     -- Maximized clients
     {
         rule_any = {
+            class = { 
+                "ttyper" 
+            },
             name = {
-                "Minecraft*"
+                "Minecraft*", 
             }
         },
         properties = { maximized = true, focus = true }
