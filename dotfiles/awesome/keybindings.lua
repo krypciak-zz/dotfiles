@@ -402,7 +402,7 @@ clientkeys = awful.util.table.join(
 										
 	awful.key({superkey, "Control"}, "Return",
 		function(c) c:swap(awful.client.getmaster()) end, 
-		{description = "move to master", group = "client"}),
+         {description = "move to master", group = "client"}),
 		
 	awful.key({superkey}, "o", 
 		function(c) c:move_to_screen() end, 
