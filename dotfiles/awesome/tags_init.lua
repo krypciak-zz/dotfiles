@@ -150,8 +150,8 @@ add_tag({
     c_autogenrules = true,
 })
 
-local media_classes = { "FreeTube", "LBRY" }
-local media_grep = { "@/usr/lib/electron16/electron --enable-crashpad /usr/lib/freetube/app.asar", "lbry"}
+local media_classes = {"FreeTube", "LBRY" }
+local media_grep = { "freetube", "lbry"}
 add_tag({
     name = "media",
     layout = default_layout,
