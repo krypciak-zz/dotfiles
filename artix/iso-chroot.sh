@@ -4,7 +4,7 @@ ARTIXD_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 DOTFILES_DIR=$ARTIXD_DIR/..
 CONFIGD_DIR=$DOTFILES_DIR/config-files
 
-source "$ARTIXD_DIR/vars.sh"
+source "$ARTIXD_DIR/iso-vars.sh"
 export PACMAN_ARGUMENTS
 export PARU_ARGUMENTS
 export YOLO
@@ -147,10 +147,8 @@ printf "$LBLUE"
 cp -rv $CONFIGD_DIR/root_iso/* /
 printf "$NC"
 
-if [ $AWESOME_START_TUTANOTA -eq 0 ]; then
-    ESCAPED_T1=$(printf '%s\n' "run_if_not_running_pgrep({ \"tutanota\" }" | sed -e 's/[\/&]/\\&/g')
-    sed -i "s/$ESCAPED_T1/--$ESCAPED_T1/g" $USER_HOME/.config/awesome/after_5sec.lua
-fi
+ESCAPED_T1=$(printf '%s\n' "run_if_not_running_pgrep({ \"tutanota\" }" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/$ESCAPED_T1/--$ESCAPED_T1/g" $USER_HOME/.config/awesome/after_5sec.lua
 
 chmod -rw /etc/doas.conf
 
