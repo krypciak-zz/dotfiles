@@ -42,22 +42,22 @@ until [ "$n" -ge 5 ]; do
 done
 if [ "$n" -eq 5 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
-    pri "Updating keyring"
-    # Disable package signature verification
-    sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
-    sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional/g' /etc/pacman.conf
-    # Add lib32 repo
-    printf '[lib32]\nInclude = /etc/pacman.d/mirrorlist\n' >> /etc/pacman.conf
-    # Add universe repo
-    printf '[universe]\nServer = https://universe.artixlinux.org/$arch\nServer = https://mirror1.artixlinux.org/universe/$arch\nServer = https://mirror.pascalpuffke.de/artix-universe/$arch\nServer = https://artixlinux.qontinuum.space/artixlinux/universe/os/$arch\nServer = https://mirror1.cl.netactuate.com/artix/universe/$arch\nServer = https://ftp.crifo.org/artix-universe/\n' >> /etc/pacman.conf
+pri "Updating keyring"
+# Disable package signature verification
+sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
+sed -i 's/LocalFileSigLevel = Optional/#LocalFileSigLevel = Optional/g' /etc/pacman.conf
+# Add lib32 repo
+printf '[lib32]\nInclude = /etc/pacman.d/mirrorlist\n' >> /etc/pacman.conf
+# Add universe repo
+printf '[universe]\nServer = https://universe.artixlinux.org/$arch\nServer = https://mirror1.artixlinux.org/universe/$arch\nServer = https://mirror.pascalpuffke.de/artix-universe/$arch\nServer = https://artixlinux.qontinuum.space/artixlinux/universe/os/$arch\nServer = https://mirror1.cl.netactuate.com/artix/universe/$arch\nServer = https://ftp.crifo.org/artix-universe/\n' >> /etc/pacman.conf
 
-    PACKAGES_LIST='artix-archlinux-support '
-    if [ $LIB32 -eq 1 ]; then
-        PACKAGES_LIST="$PACKAGES_LIST lib32-artix-archlinux-support"
-    fi
-    pacman $PACMAN_ARGUMENTS -Sy $PACKAGES_LIST
-    pacman-key --init
-    pacman-key --populate
+PACKAGES_LIST='artix-archlinux-support '
+if [ $LIB32 -eq 1 ]; then
+    PACKAGES_LIST="$PACKAGES_LIST lib32-artix-archlinux-support"
+fi
+pacman $PACMAN_ARGUMENTS -Sy $PACKAGES_LIST
+pacman-key --init
+pacman-key --populate
 
 pri "Copying pacman configuration"
 cp $CONFIGD_DIR/root/etc/pacman.conf /etc/pacman.conf
@@ -67,11 +67,10 @@ pacman -Sy
 pri "Adding user $USER1"
 if ! id "$USER1" &>/dev/null; then
     useradd -s /bin/bash -G tty,ftp,games,network,scanner,users,video,audio,wheel $USER1
-    chown -R $USER1:$USER1 $USER_HOME/
     chown -R $USER1:$USER1 $ARTIXD_DIR
 fi
 mkdir -p $USER_HOME
-chown $USER1:$USER1 $USER_HOME
+chown -R $USER1:$USER1 $USER_HOME/
 
 pri "Creating temporary doas config"
 echo "permit nopass setenv { YOLO USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
