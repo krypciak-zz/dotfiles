@@ -37,12 +37,13 @@
 			"galleryMode": true,
 			"details": true,
 			"copyImage": true,
-			"saveImage": true
+			"saveImage": true,
+			"jumpTo": true
 		},
 		"zoomSettings": {
-			"lensSize": 200,
 			"pixelMode": false,
-			"zoomLevel": 2
+			"zoomLevel": 2,
+			"lensSize": 200
 		}
 	}
 }
