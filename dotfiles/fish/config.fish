@@ -9,5 +9,7 @@ if status is-interactive
     alias reboot='loginctl reboot'
     alias poweroff='loginctl shutdown'
 
+    alias motherboard='cat /sys/devices/virtual/dmi/id/board_{vendor,name,version}'
+
     source /usr/share/autojump/autojump.fish
 end
