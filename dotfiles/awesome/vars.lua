@@ -48,3 +48,4 @@ screenshot_editor = 'kolourpaint'
 lock_command = 'alock -b image:file=' .. userdir .. '/.config/awesome/theme/' .. wallpaper .. ' -i none'
 
 awful.util.terminal = terminal
+
