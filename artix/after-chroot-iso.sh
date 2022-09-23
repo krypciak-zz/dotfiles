@@ -69,6 +69,8 @@ if ! id "$USER1" &>/dev/null; then
     chown -R $USER1:$USER1 $USER_HOME/
     chown -R $USER1:$USER1 $ARTIXD_DIR
 fi
+mkdir -p $USER_HOME
+chown $USER1:$USER1 $USER_HOME
 
 pri "Creating temporary doas config"
 echo "permit nopass setenv { YOLO USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
