@@ -71,15 +71,15 @@ if ! id "$USER1" &>/dev/null; then
 fi
 mkdir -p $USER_HOME
 
-pri "Copying the repo to $NEW_ARTIXD_DIR"
 DOTFILES_DIR=$USER_HOME/home/.config/dotfiles
+pri "Copying the repo to $DOTFILES_DIR"
 mkdir -p $DOTFILES_DIR/..
 cp -rf $ARTIXD_DIR/../ $DOTFILES_DIR/
 chown -R $USER1:$USER1 $USER_HOME/
 
 ARTIXD_DIR=$DOTFILES_DIR/artix
 CONFIGD_DIR=$DOTFILES_DIR/config-files
-confirm "" "ignore"
+
 
 pri "Creating temporary doas config"
 echo "permit nopass setenv { YOLO USER1 PACMAN_ARGUMENTS PARU_ARGUMENTS } root" > /etc/doas.conf
