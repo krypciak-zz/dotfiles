@@ -119,10 +119,6 @@ for group in "${PACKAGE_GROUPS[@]}"; do
 done
 
 
-
-pri "Enabling services"
-rc-update add NetworkManager default
-
 if [ $INSTALL_DOTFILES -eq 1 ]; then
     pri "Installing dotfiles for user $USER1"
     rm -rf $USER_HOME/.config
