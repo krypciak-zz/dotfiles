@@ -70,6 +70,11 @@ if ! id "$USER1" &>/dev/null; then
     chown -R $USER1:$USER1 $ARTIXD_DIR
 fi
 mkdir -p $USER_HOME
+
+pri "Copying the repo to $NEW_ARTIXD_DIR"
+DOTFILES_DIR=$USER_HOME/home/.config/dotfiles
+mkdir -p $DOTFILES_DIR/..
+cp -rf $ARTIXD_DIR/../ $DOTFILES_DIR/
 chown -R $USER1:$USER1 $USER_HOME/
 
 pri "Creating temporary doas config"
