@@ -35,7 +35,7 @@ pri "Installing base packages"
 pacman -Sy
 n=0
 until [ "$n" -ge 5 ]; do
-    pacman $PACMAN_ARGUMENTS -S cryptsetup mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc cryptsetup-openrc git neovim neofetch wget fish linux-firmware $KERNEL $KERNEL-headers opendoas world/rust btrfs-progs tree galaxy/ttf-nerd-fonts-symbols-2048-em && break
+    pacman $PACMAN_ARGUMENTS -S cryptsetup mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc cryptsetup-openrc git neovim neofetch wget fish linux-firmware $KERNEL $KERNEL-headers opendoas world/rust btrfs-progs tree galaxy/ttf-nerd-fonts-symbols-2048-em fakeroot && break
     n=$((n+1))
 done
 if [ "$n" -eq 5 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
