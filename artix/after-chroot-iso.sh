@@ -40,7 +40,6 @@ until [ "$n" -ge 5 ]; do
 done
 if [ "$n" -eq 5 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
 
-: <<'END_COMMENT'
     pri "Updating keyring"
     # Disable package signature verification
     sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
@@ -62,7 +61,6 @@ pri "Copying pacman configuration"
 cp $CONFIGD_DIR/root/etc/pacman.conf /etc/pacman.conf
 cp -r $CONFIGD_DIR/root/etc/pacman.d /etc/
 pacman -Sy 
-END_COMMENT
 
 pri "Adding user $USER1"
 if ! id "$USER1" &>/dev/null; then
