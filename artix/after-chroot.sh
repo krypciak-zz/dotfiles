@@ -36,7 +36,7 @@ confirm "Install base packages?"
 pacman -Sy
 n=0
 until [ "$n" -ge 5 ]; do
-    pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget fish linux-firmware $KERNEL $KERNEL-headers opendoas mkinitcpio world/rust btrfs-progs tree galaxy/ttf-nerd-fonts-symbols-2048-em && break
+    pacman $PACMAN_ARGUMENTS -S lvm2 cryptsetup mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc lvm2-openrc cryptsetup-openrc networkmanager-openrc git neovim neofetch wget fish linux-firmware $KERNEL $KERNEL-headers opendoas mkinitcpio world/rust btrfs-progs tree galaxy/ttf-nerd-fonts-symbols-2048-em tmux && break
     n=$((n+1))
 done
 if [ "$n" -eq 5 ]; then pri "${RED}ERROR. Exiting..."; exit; fi

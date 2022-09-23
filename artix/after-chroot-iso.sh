@@ -36,7 +36,7 @@ pacman -Sy
 pacman -R man-db sudo zsh
 n=0
 until [ "$n" -ge 5 ]; do
-    pacman $PACMAN_ARGUMENTS -S autoconf automake bison fakeroot flex gcc groff libtool m4 make patch pkgconf texinfo which cryptsetup mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc cryptsetup-openrc git neovim neofetch wget fish linux-firmware $KERNEL $KERNEL-headers opendoas world/rust btrfs-progs tree galaxy/ttf-nerd-fonts-symbols-2048-em fakeroot && break
+    pacman $PACMAN_ARGUMENTS -S autoconf automake bison fakeroot flex gcc groff libtool m4 make patch pkgconf texinfo which cryptsetup mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc cryptsetup-openrc git neovim neofetch wget fish linux-firmware $KERNEL $KERNEL-headers opendoas world/rust btrfs-progs tree galaxy/ttf-nerd-fonts-symbols-2048-em tmux && break
     n=$((n+1))
 done
 if [ "$n" -eq 5 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
