@@ -74,7 +74,7 @@ mkdir -p $USER_HOME
 pri "Copying the repo to $NEW_ARTIXD_DIR"
 DOTFILES_DIR=$USER_HOME/home/.config/dotfiles
 mkdir -p $DOTFILES_DIR/..
-mv $ARTIXD_DIR/../ $DOTFILES_DIR/
+cp -rf $ARTIXD_DIR/../ $DOTFILES_DIR/
 chown -R $USER1:$USER1 $USER_HOME/
 
 ARTIXD_DIR=$DOTFILES_DIR/artix
@@ -141,6 +141,8 @@ pri "Cleaning up"
 rm -rf $USER_HOME/.cargo
 #find /var/cache/pacman/pkg/ -iname "*.part" -delete
 paru --noconfirm -Scc > /dev/null 2>&1
+rm -r /dotfiles 
+
 
 pri "Copying configs"
 printf "$LBLUE"
