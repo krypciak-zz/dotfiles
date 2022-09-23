@@ -120,7 +120,7 @@ done
 
 if [ $INSTALL_DOTFILES -eq 1 ]; then
     pri "Installing dotfiles for user $USER1"
-    rm -rf $USER_HOME/.config
+    chown $USER1:$USER1 -R $USER_HOME
     doas -u $USER1 sh $DOTFILES_DIR/install-dotfiles.sh
 
     pri "Installing dotfiles for root"
