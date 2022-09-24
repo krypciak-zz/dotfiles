@@ -3,10 +3,12 @@
 local default_layout = awful.layout.layouts[default_layout_index]
 
 local normal_tag_keys = {'Tab', 'q', 'w' };
+local normal_tag_names = {'T', 'q', 'w' };
 -- normal_tag_count in vars.lua
 for i = 1, normal_tag_count do
     add_tag({
-        name = tostring(i),
+        --name = tostring(i),
+        name = normal_tag_names[i],
         layout = default_layout,
 
         c_defactivated = true,
