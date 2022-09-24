@@ -304,7 +304,7 @@ local globalkeys_system = awful.util.table.join(
 	awful.key({superkey, ctrlkey, shiftkey}, "s", function()
 	    if can_sleep then
 	    	can_sleep = false
-		    os.execute('loginctl suspend-then-hibernate && sleep 0.3 && ' .. lock_command)
+		    os.execute('loginctl suspend && sleep 0.3 && ' .. lock_command)
 		    local globalkeys_grabber
 		    grabber = awful.keygrabber.run(function(_, key, event)
 			    if event == "release" then return end
