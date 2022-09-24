@@ -155,9 +155,6 @@ sed -i "s/$ESCAPED_T1/--$ESCAPED_T1/g" $USER_HOME/.config/awesome/after_5sec.lua
 ESCAPED_T1=$(printf '%s\n' "run_if_not_running_pgrep({ music_player_class }" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/$ESCAPED_T1/--$ESCAPED_T1/g" $USER_HOME/.config/awesome/autostart.lua
 
-sed -i "s/end/\talias su='doas su'\nend/g" $USER_HOME/.config/fish/config.fish
-confirm "" "ignore"
-
 chmod -rw /etc/doas.conf
 
 mkdir -p $USER_HOME/home/.cache
