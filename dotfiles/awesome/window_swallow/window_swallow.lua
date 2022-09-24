@@ -45,6 +45,7 @@ client.connect_signal("manage", function(c)
     if is_terminal(c) then return end
 
     local parent_client=awful.client.focus.history.get(c.screen, 1)
+    if c.pid then
     awful.spawn.easy_async('bash '..awesomedir..'/window_swallow/helper.sh gppid '..c.pid, function(gppid)
         awful.spawn.easy_async('bash '..awesomedir..'/window_swallow/helper.sh ppid '..c.pid, function(ppid)
             if parent_client and (gppid:find('^' .. parent_client.pid) or ppid:find('^' .. parent_client.pid))and is_terminal(parent_client) then
@@ -68,4 +69,5 @@ client.connect_signal("manage", function(c)
             end
         end)
     end)
+    end
 end)
