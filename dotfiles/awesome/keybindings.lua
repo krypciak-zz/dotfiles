@@ -199,9 +199,8 @@ local globalkeys_launcher = awful.util.table.join(
 			elseif key == "r" then awful.spawn("alacritty --class ranger --title ranger -e ranger") 
 			elseif key == "[" then awful.spawn("alacritty --class 'System update' --title 'System update' -e paru -Syu") 
 			elseif key == "]" then run_if_not_running_pgrep({ "steam_app_960090" }, function() awful.spawn("env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/2") end)
-			elseif key == "'" then 
-                noti("bul", "bul")
-                awful.spawn("sh " .. userdir .. "/.config/dotfiles/scripts/ttyper.sh ignore") 
+			elseif key == "'" then awful.spawn("sh " .. userdir .. "/.config/dotfiles/scripts/ttyper.sh ignore") 
+			elseif key == "v" then awful.spawn("virt-manager") 
 	    end
 	    awful.keygrabber.stop(grabber)
 	    end)
