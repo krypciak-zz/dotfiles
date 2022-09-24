@@ -48,7 +48,7 @@ client.connect_signal("manage", function(c)
     if c.pid then
     awful.spawn.easy_async('bash '..awesomedir..'/window_swallow/helper.sh gppid '..c.pid, function(gppid)
         awful.spawn.easy_async('bash '..awesomedir..'/window_swallow/helper.sh ppid '..c.pid, function(ppid)
-            if parent_client and (gppid:find('^' .. parent_client.pid) or ppid:find('^' .. parent_client.pid))and is_terminal(parent_client) then
+            if parent_client and parent_client.pid and (gppid:find('^' .. parent_client.pid) or ppid:find('^' .. parent_client.pid)) and is_terminal(parent_client) then
 
                 --local parent_index = get_client_index(parent_client)
                 --noti("wow", tostring(parent_index), 0)
