@@ -92,7 +92,8 @@ cp $CONFIGD_DIR/root/etc/paru.conf /etc/paru.conf
 chown -R $USER1:$USER1 $USER_HOME/
 
 pri "Installing packages"
-doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S opendoas-sudo nvim-packer-git greetd-artix-openrc greetd-tuigreet-bin
+doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S opendoas-sudo nvim-packer-git 
+# greetd-artix-openrc greetd-tuigreet-bin
 PACKAGE_LIST=''
 for group in "${PACKAGE_GROUPS[@]}"; do
     source $ARTIXD_DIR/packages/install-${group}.sh
