@@ -133,8 +133,6 @@ rm -rf $USER_HOME/.cargo
 #find /var/cache/pacman/pkg/ -iname "*.part" -delete
 paru --noconfirm -Scc > /dev/null 2>&1
 rm -r /dotfiles 
-mkdir -p /var/lib/artools/buildiso/krypek/artix/livefs/usr/share/grub/cfg/
-touch /var/lib/artools/buildiso/krypek/artix/livefs/usr/share/grub/cfg/useless.cfg
 
 
 pri "Copying configs"
