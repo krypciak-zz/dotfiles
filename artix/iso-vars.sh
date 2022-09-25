@@ -24,20 +24,20 @@ PACMAN_ARGUMENTS='--noconfirm --needed'
 PARU_ARGUMENTS='--noremovemake --skipreview --noupgrademenu'
 
 PACKAGE_GROUPS=(
-    'drivers'
+    #'drivers'
     'basic'
-    'audio'
-    'media'
-    'browsers'
+    #'audio'
+    #'media'
+    #'browsers'
     #'coding'
     'fstools'
     #'gaming'
     #'security'
     #'social'
-    'misc'
-    'bluetooth'
+    #'misc'
+    #'bluetooth'
     #'virt'
-    'awesome'
+    #'awesome'
 )
 
 INSTALL_CRON=0
