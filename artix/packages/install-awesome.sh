@@ -6,7 +6,6 @@ function install_awesome() {
     if [ $INSTALL_CRON -eq 1 ]; then
         echo ' cronie-openrc'
     fi
-
 }
 
 function configure_awesome() {

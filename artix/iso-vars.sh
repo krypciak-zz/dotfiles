@@ -19,7 +19,6 @@ INSTALL_DOTFILES=1
 BOOT_DIR_ALONE='/boot'
 
 # Packages
-LIB32=0
 PACMAN_ARGUMENTS='--noconfirm --needed'
 PARU_ARGUMENTS='--noremovemake --skipreview --noupgrademenu'
 

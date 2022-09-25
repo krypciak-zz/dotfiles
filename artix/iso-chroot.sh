@@ -35,13 +35,6 @@ pri "Installing base packages"
 pacman-key --init
 pacman-key --populate artix
 
-n=0
-until [ "$n" -ge 5 ]; do
-    pacman $PACMAN_ARGUMENTS -S autoconf automake bison fakeroot flex gcc groff libtool m4 make patch pkgconf texinfo which cryptsetup mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc cryptsetup-openrc git neovim neofetch wget fish linux-firmware linux linux-headers opendoas world/rust btrfs-progs tree galaxy/ttf-nerd-fonts-symbols-2048-em tmux && break
-    n=$((n+1))
-done
-if [ "$n" -eq 5 ]; then pri "${RED}ERROR. Exiting..."; exit; fi
-
 pri "Updating keyring"
 # Disable package signature verification
 sed -i 's/SigLevel    = Required DatabaseOptional/SigLevel = Never/g' /etc/pacman.conf
@@ -52,9 +45,6 @@ printf '[lib32]\nInclude = /etc/pacman.d/mirrorlist\n' >> /etc/pacman.conf
 printf '[universe]\nServer = https://universe.artixlinux.org/$arch\nServer = https://mirror1.artixlinux.org/universe/$arch\nServer = https://mirror.pascalpuffke.de/artix-universe/$arch\nServer = https://artixlinux.qontinuum.space/artixlinux/universe/os/$arch\nServer = https://mirror1.cl.netactuate.com/artix/universe/$arch\nServer = https://ftp.crifo.org/artix-universe/\n' >> /etc/pacman.conf
 
 PACKAGES_LIST='artix-archlinux-support '
-if [ $LIB32 -eq 1 ]; then
-    PACKAGES_LIST="$PACKAGES_LIST lib32-artix-archlinux-support"
-fi
 pacman $PACMAN_ARGUMENTS -Sy $PACKAGES_LIST
 pacman-key --init
 pacman-key --populate
