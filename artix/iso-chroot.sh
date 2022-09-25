@@ -57,14 +57,12 @@ pacman -Sy
 pri "Adding user $USER1"
 useradd -s /bin/bash -G tty,ftp,games,network,scanner,users,video,audio,wheel $USER1
 mkdir -p $USER_HOME
-chown -R $USER1:$USER1 $USER_HOME
 chown -R $USER1:$USER1 $ARTIXD_DIR
 
 DOTFILES_DIR=$USER_HOME/home/.config/dotfiles
 pri "Copying the repo to $DOTFILES_DIR"
 mkdir -p $DOTFILES_DIR/..
 cp -rf $ARTIXD_DIR/../ $DOTFILES_DIR/
-chown -R $USER1:$USER1 $USER_HOME/
 
 ARTIXD_DIR=$DOTFILES_DIR/artix
 CONFIGD_DIR=$DOTFILES_DIR/config-files
@@ -90,6 +88,8 @@ fi
 cp $CONFIGD_DIR/root/etc/paru.conf /etc/paru.conf
 
 #sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
+
+chown -R $USER1:$USER1 $USER_HOME/
 
 pri "Installing packages"
 doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S opendoas-sudo nvim-packer-git greetd-artix-openrc greetd-tuigreet-bin
@@ -123,14 +123,18 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
 
     pri "Installing dotfiles for root"
     sh $DOTFILES_DIR/install-dotfiles-root.sh
-
 fi
+
+fish --command "fish_update_completions"
+doas -u $USER1 fish --command "fish_update_completions"
 
 pri "Cleaning up"
 rm -rf $USER_HOME/.cargo
 #find /var/cache/pacman/pkg/ -iname "*.part" -delete
 paru --noconfirm -Scc > /dev/null 2>&1
 rm -r /dotfiles 
+mkdir -p /var/lib/artools/buildiso/krypek/artix/livefs/usr/share/grub/cfg/
+touch /var/lib/artools/buildiso/krypek/artix/livefs/usr/share/grub/cfg/useless.cfg
 
 
 pri "Copying configs"

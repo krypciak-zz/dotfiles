@@ -144,6 +144,9 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
     fi
 fi
 
+fish --command "fish_update_completions"
+doas -u $USER1 fish --command "fish_update_completions"
+
 pri "Cleaning up"
 rm -rf $USER_HOME/.cargo
 #find /var/cache/pacman/pkg/ -iname "*.part" -delete
