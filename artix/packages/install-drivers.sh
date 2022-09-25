@@ -20,7 +20,7 @@ function install_drivers() {
     
     elif [ $ALL_DRIVERS -eq 1 ]; then
         DRIVER_LIST="$DRIVER_LIST amd-ucode intel-ucode"
-        DRIVER_LIST="$DRIVER_LIST $(pacman -Ssq xf86-video-)"
+        DRIVER_LIST="$DRIVER_LIST xf86-input-vmmouse xf86-video-amdgpu xf86-video-ati xf86-video-dummy xf86-video-fbdev xf86-video-intel xf86-video-nouveau xf86-video-openchrome xf86-video-sisusb xf86-video-vesa xf86-video-vmware xf86-video-voodoo"
         DRIVER_LIST="$DRIVER_LIST $(pacman -Sqs vulkan | grep vulkan)"
     fi
     echo $DRIVER_LIST

@@ -32,9 +32,9 @@ sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 
 
 pri "Installing base packages"
-pacman -Sy
-yes | pacman -S man-db sudo zsh vi
-yes | pacman -R man-db sudo zsh vi
+pacman-key --init
+pacman-key --populate artix
+
 n=0
 until [ "$n" -ge 5 ]; do
     pacman $PACMAN_ARGUMENTS -S autoconf automake bison fakeroot flex gcc groff libtool m4 make patch pkgconf texinfo which cryptsetup mkinitcpio grub efibootmgr dosfstools freetype2 fuse2 mtools device-mapper-openrc cryptsetup-openrc git neovim neofetch wget fish linux-firmware linux linux-headers opendoas world/rust btrfs-progs tree galaxy/ttf-nerd-fonts-symbols-2048-em tmux && break
