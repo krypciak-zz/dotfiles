@@ -55,11 +55,10 @@ cp -r $CONFIGD_DIR/root/etc/pacman.d /etc/
 pacman -Sy 
 
 pri "Adding user $USER1"
-if ! id "$USER1" &>/dev/null; then
-    useradd -s /bin/bash -G tty,ftp,games,network,scanner,users,video,audio,wheel $USER1
-    chown -R $USER1:$USER1 $ARTIXD_DIR
-fi
+useradd -s /bin/bash -G tty,ftp,games,network,scanner,users,video,audio,wheel $USER1
 mkdir -p $USER_HOME
+chown -R $USER1:$USER1 $USER_HOME
+chown -R $USER1:$USER1 $ARTIXD_DIR
 
 DOTFILES_DIR=$USER_HOME/home/.config/dotfiles
 pri "Copying the repo to $DOTFILES_DIR"
