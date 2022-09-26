@@ -123,6 +123,7 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
 
     pri "Installing dotfiles for root"
     sh $DOTFILES_DIR/install-dotfiles-root.sh
+    chmod -w /root/.bashrc
 fi
 
 fish --command "fish_update_completions"
