@@ -7,7 +7,7 @@ if status is-interactive
     alias lt='lsd --tree'
 
     alias reboot='loginctl reboot'
-    alias poweroff='loginctl shutdown'
+    alias poweroff='loginctl poweroff'
 
     alias motherboard='cat /sys/devices/virtual/dmi/id/board_{vendor,name,version}'
 
