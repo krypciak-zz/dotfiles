@@ -123,7 +123,6 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
 
     pri "Installing dotfiles for root"
     sh $DOTFILES_DIR/install-dotfiles-root.sh
-    chmod -w /root/.bashrc
 fi
 
 fish --command "fish_update_completions"
@@ -205,5 +204,4 @@ if [ $PAUSE_AFTER_DONE -eq 1 ]; then
     confirm "" "ignore"
 fi
 
-rm -rf /var/lock
-
+sed -i -E ':a;N;$!ba;s/configure_user\n//g' /bin/artix-liv
