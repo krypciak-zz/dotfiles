@@ -87,8 +87,6 @@ if ! command -v "paru"; then
 fi
 cp $CONFIGD_DIR/root/etc/paru.conf /etc/paru.conf
 
-#sed -i '1s/^/exit\n/' $INSTALL_DIR/bin/mkinitcpio
-
 chown -R $USER1:$USER1 $USER_HOME/
 
 pri "Installing packages"
@@ -126,6 +124,7 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
 fi
 
 fish --command "fish_update_completions"
+chown -R $USER1:$USER1 $USER_HOME
 doas -u $USER1 fish --command "fish_update_completions"
 
 pri "Cleaning up"
@@ -204,4 +203,4 @@ if [ $PAUSE_AFTER_DONE -eq 1 ]; then
     confirm "" "ignore"
 fi
 
-sed -i -E ':a;N;$!ba;s/configure_user\n//g' /bin/artix-liv
+sed -i -E ':a;N;$!ba;s/configure_user\n//g' /bin/artix-live
