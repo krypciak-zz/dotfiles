@@ -25,6 +25,8 @@ DISK="/dev/vda"
 BOOT_PART="${DISK}1"
 BOOT_SIZE='400M'
 CRYPT_PART="${DISK}2"
+# None means all remaining space
+CRYPT_SIZE=''
 
 BOOT_DIR_ALONE='/boot'
 BOOT_DIR=${INSTALL_DIR}${BOOT_DIR_ALONE}

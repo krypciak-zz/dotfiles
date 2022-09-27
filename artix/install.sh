@@ -28,17 +28,19 @@ mkdir -p $INSTALL_DIR
 (
 echo g # set partitioning scheme to GPT
 echo n # Create BOOT partition
-echo p # primary partition
 echo 1 # partition number 1
 echo   # default - start at beginning of disk 
-echo +${BOOT_SIZE} # your size
+echo +${BOOT_SIZE}
 echo t # set partition type
 echo 1 # to BOOT system
 echo n # Create LVM partition
-echo p # primary partition
 echo 2 # partion number 2
 echo " "  # default, start immediately after preceding partition
-echo " " # default, extend partition to end of disk
+if [ $CRYPTLVM_SIZE == '' ]; then
+    echo
+else
+    echo +${CRYPTLVM_SIZE}
+fi
 echo t # set partition type
 echo 2
 echo 43 # to LV
