@@ -39,6 +39,8 @@ PACKAGE_GROUPS=(
     'awesome'
 )
 
+INSTALL_CRON=0
+
 # If ALL_DRIVERS is set to 1, GPU and CPU options are ignored
 ALL_DRIVERS=1
 # Options: [ 'amd', 'ati', 'intel', 'nvidia' ]
