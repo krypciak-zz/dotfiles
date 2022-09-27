@@ -204,3 +204,4 @@ if [ $PAUSE_AFTER_DONE -eq 1 ]; then
 fi
 
 sed -i -E ':a;N;$!ba;s/configure_user\n//g' /bin/artix-live
+sed -i -E ':a;N;$!ba;s/configure_language\n//g' /bin/artix-live
