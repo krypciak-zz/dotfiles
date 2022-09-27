@@ -46,6 +46,7 @@ COPY_FROM_TO=(
 	"discord/settings.json"         ".config"
 	"FreeTube/settings.db"          ".config"
     "multimc/multimc.cfg"           ".local/share"
+    "tutanota-desktop.desktop"      ".local/share/applications"
 )
 
 LINK_HOME_DIRS=(
