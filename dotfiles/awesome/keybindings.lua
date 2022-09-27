@@ -208,8 +208,9 @@ local globalkeys_launcher = awful.util.table.join(
 
     awful.key({superkey, altkey}, "v", function() 
 	    noti("Terminated", "Terminated league of legends")
-	    os.execute("WINE=/home/krypek/.local/share/lutris/runners/wine/lutris-ge-*/bin/wine WINEPREFIX=/home/krypek/Games/league-of-legends /home/krypek/.local/share/lutris/runners/wine/lutris-ge-lol-*/bin/wineserver -k") end,
-		{description="R.I.P. league of legends", group="launcher"}),
+	    os.execute("pkill League") 
+        os.execute("pkill Riot")    
+        end, {description="R.I.P. league of legends", group="launcher"}),
 
 	awful.key({superkey, altkey}, "s", function()
 		noti("Application Terminated", "Terminated steam")
