@@ -28,18 +28,16 @@ PACKAGE_GROUPS=(
     'audio'
     'media'
     'browsers'
-    #'coding'
+    'coding'
     'fstools'
-    #'gaming'
+    'gaming'
     'security'
-    #'social'
+    'social'
     'misc'
     'bluetooth'
-    #'virt'
+    'virt'
     'awesome'
 )
-
-INSTALL_CRON=0
 
 # If ALL_DRIVERS is set to 1, GPU and CPU options are ignored
 ALL_DRIVERS=1
