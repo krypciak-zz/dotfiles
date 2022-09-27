@@ -203,5 +203,6 @@ if [ $PAUSE_AFTER_DONE -eq 1 ]; then
     confirm "" "ignore"
 fi
 
-sed -i -E ':a;N;$!ba;s/configure_user\n//g' /bin/artix-live
+ESCAPED_T1=$(printf '%s\n' "chown $USER1:$USER1 -R /home/$USER1/\r" | sed -e 's/[\/&]/\\&/g')
+sed -i -E ":a;N;$!ba;s/configure_user\n/$ESCAPED_T1/g" /bin/artix-live
 sed -i -E ':a;N;$!ba;s/configure_language\n//g' /bin/artix-live
