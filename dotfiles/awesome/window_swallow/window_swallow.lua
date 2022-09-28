@@ -32,22 +32,24 @@ client.connect_signal("manage", function(c)
     local parent_client=awful.client.focus.history.get(c.screen, 1)
     if c.pid then
         awful.spawn.easy_async('bash '..awesomedir..'/window_swallow/helper.sh gppid '..c.pid, function(gppid)
-            awful.spawn.easy_async('bash '..awesomedir..'/window_swallow/helper.sh ppid '..c.pid, function(ppid)
-                if parent_client and parent_client.pid and (gppid:find('^' .. parent_client.pid) or ppid:find('^' .. parent_client.pid)) and is_terminal(parent_client) then
-                    parent_client.child_resize = c
-                    
+            if gppid then
+                awful.spawn.easy_async('bash '..awesomedir..'/window_swallow/helper.sh ppid '..c.pid, function(ppid)
+                    if parent_client and parent_client.pid and ppid and (gppid:find('^' .. parent_client.pid) or ppid:find('^' .. parent_client.pid)) and is_terminal(parent_client) then
+                        parent_client.child_resize = c
+                        
 
-                    parent_client.force_minimalize = true
-                    parent_client.minimized = true
+                        parent_client.force_minimalize = true
+                        parent_client.minimized = true
 
-                    c:connect_signal("unmanage", function() 
-                        parent_client.minimized = false 
-                        parent_client.force_minimalize = false
-                    end)
+                        c:connect_signal("unmanage", function() 
+                            parent_client.minimized = false 
+                            parent_client.force_minimalize = false
+                        end)
 
-                    copy_size(c, parent_client)
-                end
-            end)
+                        copy_size(c, parent_client)
+                    end
+                end)
+            end
         end)
     end
 end)
