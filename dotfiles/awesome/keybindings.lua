@@ -107,12 +107,12 @@ local function gen_playerctl_key(key, action, desc)
         -- Primary control
         awful.key({capskey}, key, 
             function() playerctl_action(action, 1) end, 
-            { description = action .. "playerctl media", group = "multimedia" }),
+            { description = action .. " playerctl media", group = "multimedia" }),
         
         -- Secondary control
         awful.key({capskey, shiftkey}, key, 
             function() playerctl_action(action, 2) end, 
-            { description = action .. "playerctl media (Secondary)", group = "multimedia" })
+            { description = action .. " playerctl media (Secondary)", group = "multimedia" })
     )
 end
 
