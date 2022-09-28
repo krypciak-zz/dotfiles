@@ -47,6 +47,7 @@ map('n', '<leader>n', '', { noremap = true, callback = function()
 
 map('n', '<leader>w', ':set wrap!<cr>', { noremap = true })
 
+map('n', '<leader>]', ':noh<cr>', { noremap = true })
 
 map('n', '<leader>ff', '<cmd>Telescope find_files<cr>');
 --'nnoremap <leader>ff <cmd>Telescope find_files<cr>'
