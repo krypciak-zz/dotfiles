@@ -14,8 +14,9 @@ ctrlkey	     = "Control"
 shiftkey     = "Shift"
 capskey      = "Mod3"
 
---wallpaper    = "autumn.png"
-wallpaper    = "autumn.png"
+wallpaper_dir = os.getenv('HOME') .. '/.config/awesome/theme/'
+wallpapers   = { 'autumn.png', 'oneshot.png', '#000000' }
+default_wallpaper = 1
 
 default_layout_index = 2
 
@@ -46,7 +47,7 @@ screenshots_folder = userdir .. '/Pictures/Screenshots/'
 screenshots_date_format = '%x_%X'
 screenshot_editor = 'kolourpaint'
 
-lock_command = 'alock -b image:file=' .. userdir .. '/.config/awesome/theme/' .. wallpaper .. ' -i none'
+lock_command = 'alock -b image:file=' .. userdir .. wallpaper_dir .. wallpapers[default_wallpaper] .. ' -i none'
 
 awful.util.terminal = terminal
 

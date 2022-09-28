@@ -6,6 +6,7 @@ require("awful.hotkeys_popup.keys")
 local dpi   = require("beautiful.xresources").apply_dpi
 
 local can_sleep = true
+local wallpaper_index = default_wallpaper
 
 local function increse_useless_gap(value)
     lain.util.useless_gaps_resize(value)
@@ -159,7 +160,24 @@ local globalkeys_awesome = awful.util.table.join(
 	
 	awful.key({capskey}, "h",
 		function() increse_useless_gap(-1) end,
-		{description = "Decrese useless gap", group = "awesome" })
+		{description = "Decrese useless gap", group = "awesome" }),
+
+    awful.key({capskey}, "t", function()
+        wallpaper_index = wallpaper_index + 1
+        if wallpaper_index > #wallpapers then wallpaper_index = 1 end
+        local wallpaper_name = wallpapers[wallpaper_index]
+        noti("Wallpaper changed", tostring(wallpaper_name), 1)
+        
+        if wallpaper_name:find('^#') then
+            theme.wallpaper = wallpaper_name
+            gears.wallpaper.set(wallpaper_name)
+        else
+            theme.wallpaper = wallpaper_dir .. wallpaper_name
+            gears.wallpaper.maximized(theme.wallpaper)
+        end
+        
+        end,
+        {description = "switch wallpaper", group = "awesome"})
 )
 
 local globalkeys_screen = awful.util.table.join(
