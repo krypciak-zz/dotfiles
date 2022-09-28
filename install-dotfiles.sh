@@ -9,13 +9,8 @@ SYMLINK_FROM_TO=(
 	"at_login.sh"           ".config"
 	"awesome"               ".config"
 	"nvim"                  ".config"
-	#"zsh"                   ".config"
 	"alacritty"             ".config"
-	"qt5ct"                 ".config"
 	"ttyper"                ".config"
-	"gtk-2.0"               ".config"
-	"gtk-3.0"               ".config"
-	"gtk-4.0"               ".config"
 	"redshift"              ".config"
 	"copyq"                 ".config"
 	"keepassxc"             ".config"
@@ -47,6 +42,11 @@ COPY_FROM_TO=(
 	"FreeTube/settings.db"          ".config"
     "multimc/multimc.cfg"           ".local/share"
     "tutanota-desktop.desktop"      ".local/share/applications"
+	"gtk-2.0"               ".config"
+	"gtk-3.0"               ".config"
+	"gtk-4.0"               ".config"
+	"qt5ct"                 ".config"
+    "kdeglobals"            ".config"
 )
 
 LINK_HOME_DIRS=(
