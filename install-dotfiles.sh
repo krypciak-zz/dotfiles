@@ -13,7 +13,6 @@ SYMLINK_FROM_TO=(
 	"ttyper"                ".config"
 	"redshift"              ".config"
 	"copyq"                 ".config"
-	"keepassxc"             ".config"
 	"fish"                  ".config"
 	"xsessions"             ".config"
 	"cmus/autosave"         ".config"
@@ -47,6 +46,7 @@ COPY_FROM_TO=(
 	"gtk-4.0"               ".config"
 	"qt5ct"                 ".config"
     "kdeglobals"            ".config"
+	"keepassxc"             ".config"
 )
 
 LINK_HOME_DIRS=(
