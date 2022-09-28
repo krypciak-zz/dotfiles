@@ -21,7 +21,6 @@ SYMLINK_FROM_TO=(
 	"topgrade.toml"         ".config"
 	"neofetch"              ".config"
 	"chromium/Default/Extensions"                   ".config"
-	"chromium/Default/Extension State"              ".config"
 	"chromium/Default/Sync Extension Settings"      ".config"
 	"chromium/Default/Managed Extension Settings"   ".config"
 	"chromium/Default/Local Extension Settings"     ".config"
