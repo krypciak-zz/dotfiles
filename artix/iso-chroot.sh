@@ -199,10 +199,13 @@ chsh -s /bin/bash root > /dev/null 2>&1
 
 neofetch
 
+sed -i -E ':a;N;$!ba;s/configure_user\n//g' /bin/artix-live
+sed -i -E ':a;N;$!ba;s/configure_language\n//g' /bin/artix-live
+sed -i -E ':a;N;$!ba;s/configure_displaymanager\n//g' /bin/artix-live
+echo "usermod -aG tty,ftp,games,network,scanner,users,video,audio,wheel $USER1" >> /bin/artix-live
+echo "chown $USER1:$USER1 -R /home/$USER1/" >> /bin/artix-live
+
 if [ $PAUSE_AFTER_DONE -eq 1 ]; then
     confirm "" "ignore"
 fi
 
-sed -i -E ':a;N;$!ba;s/configure_user\n//g' /bin/artix-live
-sed -i -E ':a;N;$!ba;s/configure_language\n//g' /bin/artix-live
-echo "chown $USER1:$USER1 -R /home/$USER1/" >> /bin/artix-live
