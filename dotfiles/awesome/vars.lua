@@ -14,6 +14,7 @@ ctrlkey	     = "Control"
 shiftkey     = "Shift"
 capskey      = "Mod3"
 
+--wallpaper    = "autumn.png"
 wallpaper    = "autumn.png"
 
 default_layout_index = 2
