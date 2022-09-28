@@ -1,5 +1,5 @@
 local function xmodmap(cmd)
-	os.execute("xmodmap -e \""..cmd.."\"")
+	awful.spawn("xmodmap -e \""..cmd.."\"")
 end
 
 -- Remap Caps Lock to Mod5
