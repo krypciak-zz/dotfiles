@@ -10,6 +10,7 @@ if status is-interactive
     alias poweroff='loginctl poweroff'
 
     alias motherboard='cat /sys/devices/virtual/dmi/id/board_{vendor,name,version}'
+    alias topcmds='history | awk \'{print $1}\' | sort | uniq -c | sort -nr | head -20'
 
     source /usr/share/autojump/autojump.fish
 end
