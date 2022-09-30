@@ -29,7 +29,6 @@ require('packer').startup(function()
 
   use 'ervandew/supertab'
 
-    
 end)
 
 
