@@ -14,9 +14,16 @@ ctrlkey	     = "Control"
 shiftkey     = "Shift"
 capskey      = "Mod3"
 
-wallpaper_dir = os.getenv('HOME') .. '/.config/awesome/theme/'
-wallpapers   = { 'autumn.png', 'oneshot.png', '#000000' }
-default_wallpaper = 1
+wallpaper_dir = awesomedir .. '/theme/wallpapers/'
+wallpapers   = { 
+    { 'oneshot/factory.png', 'oneshot/main.png', 'oneshot/library.png', 'oneshot/asteroid.png' }, 
+    { 'autumn.png' }, 
+    { '#000000', '#303030' } 
+}
+lock_wallpaper = wallpapers[2][2]
+
+wallpaper_group = 2
+wallpaper_index = 1
 
 default_layout_index = 2
 
@@ -47,7 +54,8 @@ screenshots_folder = userdir .. '/Pictures/Screenshots/'
 screenshots_date_format = '%x_%X'
 screenshot_editor = 'kolourpaint'
 
-lock_command = 'alock -b image:file=' .. userdir .. wallpaper_dir .. wallpapers[default_wallpaper] .. ' -i none'
+
+lock_command = 'alock -b image:file=' .. wallpaper_dir .. lock_wallpaper .. ' -i none'
 
 awful.util.terminal = terminal
 

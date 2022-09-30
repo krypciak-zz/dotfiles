@@ -62,6 +62,16 @@ function run_if_not_running_pgrep(name, func)
     return running
 end
 
+function set_wallpaper(wallpaper)
+        noti("Wallpaper changed", tostring(wallpaper), 1)
+        if wallpaper:find('^#') then
+            theme.wallpaper = wallpaper
+            gears.wallpaper.set(wallpaper)
+        else
+            theme.wallpaper = wallpaper_dir .. wallpaper
+            gears.wallpaper.maximized(theme.wallpaper)
+        end
+end
 
 function serialize_table(val, name, skipnewlines, depth)
     skipnewlines = skipnewlines or false

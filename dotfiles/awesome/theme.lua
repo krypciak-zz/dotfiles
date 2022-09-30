@@ -8,7 +8,7 @@ local my_table = awful.util.table
 
 theme                                           = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/theme"
-theme.wallpaper                                 = wallpaper_dir .. wallpapers[default_wallpaper]
+theme.wallpaper                                 = wallpaper_dir .. wallpapers[wallpaper_group][wallpaper_index]
 theme.font                                      = "Terminus 9"
 theme.font_bold                                 = "Terminus Bold 9"
 theme.fg_normal                                 = "#ff0000" -- "#d9d9d9" --"#DDDDFF"
