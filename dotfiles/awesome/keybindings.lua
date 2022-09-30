@@ -203,12 +203,10 @@ local globalkeys_launcher = awful.util.table.join(
 	    local globalkeys_grabber
 	    grabber = awful.keygrabber.run(function(_, key, event)
 			if event == "release" then return end
-			--if		 key == "i" then run_if_not_running_pgrep("icecat")
-			--elseif key == "c" then run_if_not_running_pgrep("chromium")
 			if key == "f" then run_if_not_running_pgrep("freetube")
 			elseif key == "y" then run_if_not_running_pgrep("lbry")
 			
-			elseif key == "p" then awful.spawn("sh -c 'XAPP_FORCE_GTKWINDOW_ICON=webapp-manager firefox --class WebApp-messenger6151 --profile /home/krypek/.local/share/ice/firefox/messenger6151 --no-remote http://messenger.com'")
+			elseif key == "p" then awful.spawn("")
 
 			elseif key == "l" then awful.spawn("lutris")
 			elseif key == "s" then run_if_not_running_pgrep("steam")
@@ -222,6 +220,7 @@ local globalkeys_launcher = awful.util.table.join(
 			elseif key == "]" then run_if_not_running_pgrep({ "steam_app_960090" }, function() awful.spawn("env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/2") end)
 			elseif key == "'" then awful.spawn("sh " .. userdir .. "/.config/dotfiles/scripts/ttyper.sh ignore") 
 			elseif key == "v" then awful.spawn("virt-manager") 
+			elseif key == "a" then awful.spawn("alacritty --class 'aerc','aerc' --title 'aerc' -e aerc") 
 	    end
 	    awful.keygrabber.stop(grabber)
 	    end)
