@@ -20,9 +20,9 @@ wallpapers   = {
     { 'autumn.png' }, 
     { '#000000', '#303030' } 
 }
-lock_wallpaper = wallpapers[2][2]
+lock_wallpaper = wallpapers[1][2]
 
-wallpaper_group = 2
+wallpaper_group = 1
 wallpaper_index = 1
 
 default_layout_index = 2
