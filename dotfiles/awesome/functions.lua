@@ -73,6 +73,38 @@ function set_wallpaper(wallpaper)
         end
 end
 
+local can_sleep = true
+
+function suspend() 
+    if can_sleep then
+    	can_sleep = false
+	    os.execute('loginctl suspend')
+        os.execute('sleep 0.3')
+        os.execute(lock_command)
+	    local globalkeys_grabber
+	    grabber = awful.keygrabber.run(function(_, key, event)
+		    if event == "release" then return end
+		    os.execute("sleep 0.1")
+		    awful.keygrabber.stop(grabber)
+		end)
+	    can_sleep = true
+    end
+end
+
+function hibernate() 
+    if can_sleep then
+	    can_sleep = false
+	    os.execute("loginctl hibernate")
+	    local globalkeys_grabber
+	    grabber = awful.keygrabber.run(function(_, key, event)
+		    if event == "release" then return end
+			os.execute("sleep 0.1")
+			awful.keygrabber.stop(grabber)
+	    end)
+	    can_sleep = true
+    end
+end
+
 function serialize_table(val, name, skipnewlines, depth)
     skipnewlines = skipnewlines or false
     depth = depth or 0

@@ -5,8 +5,6 @@ require("awful.hotkeys_popup.keys")
 
 local dpi   = require("beautiful.xresources").apply_dpi
 
-local can_sleep = true
-
 local function increse_useless_gap(value)
     lain.util.useless_gaps_resize(value)
 end
@@ -261,6 +259,11 @@ local globalkeys_launcher = awful.util.table.join(
 		noti("Application Terminated", "Terminated keepassxc")
 		os.execute("pkill -TERM keepassxc") end,
 		{description="Close keepassxc", group="launcher"}),
+	
+    awful.key({superkey, altkey}, "d", function()
+		noti("Application Terminated", "Terminated discord", 2)
+		os.execute("pkill discord") end,
+		{description="Close discord", group="launcher"}),
 
 	awful.key({altkey}, "Return", 
 		function() awful.spawn(terminal) end, 
@@ -321,35 +324,14 @@ local globalkeys_system = awful.util.table.join(
 	awful.key({superkey, ctrlkey, shiftkey}, "l",
 		function() awful.spawn(lock_command) end,
 		{description = "lock", group = "system"}),
+    
+    -- suspend() in functions.lua
+	awful.key({superkey, ctrlkey, shiftkey}, "s", suspend,
+		{description = "sleep", group = "system"}),
 
-	awful.key({superkey, ctrlkey, shiftkey}, "s", function()
-	    if can_sleep then
-	    	can_sleep = false
-		    os.execute('loginctl suspend && sleep 0.3 && ' .. lock_command)
-		    local globalkeys_grabber
-		    grabber = awful.keygrabber.run(function(_, key, event)
-			    if event == "release" then return end
-			    os.execute("sleep 0.5")
-			    awful.keygrabber.stop(grabber)
-			end)
-		can_sleep = true
-	    end
-		end, {description = "sleep", group = "system"}),
-
-	awful.key({superkey, ctrlkey, shiftkey}, "h", function()
-	    if can_sleep then
-		    can_sleep = false
-		    os.execute("loginctl hibernate")
-		    local globalkeys_grabber
-		    grabber = awful.keygrabber.run(function(_, key, event)
-			    if event == "release" then return end
-				os.execute("sleep 0.5")
-				awful.keygrabber.stop(grabber)
-		    end)
-		    can_sleep = true
-	    end
-		end, {description = "hibernate", group = "system"}),
-
+    -- hibernate() in functions.lua
+	awful.key({superkey, ctrlkey, shiftkey}, "h", hibernate,
+		{description = "hibernate", group = "system"}),
 
     gen_screenshot_key('z', 'Take screenshot of the entire screen', '', 'full'),
     gen_screenshot_key('x', 'Take screenshot of currently active window', '--focused', 'act'),
