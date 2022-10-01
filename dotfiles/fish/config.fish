@@ -8,6 +8,8 @@ if status is-interactive
 
     alias reboot='loginctl reboot'
     alias poweroff='loginctl poweroff'
+    alias suspend='awesome-client "suspend()"'
+    alias hibernate='awesome-client "hibernate()"'
 
     alias motherboard='cat /sys/devices/virtual/dmi/id/board_{vendor,name,version}'
     alias topcmds='history | awk \'{print $1}\' | sort | uniq -c | sort -nr | head -20'
