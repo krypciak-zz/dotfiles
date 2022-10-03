@@ -1,7 +1,5 @@
 -- Spawn music_player in tag music
---awful.spawn("kmix")
-
-run_if_not_running_pgrep({ music_player_class }, function() awful.spawn(music_player, { tag = tag.name }) end )
+--run_if_not_running_pgrep({ music_player_class }, function() awful.spawn(music_player, { tag = tag.name }) end )
 
 -- Start redshift if not running
 run_if_not_running_pgrep("redshift")
