@@ -32,7 +32,7 @@ echo 1 # partition number 1
 echo   # default - start at beginning of disk 
 echo +${BOOT_SIZE}
 echo t # set partition type
-echo 1 # to BOOT system
+echo 1 # to EFI partition
 echo n # Create LVM partition
 echo 2 # partion number 2
 echo " "  # default, start immediately after preceding partition
