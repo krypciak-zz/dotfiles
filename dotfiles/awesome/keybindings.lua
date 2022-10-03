@@ -225,43 +225,43 @@ local globalkeys_launcher = awful.util.table.join(
 		end, {description = "Run appliaction keycord", group = "launcher"}),
 
     awful.key({superkey, altkey}, "v", function() 
-	    noti("Terminated", "Terminated league of legends")
+	    noti("Terminated", "Terminated league of legends", 1)
 	    os.execute("pkill League") 
         os.execute("pkill Riot")    
         end, {description="R.I.P. league of legends", group="launcher"}),
 
 	awful.key({superkey, altkey}, "s", function()
-		noti("Application Terminated", "Terminated steam")
+		noti("Application Terminated", "Terminated steam", 1)
 		os.execute("killall -s TERM steam") end,
 		{description="Close steam", group="launcher"}),
 
 	awful.key({superkey, altkey}, "y", function()
-		noti("Application Terminated", "Terminated lbry")
+		noti("Application Terminated", "Terminated lbry", 1)
 		os.execute("pkill -TERM lbry") end,
 		{description="Close lbry", group="launcher"}),
 
 	awful.key({superkey, altkey}, "z", function()
-		noti("Application Terminated", "Terminated tutanota")
+		noti("Application Terminated", "Terminated tutanota", 1)
 		os.execute("pkill -TERM tutanota") end,
 		{description="Close tutanota", group="launcher"}),
 
 	awful.key({superkey, altkey}, "u", function()
-		noti("Application Terminated", "Terminated redshift")
+		noti("Application Terminated", "Terminated redshift", 1)
 		os.execute("pkill -TERM redshift") end,
 		{description="Close redshift", group="launcher"}),
 
 	awful.key({superkey, altkey}, "c", function()
-		noti("Application Terminated", "Terminated copyq")
+		noti("Application Terminated", "Terminated copyq", 1)
 		os.execute("pkill -TERM copyq") end,
 		{description="Close copyq", group="launcher"}),
 
 	awful.key({superkey, altkey}, "k", function()
-		noti("Application Terminated", "Terminated keepassxc")
+		noti("Application Terminated", "Terminated keepassxc", 1)
 		os.execute("pkill -TERM keepassxc") end,
 		{description="Close keepassxc", group="launcher"}),
 	
     awful.key({superkey, altkey}, "d", function()
-		noti("Application Terminated", "Terminated discord", 2)
+		noti("Application Terminated", "Terminated discord", 1)
 		os.execute("pkill discord") end,
 		{description="Close discord", group="launcher"}),
 
